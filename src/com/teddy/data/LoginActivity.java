@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.content.Intent;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -224,7 +225,8 @@ public class LoginActivity extends Activity {
             showProgress(false);
 
             if (success) {
-                finish();
+            	Intent i = new Intent(getApplicationContext(), UsageScreen.class);
+            	startActivity(i);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
