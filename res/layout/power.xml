@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainlayout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <TextView 
-        android:id="@+id/usagetext"
+    
+  <TextView 
+        android:id="@+id/powertext"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
     
     <Button
-        android:id="@+id/usagebutton"
+        android:id="@+id/usagebutton1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
@@ -21,7 +20,7 @@
         android:paddingRight="32dp" />
     
     <Button
-        android:id="@+id/powerbutton"
+        android:id="@+id/powerbutton1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
@@ -31,7 +30,7 @@
         android:paddingRight="32dp"/>
     
      <Button
-        android:id="@+id/statsbutton"
+        android:id="@+id/statsbutton1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
@@ -41,5 +40,5 @@
         android:paddingRight="32dp" />
     
     
-     
+    
 </LinearLayout>
