@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -87,12 +86,12 @@ public class LoginActivity extends Activity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.activity_login, menu);
-        return true;
-    }
+   // @Override
+    //public boolean onCreateOptionsMenu(Menu menu) {
+     //   super.onCreateOptionsMenu(menu);
+      //  getMenuInflater().inflate(R.menu.activity_login, menu);
+      //  return true;
+   // }
 
     /**
      * Attempts to sign in or register the account specified by the login form.

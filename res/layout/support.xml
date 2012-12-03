@@ -3,21 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
- <TextView 
-        android:id="@+id/supporttext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
- 
-    <Button
-        android:id="@+id/homebutton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="16dp"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp" />
-    
+
+ <Button
+     android:id="@+id/homebutton"
+     android:layout_width="130dp"
+     android:layout_height="wrap_content"
+     android:layout_gravity="right"
+     android:layout_marginRight="2dp"
+     android:layout_marginTop="2dp"
+     android:paddingLeft="10dp"
+     android:paddingRight="10dp" />
+
+ <TextView
+     android:id="@+id/supporttext"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="5dp" />
     
 </LinearLayout>
