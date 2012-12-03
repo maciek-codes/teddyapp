@@ -3,6 +3,7 @@ package com.teddy.data;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -48,6 +49,13 @@ public class UsageScreen extends Activity {
             	startActivity(i);
         	}
         });
-              
+        
+                      
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    startActivity(new Intent(this, Instr.class));
+	    return(true);
 	}
 }

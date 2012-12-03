@@ -35,8 +35,21 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
          </activity>
+         
          <activity
             android:name="com.teddy.data.Power"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+         </activity>
+         
+         <activity
+            android:name="com.teddy.data.Instr"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+         </activity>
+         
+         <activity
+            android:name="com.teddy.data.Support"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
          </activity>
