@@ -10,7 +10,7 @@
         android:layout_height="wrap_content" />
     
     <Button
-        android:id="@+id/usagebutton1"
+        android:id="@+id/usagebutton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
@@ -20,7 +20,7 @@
         android:paddingRight="32dp" />
     
     <Button
-        android:id="@+id/powerbutton1"
+        android:id="@+id/powerbutton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
@@ -30,7 +30,7 @@
         android:paddingRight="32dp"/>
     
      <Button
-        android:id="@+id/statsbutton1"
+        android:id="@+id/statsbutton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
