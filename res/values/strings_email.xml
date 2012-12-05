@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="full">my.bristol.ac.uk</string>
+    <string name="min">bristol.ac.uk</string>
+    <string name="shorcut">my.bris.ac.uk</string>
+    <string name="shorcut2">bris.ac.uk</string>
+</resources>

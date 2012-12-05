@@ -134,17 +134,31 @@ public class LoginActivity extends Activity {
             cancel = true;
         }
 
+        String email1 = getString(R.string.full);
+        String email2 = getString(R.string.min);
+        String email3 = getString(R.string.shorcut);
+        String email4 = getString(R.string.shorcut2);
+        int ok2=0,ok3=0;
+        if( mEmail.endsWith(email1) || mEmail.endsWith(email2) || mEmail.endsWith(email3) || mEmail.endsWith(email4))ok2=1;
+        if( mEmail.equals("guest") || mEmail.equals("Guest") ) ok3=1;
+        
         // Check for a valid email address.
         if (TextUtils.isEmpty(mEmail)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!mEmail.contains("@")) {
+        }
+        else if (!mEmail.contains("@")&&ok3==0) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
         }
-
+        else if (ok2==0&&ok3==0) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+        
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.

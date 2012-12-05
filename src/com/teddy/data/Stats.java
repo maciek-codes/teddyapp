@@ -41,7 +41,7 @@ public class Stats extends Activity {
         adaptertest.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         test.setAdapter(adaptertest);
         test.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
-            
+           
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -49,7 +49,7 @@ public class Stats extends Activity {
 
 				TextView text = (TextView ) findViewById(R.id.statstext);
 				selectedFromList =(String) (test.getItemAtPosition(arg2));
-				text.setText("The list was clicked: "+selectedFromList);
+				text.setText("The list was clicked: "+selectedFromList+" "+selectedFromList2);
 				
 			}
         });
@@ -59,8 +59,15 @@ public class Stats extends Activity {
         ArrayAdapter<CharSequence> adaptertest2 = ArrayAdapter.createFromResource(this, R.array.test2, android.R.layout.simple_spinner_item);
         adaptertest2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         test2.setAdapter(adaptertest2);
+        
+        TextView text3 = (TextView ) findViewById(R.id.statstext);
+        selectedFromList =(String) (test.getItemAtPosition(0));
+        selectedFromList2 =(String) (test2.getItemAtPosition(0));
+		text3.setText("The list was clicked: "+selectedFromList+" "+selectedFromList2);
+		
         test2.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
-            
+        
+       
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
