@@ -1,9 +1,26 @@
 package com.teddy.data;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
 import android.app.Activity;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,6 +54,12 @@ public class UsageScreen extends Activity  {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////     
         //Spinners
         
+
+        final String T = (String)HTTPfunction();
+        
+        TextView hp = (TextView ) findViewById(R.id.htt);
+		hp.setText("http: "+T+ " finish");
+		
         final Spinner build = (Spinner) findViewById(R.id.building_spinner);
         ArrayAdapter<CharSequence> adapterbuild = ArrayAdapter.createFromResource(this, R.array.building_array, android.R.layout.simple_spinner_item);
         adapterbuild.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -48,7 +71,7 @@ public class UsageScreen extends Activity  {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
             	TextView text = (TextView ) findViewById(R.id.usagetext);
 				selectedFrom =(String) (build.getItemAtPosition(position));
-				text.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+				text.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2+ T+ " partaaaa");
             }
 
             @Override
@@ -137,4 +160,26 @@ public class UsageScreen extends Activity  {
 		    return super.onOptionsItemSelected(item);
 		}
 	}
-}
+	
+	
+	public String HTTPfunction() {
+		try {
+		    HttpClient client = new DefaultHttpClient();  
+		    String getURL = "http://service-teddy2012.rhcloud.com/log";
+		    HttpGet get = new HttpGet(getURL);
+		    HttpResponse responseGet = client.execute(get);  
+		    HttpEntity resEntityGet = responseGet.getEntity();  
+		    String response="null";
+		    if (resEntityGet != null) {  
+		        // do something with the response
+		        response = EntityUtils.toString(resEntityGet);
+		        //Log.i("GET RESPONSE", response);
+		        return response;
+		    }
+		} catch (Exception e) {
+		    //e.printStackTrace();
+		    System.out.println(e.getMessage());
+		}
+	     return "fin";
+		    }
+	}

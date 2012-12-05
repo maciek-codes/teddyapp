@@ -4,7 +4,6 @@ import android.widget.TextView;
 import android.app.Activity;
 import android.os.Bundle;
 
-
 public class Info extends Activity {
 
 	@Override
