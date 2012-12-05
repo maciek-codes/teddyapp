@@ -1,26 +1,15 @@
 package com.teddy.data;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-
 import android.app.Activity;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,8 +17,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 public class UsageScreen extends Activity  {
 
 	
@@ -54,12 +43,7 @@ public class UsageScreen extends Activity  {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////     
         //Spinners
         
-
-        final String T = (String)HTTPfunction();
-        
-        TextView hp = (TextView ) findViewById(R.id.htt);
-		hp.setText("http: "+T+ " finish");
-		
+	
         final Spinner build = (Spinner) findViewById(R.id.building_spinner);
         ArrayAdapter<CharSequence> adapterbuild = ArrayAdapter.createFromResource(this, R.array.building_array, android.R.layout.simple_spinner_item);
         adapterbuild.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -69,9 +53,10 @@ public class UsageScreen extends Activity  {
         build.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-            	TextView text = (TextView ) findViewById(R.id.usagetext);
+            	//TextView text = (TextView ) findViewById(R.id.usagetext);
 				selectedFrom =(String) (build.getItemAtPosition(position));
-				text.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2+ T+ " partaaaa");
+				//text.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+				showlist(selectedFrom,selectedFrom2);
             }
 
             @Override
@@ -86,15 +71,16 @@ public class UsageScreen extends Activity  {
         adapterroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         room.setAdapter(adapterroom);
         selectedFrom2 =(String) (room.getItemAtPosition(0));
-        TextView text0 = (TextView ) findViewById(R.id.usagetext);
-		text0.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+        //TextView text0 = (TextView ) findViewById(R.id.usagetext);
+		//text0.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
                 
         room.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-            	TextView text2 = (TextView ) findViewById(R.id.usagetext);
+            	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
 				selectedFrom2 =(String) (room.getItemAtPosition(position));
-				text2.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+				//text2.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+			    showlist(selectedFrom,selectedFrom2);
             }
 
             @Override
@@ -135,6 +121,41 @@ public class UsageScreen extends Activity  {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Options/ menu
 	
+	public void showlist(String selected,String selected2)
+	{
+		
+				
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//HTTP req
+		String T;
+		T = (String)HTTPfunction("http://service-teddy2012.rhcloud.com/log");
+		//TextView hp = (TextView ) findViewById(R.id.htt);
+		//hp.setText("http: "+"ok");
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//list
+		String[] A ={"no data"};
+		if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("All") ) A[0]=new String(T); 
+		ListView list = (ListView)findViewById(R.id.usagelist);
+		
+		ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, A);
+		// ArrayAdapter<CharSequence> adapterlist = ArrayAdapter.createFromResource(this,R.array.test, android.R.layout.simple_spinner_item);
+		adapterlist.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		list.setAdapter(adapterlist);
+		list.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+		
+		
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
+			Intent i = new Intent(getApplicationContext(), Info.class);
+			//i.putExtra("info", A[0]);
+        	finish();
+        	startActivity(i);
+		
+		}
+		});
+	}
+	
+	
 	@Override
     public void onBackPressed() {
      finish();
@@ -162,10 +183,9 @@ public class UsageScreen extends Activity  {
 	}
 	
 	
-	public String HTTPfunction() {
+	public String HTTPfunction(String getURL) {
 		try {
 		    HttpClient client = new DefaultHttpClient();  
-		    String getURL = "http://service-teddy2012.rhcloud.com/log";
 		    HttpGet get = new HttpGet(getURL);
 		    HttpResponse responseGet = client.execute(get);  
 		    HttpEntity resEntityGet = responseGet.getEntity();  
@@ -180,6 +200,6 @@ public class UsageScreen extends Activity  {
 		    //e.printStackTrace();
 		    System.out.println(e.getMessage());
 		}
-	     return "fin";
+	     return "null";
 		    }
 	}

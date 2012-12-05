@@ -3,6 +3,7 @@
     android:id="@+id/mainlayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/black"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -42,14 +43,36 @@
     
    </LinearLayout> 
    
+    <LinearLayout
+         xmlns:android="http://schemas.android.com/apk/res/android"
+         android:id="@+id/layouthoz"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="3dp"
+         android:layout_marginRight="3dp"
+         android:layout_marginTop="5dp"
+         android:orientation="horizontal" >
+
+        <Spinner
+            android:id="@+id/building_spinner"
+            android:layout_width="161dp"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/room_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
     
-   
     <TextView
         android:id="@+id/powertext"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white" />
+
 </LinearLayout>
 

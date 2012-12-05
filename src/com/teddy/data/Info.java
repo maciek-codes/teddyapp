@@ -12,8 +12,14 @@ public class Info extends Activity {
  
         setContentView(R.layout.info);
         
-        TextView text = (TextView ) findViewById(R.id.infotext);
-        text.setText("Info Screen");
+        Bundle extras = getIntent().getExtras(); 
+        if(extras !=null)
+        {
+        	String info = extras.getString("info");
+        	TextView text = (TextView ) findViewById(R.id.infotext);
+            text.setText(info);
+        }
+        
 	
               
         

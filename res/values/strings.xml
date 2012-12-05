@@ -2,9 +2,13 @@
 
     <string name="app_name">Teddy</string>
     <string name="icon">Image</string>
-    <string name="teddyicon">Image2</string>
+    <string name="teddylogo">Teddy</string>
+    <string name="ibmlogo">IBM</string>
+    <string name="uoblogo">UoB</string>
     <string name="password">Teddy2012</string>
-    <color name="white">#000000</color>
+    <color name="black">#000000</color>
+     <color name="white">#FFFFFF</color>
+     <color name="ultrablue">#2890b7</color>
  	<string-array name="building_array">
         <item>Queens</item>
         <item>MVB</item>
