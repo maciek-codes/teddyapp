@@ -134,10 +134,18 @@ public class LoginActivity extends Activity {
             cancel = true;
         }
 
-        String email1 = getString(R.string.full);
-        String email2 = getString(R.string.min);
-        String email3 = getString(R.string.shorcut);
-        String email4 = getString(R.string.shorcut2);
+        String email11 = getString(R.string.full);
+        String email12 = getString(R.string.min);
+        String email13 = getString(R.string.shorcut);
+        String email14 = getString(R.string.shorcut2);
+        String emaila1= "@";
+        String emaila2= "@";
+        String emaila3= "@";
+        String emaila4= "@";
+        String email1 = emaila1.concat(email11);
+        String email2 = emaila2.concat(email12);
+        String email3 = emaila3.concat(email13);
+        String email4 = emaila4.concat(email14);
         int ok2=0,ok3=0;
         if( mEmail.endsWith(email1) || mEmail.endsWith(email2) || mEmail.endsWith(email3) || mEmail.endsWith(email4))ok2=1;
         if( mEmail.equals("guest") || mEmail.equals("Guest") ) ok3=1;
