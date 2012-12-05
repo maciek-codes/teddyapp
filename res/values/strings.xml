@@ -2,5 +2,42 @@
 
     <string name="app_name">Teddy</string>
     <string name="icon">Image</string>
-
+ 	<string-array name="building_array">
+        <item>Queens</item>
+        <item>MVB</item>
+        <item>Wills</item>
+        <item>Physics</item>
+    </string-array>
+    <string-array name="room_array">
+        <item>All</item>
+        <item>1.07</item>
+        <item>1.08</item>
+        <item>1.11a</item>
+        <item>1.11</item>
+    </string-array>
+    <string-array name="test">
+        <item>Click1</item>
+        <item>Click2</item>
+        <item>Click3</item>
+        <item>Click4</item>
+        <item>Click5</item>
+    </string-array>
+    <string-array name="test2">
+        <item>ClickA</item>
+        <item>ClickB</item>
+        <item>ClickC</item>
+        <item>ClickD</item>
+        <item>ClickE</item>
+        <item>ClickF</item>
+    </string-array>
+    <string-array name="test3">
+        <item>AAA</item>
+        <item>BBB</item>
+        <item>CCC</item>
+    </string-array>
+    <string-array name="test4">
+        <item>AAAA</item>
+        <item>BBBA</item>
+        <item>CCCA</item>
+    </string-array>
 </resources>

@@ -42,6 +42,8 @@
     
    </LinearLayout> 
    
+    
+   
     <TextView
         android:id="@+id/powertext"
         android:layout_width="fill_parent"

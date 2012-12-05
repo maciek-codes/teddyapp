@@ -30,6 +30,12 @@ public class Power extends Activity {
         Button power =(Button) findViewById(R.id.powerbutton);
         power.setText("Power");
         
+        
+///////////////////////
+        
+        
+        
+//////////////////////
         usage.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
 
