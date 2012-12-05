@@ -114,6 +114,9 @@ public class LoginActivity extends Activity {
         boolean cancel = false;
         View focusView = null;
 
+        String PASS = getString(R.string.password);
+        int ok=0;
+        if( mPassword.equals( PASS ) ) ok=1;
         // Check for a valid password.
         if (TextUtils.isEmpty(mPassword)) {
             mPasswordView.setError(getString(R.string.error_field_required));
@@ -121,6 +124,12 @@ public class LoginActivity extends Activity {
             cancel = true;
         } else if (mPassword.length() < 4) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+        else if(ok==0)
+        {
+            mPasswordView.setError(getString(R.string.error_incorrect_password));
             focusView = mPasswordView;
             cancel = true;
         }

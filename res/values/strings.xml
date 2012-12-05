@@ -2,6 +2,7 @@
 
     <string name="app_name">Teddy</string>
     <string name="icon">Image</string>
+    <string name="password">Teddy2012</string>
  	<string-array name="building_array">
         <item>Queens</item>
         <item>MVB</item>
