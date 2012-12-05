@@ -24,14 +24,17 @@ public class Support extends Activity {
         
         home.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
-
             	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
             	finish();
-            	i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             	startActivity(i);
         	}
         });
-              
-        
 	}
+	
+	@Override
+    public void onBackPressed() {
+		Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
+    	finish();
+    	startActivity(i);
+    }
 }

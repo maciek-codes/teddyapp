@@ -130,7 +130,8 @@ public class UsageScreen extends Activity  {
 		    startActivity(new Intent(this, Instr.class));
 		    return true;
 		    case R.id.support:
-		    startActivity(new Intent(this, Support.class));
+		    {
+		    startActivity(new Intent(this, Support.class));finish();}
 		    return true;
 		    default:
 		    return super.onOptionsItemSelected(item);

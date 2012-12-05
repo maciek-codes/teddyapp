@@ -106,7 +106,7 @@ public class Stats extends Activity {
 	
 	@Override
     public void onBackPressed() {
-     this.finish();
+     finish();
     }
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
