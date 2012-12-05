@@ -127,12 +127,14 @@ public class LoginActivity extends Activity {
             focusView = mPasswordView;
             cancel = true;
         }
-        else if(ok==0)
+        
+        /////////////////////////////////////////////////////////////////////////////////////////password check
+       /* else if(ok==0)
         {
             mPasswordView.setError(getString(R.string.error_incorrect_password));
             focusView = mPasswordView;
             cancel = true;
-        }
+        }*/
 
         String email11 = getString(R.string.full);
         String email12 = getString(R.string.min);
@@ -147,7 +149,7 @@ public class LoginActivity extends Activity {
         String email3 = emaila3.concat(email13);
         String email4 = emaila4.concat(email14);
         int ok2=0,ok3=0;
-        if( mEmail.endsWith(email1) || mEmail.endsWith(email2) || mEmail.endsWith(email3) || mEmail.endsWith(email4))ok2=1;
+        if( mEmail.endsWith(email1) || mEmail.endsWith(email2) || mEmail.endsWith(email3) || mEmail.endsWith(email4)) ok2=1;
         if( mEmail.equals("guest") || mEmail.equals("Guest") ) ok3=1;
         
         // Check for a valid email address.
@@ -156,7 +158,8 @@ public class LoginActivity extends Activity {
             focusView = mEmailView;
             cancel = true;
         }
-        else if (!mEmail.contains("@")&&ok3==0) {
+        /////////////////////////////////////////////////////////////////////////////////////////password check
+     /*  else if (!mEmail.contains("@")&&ok3==0) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
@@ -165,7 +168,7 @@ public class LoginActivity extends Activity {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
-        }
+        }*/
         
         if (cancel) {
             // There was an error; don't attempt login and focus the first
