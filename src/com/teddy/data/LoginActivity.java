@@ -1,5 +1,12 @@
 package com.teddy.data;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -103,6 +110,7 @@ public class LoginActivity extends Activity {
             return;
         }
 
+	
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -113,11 +121,18 @@ public class LoginActivity extends Activity {
 
         boolean cancel = false;
         View focusView = null;
-
-        String PASS = getString(R.string.password);
         int ok=0;
-        if( mPassword.equals( PASS ) ) ok=1;
-        // Check for a valid password.
+        
+        //String PASS = getString(R.string.password);
+        String pass = (String)HTTPfunction("http://service-teddy2012.rhcloud.com");
+		
+        //check hardcoded password in app
+		//if( mPassword.equals( PASS ) ) ok=1;
+        
+        //check hardcoded password on server
+		if( mPassword.equals( pass ) ) ok=1;
+        
+		// Check for a valid password.
         if (TextUtils.isEmpty(mPassword)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
@@ -129,13 +144,13 @@ public class LoginActivity extends Activity {
         }
         
         /////////////////////////////////////////////////////////////////////////////////////////password check
-       /* else if(ok==0)
+        /*else if(ok==0)
         {
             mPasswordView.setError(getString(R.string.error_incorrect_password));
             focusView = mPasswordView;
             cancel = true;
-        }*/
-
+        }
+*/
         String email11 = getString(R.string.full);
         String email12 = getString(R.string.min);
         String email13 = getString(R.string.shorcut);
@@ -184,6 +199,27 @@ public class LoginActivity extends Activity {
         }
     }
 
+    
+    public String HTTPfunction(String getURL) {
+		try {
+		    HttpClient client = new DefaultHttpClient();  
+		    HttpGet get = new HttpGet(getURL);
+		    HttpResponse responseGet = client.execute(get);  
+		    HttpEntity resEntityGet = responseGet.getEntity();  
+		    String response="null";
+		    if (resEntityGet != null) {  
+		        // do something with the response
+		        response = EntityUtils.toString(resEntityGet);
+		        //Log.i("GET RESPONSE", response);
+		        return response;
+		    }
+		} catch (Exception e) {
+		    //e.printStackTrace();
+		    System.out.println(e.getMessage());
+		}
+	     return "null";
+	}
+    
     /**
      * Shows the progress UI and hides the login form.
      */
@@ -272,4 +308,5 @@ public class LoginActivity extends Activity {
             showProgress(false);
         }
     }
+    
 }

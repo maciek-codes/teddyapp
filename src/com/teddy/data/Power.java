@@ -1,5 +1,12 @@
 package com.teddy.data;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -24,8 +32,8 @@ public class Power extends Activity {
  
         setContentView(R.layout.power);
         
-        TextView text = (TextView ) findViewById(R.id.powertext);
-        text.setText("Power Screen");
+        //TextView text = (TextView ) findViewById(R.id.powertext);
+        //text.setText("Power Screen");
         
         Button usage =(Button) findViewById(R.id.usagebutton);
         usage.setText("Comp");
@@ -38,7 +46,7 @@ public class Power extends Activity {
         
         
 ///////////////////////
-        /*final Spinner buildp = (Spinner) findViewById(R.id.building_spinner);
+        final Spinner buildp = (Spinner) findViewById(R.id.building_spinner);
         ArrayAdapter<CharSequence> adapterbuildp = ArrayAdapter.createFromResource(this, R.array.building_array, android.R.layout.simple_spinner_item);
         adapterbuildp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         buildp.setAdapter(adapterbuildp);
@@ -47,9 +55,10 @@ public class Power extends Activity {
         buildp.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-            	TextView textp = (TextView ) findViewById(R.id.powertext);
-				selectedFrom =(String) (buildp.getItemAtPosition(position));
-				textp.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+            	//TextView textp = (TextView ) findViewById(R.id.powertext);
+				//selectedFrom =(String) (buildp.getItemAtPosition(position));
+				//textp.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+            	showlist(selectedFrom,selectedFrom2);
             }
 
             @Override
@@ -64,15 +73,16 @@ public class Power extends Activity {
         adapterroomp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roomp.setAdapter(adapterroomp);
         selectedFrom2 =(String) (roomp.getItemAtPosition(0));
-        TextView text0 = (TextView ) findViewById(R.id.powertext);
-		text0.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+        //TextView text0 = (TextView ) findViewById(R.id.powertext);
+		//text0.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
                 
         roomp.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-            	TextView text2p = (TextView ) findViewById(R.id.usagetext);
-				selectedFrom2 =(String) (roomp.getItemAtPosition(position));
-				text2p.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+            	//TextView text2p = (TextView ) findViewById(R.id.powertext);
+				//selectedFrom2 =(String) (roomp.getItemAtPosition(position));
+				//text2p.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+            	showlist(selectedFrom,selectedFrom2);
             }
 
             @Override
@@ -80,7 +90,7 @@ public class Power extends Activity {
                 // your code here
             }
 
-        });*/
+        });
         
         
 //////////////////////
@@ -111,6 +121,42 @@ public class Power extends Activity {
 	}
 	
 	
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Options/ menu
+
+	public void showlist(String selected,String selected2)
+	{
+	
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//HTTP req
+		String T;
+		T = (String)HTTPfunction("http://service-teddy2012.rhcloud.com/log");
+		//TextView hp = (TextView ) findViewById(R.id.htt);
+		//hp.setText("http: "+"ok");
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//list
+		String[] A ={"no data"};
+		if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("All") ) A[0]=new String(T); 
+		ListView list = (ListView)findViewById(R.id.powerlist);
+		
+		ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, A);
+		// ArrayAdapter<CharSequence> adapterlist = ArrayAdapter.createFromResource(this,R.array.test, android.R.layout.simple_spinner_item);
+		adapterlist.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		list.setAdapter(adapterlist);
+		list.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+		
+		
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
+				Intent i = new Intent(getApplicationContext(), Info.class);
+				//i.putExtra("info", A[0]);
+				finish();
+				startActivity(i);
+			}
+		});
+	}
+
+	
 	@Override
     public void onBackPressed() {
      finish();
@@ -134,4 +180,26 @@ public class Power extends Activity {
 		    return super.onOptionsItemSelected(item);
 		}
 	}
+
+	public String HTTPfunction(String getURL) {
+		try {
+		    HttpClient client = new DefaultHttpClient();  
+		    HttpGet get = new HttpGet(getURL);
+		    HttpResponse responseGet = client.execute(get);  
+		    HttpEntity resEntityGet = responseGet.getEntity();  
+		    String response="null";
+		    if (resEntityGet != null) {  
+		        // do something with the response
+		        response = EntityUtils.toString(resEntityGet);
+		        //Log.i("GET RESPONSE", response);
+		        return response;
+		    }
+		} catch (Exception e) {
+		    //e.printStackTrace();
+		    System.out.println(e.getMessage());
+		}
+	     return "null";
+	}
+
 }
+
