@@ -61,7 +61,7 @@
          android:layout_marginLeft="3dp"
          android:layout_marginRight="3dp"
          android:layout_marginTop="2dp"
-         android:orientation="horizontal" >
+         android:orientation="horizontal">
 
         <Spinner
             android:id="@+id/building_spinner"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content" />
 
         <Spinner
-            android:id="@+id/room_spinner"
+            android:id="@+id/period_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

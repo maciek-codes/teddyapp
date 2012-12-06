@@ -17,7 +17,10 @@ public class Support extends Activity {
         setContentView(R.layout.support);
         
         TextView text = (TextView ) findViewById(R.id.supporttext);
-        text.setText("Support Screen");
+        text.setText("Support");
+        
+        TextView content = (TextView ) findViewById(R.id.contenttext);
+        content.setText("Support: teddy_uob_support@gmail.com \n\n Application Developed by:\n\n Cristian Cernatescu \n Alexandru Dumitrescu \n Maciej Kumorek \n Christa Mpundu \n Aankhi Mukherjee \n Ioannis Troumpis \n\n\n\n in colaboration with :");
 	
         Button home =(Button) findViewById(R.id.homebutton);
         home.setText("Home");
@@ -26,6 +29,7 @@ public class Support extends Activity {
         	public void onClick(View v){
             	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
             	finish();
+            	i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             	startActivity(i);
         	}
         });

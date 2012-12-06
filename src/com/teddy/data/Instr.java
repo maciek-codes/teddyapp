@@ -17,8 +17,10 @@ public class Instr extends Activity {
         setContentView(R.layout.instr);
         
         TextView text = (TextView ) findViewById(R.id.instrtext);
-        text.setText("Instructions Screen");
+        text.setText("Instructions");
         
+        TextView content = (TextView ) findViewById(R.id.contenttext);
+        content.setText("Instructions to follow...");
 	
         Button home =(Button) findViewById(R.id.homebutton);
         home.setText("Home");
