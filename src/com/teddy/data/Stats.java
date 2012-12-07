@@ -19,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 public class Stats extends Activity {
 
@@ -168,13 +167,14 @@ public class Stats extends Activity {
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//HTTP req
-	String T;
-	T = (String)HTTPfunction("http://service-teddy2012.rhcloud.com/log");
+	String T="null";
+	try { T = (String)HTTPfunction("http://service-teddy2012.rhcloud.com/log"); }
+	catch(Exception e){ T="No internet connection"; }
 	//TextView hp = (TextView ) findViewById(R.id.htt);
 	//hp.setText("http: "+"ok");
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//list
-	String[] A ={"no data"};
+	String[] A ={"No data"};
 	if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("Day") ) A[0]=new String(T); 
 	ListView list = (ListView)findViewById(R.id.statslist);
 	
@@ -202,7 +202,7 @@ public class Stats extends Activity {
 		    HttpGet get = new HttpGet(getURL);
 		    HttpResponse responseGet = client.execute(get);  
 		    HttpEntity resEntityGet = responseGet.getEntity();  
-		    String response="null";
+		    String response="No internet connection";
 		    if (resEntityGet != null) {  
 		        // do something with the response
 		        response = EntityUtils.toString(resEntityGet);
@@ -213,6 +213,6 @@ public class Stats extends Activity {
 		    //e.printStackTrace();
 		    System.out.println(e.getMessage());
 		}
-	     return "null";
+	     return "No internet connection";
 	}
 }

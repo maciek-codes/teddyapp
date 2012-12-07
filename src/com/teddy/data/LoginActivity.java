@@ -121,36 +121,45 @@ public class LoginActivity extends Activity {
 
         boolean cancel = false;
         View focusView = null;
-        int ok=0;
+        int ok=1;
         
-        //String PASS = getString(R.string.password);
-        String pass = (String)HTTPfunction("http://service-teddy2012.rhcloud.com");
-		
-        //check hardcoded password in app
-		//if( mPassword.equals( PASS ) ) ok=1;
         
         //check hardcoded password on server
-		if( mPassword.equals( pass ) ) ok=1;
+        //String pass="no";
+        //try{pass = (String)HTTPfunction("http://service-teddy2012.rhcloud.com/password");
+        //}catch(Exception e){}
+        //if( mPassword.equals( pass ) ) ok=1;
         
+        
+        //check hardcoded password in app
+        //String PASS = getString(R.string.password);
+        //if( mPassword.equals( PASS ) ) ok=1;
+                       
+		
 		// Check for a valid password.
         if (TextUtils.isEmpty(mPassword)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
-        } else if (mPassword.length() < 4) {
+        }
+        //internet hardcoded
+        //else if (pass.equals("No internet connection")) {
+        //    mPasswordView.setError(getString(R.string.error_no_internet));
+        //    focusView = mPasswordView;
+        //    cancel = true;}
+        
+        else if (mPassword.length() < 4) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
-        
-        /////////////////////////////////////////////////////////////////////////////////////////password check
-        /*else if(ok==0)
+        else if(ok==0)
         {
             mPasswordView.setError(getString(R.string.error_incorrect_password));
             focusView = mPasswordView;
             cancel = true;
         }
-*/
+
         String email11 = getString(R.string.full);
         String email12 = getString(R.string.min);
         String email13 = getString(R.string.shorcut);
@@ -206,7 +215,7 @@ public class LoginActivity extends Activity {
 		    HttpGet get = new HttpGet(getURL);
 		    HttpResponse responseGet = client.execute(get);  
 		    HttpEntity resEntityGet = responseGet.getEntity();  
-		    String response="null";
+		    String response="No internet connection";
 		    if (resEntityGet != null) {  
 		        // do something with the response
 		        response = EntityUtils.toString(resEntityGet);
@@ -217,7 +226,7 @@ public class LoginActivity extends Activity {
 		    //e.printStackTrace();
 		    System.out.println(e.getMessage());
 		}
-	     return "null";
+	     return "No internet connection";
 	}
     
     /**
