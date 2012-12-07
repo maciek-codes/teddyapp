@@ -56,7 +56,7 @@ public class Power extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
             	//TextView textp = (TextView ) findViewById(R.id.powertext);
-				//selectedFrom =(String) (buildp.getItemAtPosition(position));
+				selectedFrom =(String) (buildp.getItemAtPosition(position));
 				//textp.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
             	showlist(selectedFrom,selectedFrom2);
             }
@@ -80,7 +80,7 @@ public class Power extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
             	//TextView text2p = (TextView ) findViewById(R.id.powertext);
-				//selectedFrom2 =(String) (roomp.getItemAtPosition(position));
+				selectedFrom2 =(String) (roomp.getItemAtPosition(position));
 				//text2p.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
             	showlist(selectedFrom,selectedFrom2);
             }
@@ -138,6 +138,9 @@ public class Power extends Activity {
 		String[] A ={"no data"};
 		if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("All") ) A[0]=new String(T); 
 		ListView list = (ListView)findViewById(R.id.powerlist);
+		
+		//TextView deb = (TextView ) findViewById(R.id.debug);
+		//deb.setText(selected+" " +selected2);
 		
 		ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, A);
 		// ArrayAdapter<CharSequence> adapterlist = ArrayAdapter.createFromResource(this,R.array.test, android.R.layout.simple_spinner_item);

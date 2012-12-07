@@ -20,7 +20,7 @@ public class Support extends Activity {
         text.setText("Support");
         
         TextView content = (TextView ) findViewById(R.id.contenttext);
-        content.setText("Support: teddy_uob_support@gmail.com \n\n Application Developed by:\n\n Cristian Cernatescu \n Alexandru Dumitrescu \n Maciej Kumorek \n Christa Mpundu \n Aankhi Mukherjee \n Ioannis Troumpis \n\n\n\n in colaboration with :");
+        content.setText("Support: uob.ibm.teddy@gmail.com \n\n Application Developed by:\n\n Cristian Cernatescu \n Alexandru Dumitrescu \n Maciej Kumorek \n Christa Mpundu \n Aankhi Mukherjee \n Ioannis Troumpis \n\n\n\n in colaboration with :");
 	
         Button home =(Button) findViewById(R.id.homebutton);
         home.setText("Home");

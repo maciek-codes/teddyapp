@@ -23,13 +23,14 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 public class Stats extends Activity {
 
-
-    public String selectedFromList,selectedFromList2;
+	
+	String selectedFrom, selectedFrom2;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
  
-        String selectedFrom, selectedFrom2;
+        
+        //String selectedFrom, selectedFrom2;
         setContentView(R.layout.stats);
         
         //TextView text = (TextView ) findViewById(R.id.statstext);
@@ -60,9 +61,9 @@ public class Stats extends Activity {
 		@Override
 		public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 			//TextView textp = (TextView ) findViewById(R.id.powertext);
-			//selectedFrom =(String) (buildp.getItemAtPosition(position));
+			selectedFrom =(String) (builds.getItemAtPosition(position));
 			//textp.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
-			//showlist(selectedFrom,selectedFrom2);
+			showlist(selectedFrom,selectedFrom2);
 		}
 		
 		@Override
@@ -84,9 +85,9 @@ public class Stats extends Activity {
 		@Override
 		public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 			//TextView text2p = (TextView ) findViewById(R.id.powertext);
-			//selectedFrom2 =(String) (roomp.getItemAtPosition(position));
+			selectedFrom2 =(String) (period.getItemAtPosition(position));
 			//text2p.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
-			//showlist(selectedFrom,selectedFrom2);
+			showlist(selectedFrom,selectedFrom2);
 		}
 		
 		@Override
@@ -175,7 +176,7 @@ public class Stats extends Activity {
 	//list
 	String[] A ={"no data"};
 	if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("Day") ) A[0]=new String(T); 
-	ListView list = (ListView)findViewById(R.id.powerlist);
+	ListView list = (ListView)findViewById(R.id.statslist);
 	
 	ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, A);
 	// ArrayAdapter<CharSequence> adapterlist = ArrayAdapter.createFromResource(this,R.array.test, android.R.layout.simple_spinner_item);

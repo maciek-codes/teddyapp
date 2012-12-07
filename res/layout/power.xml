@@ -82,7 +82,13 @@
           android:background="@color/white" >
 
      </ListView>
-     
+
+   <!-- <TextView
+        android:id="@+id/debug"
+        android:layout_width="295dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02" />
+     -->
      <LinearLayout
          xmlns:android="http://schemas.android.com/apk/res/android"
          android:id="@+id/layoutlogo"
