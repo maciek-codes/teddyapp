@@ -135,16 +135,16 @@ public class Power extends Activity {
 		//hp.setText("http: "+"ok");
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//list
-		String[] A ={"No data"};
-		if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("All") ) A[0]=new String(T); 
+		final String[] A ={"Data1","Data2","Data3","Data4","Data5","Data6","Data7"};
+		//if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("All") ) A[0]=new String(T); 
 		ListView list = (ListView)findViewById(R.id.powerlist);
 		
 		//TextView deb = (TextView ) findViewById(R.id.debug);
 		//deb.setText(selected+" " +selected2);
 		
-		ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, A);
+		ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this,   android.R.layout.simple_list_item_1, A);
 		// ArrayAdapter<CharSequence> adapterlist = ArrayAdapter.createFromResource(this,R.array.test, android.R.layout.simple_spinner_item);
-		adapterlist.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adapterlist.setDropDownViewResource(android.R.layout.simple_list_item_1);
 		list.setAdapter(adapterlist);
 		list.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
 		
@@ -152,8 +152,7 @@ public class Power extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
 				Intent i = new Intent(getApplicationContext(), Info.class);
-				//i.putExtra("info", A[0]);
-				finish();
+				i.putExtra("info", A[arg2]);
 				startActivity(i);
 			}
 		});

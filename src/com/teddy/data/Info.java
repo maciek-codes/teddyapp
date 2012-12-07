@@ -18,10 +18,7 @@ public class Info extends Activity {
         	String info = extras.getString("info");
         	TextView text = (TextView ) findViewById(R.id.infotext);
             text.setText(info);
-        }
-        
-	
-              
+        }            
         
 	}
 }
