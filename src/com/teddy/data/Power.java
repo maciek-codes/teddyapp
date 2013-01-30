@@ -34,7 +34,6 @@ public class Power extends Activity {
         
         // Hide input keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        
         //TextView text = (TextView ) findViewById(R.id.powertext);
         //text.setText("Power Screen");
         
@@ -46,11 +45,9 @@ public class Power extends Activity {
         
         Button power =(Button) findViewById(R.id.powerbutton);
         power.setText("Power");
-        
-        
-///////////////////////
+
         final Spinner buildp = (Spinner) findViewById(R.id.building_spinner);
-        ArrayAdapter<CharSequence> adapterbuildp = ArrayAdapter.createFromResource(this, R.array.building_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterbuildp = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
         adapterbuildp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         buildp.setAdapter(adapterbuildp);
         selectedFrom =(String) (buildp.getItemAtPosition(0));
@@ -72,7 +69,7 @@ public class Power extends Activity {
         });
         
         final Spinner roomp = (Spinner) findViewById(R.id.room_spinner);
-        ArrayAdapter<CharSequence> adapterroomp = ArrayAdapter.createFromResource(this, R.array.room_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterroomp = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
         adapterroomp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roomp.setAdapter(adapterroomp);
         selectedFrom2 =(String) (roomp.getItemAtPosition(0));
@@ -95,8 +92,7 @@ public class Power extends Activity {
 
         });
         
-        
-//////////////////////
+   
         usage.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
 
@@ -192,6 +188,7 @@ public class Power extends Activity {
 		    HttpClient client = new DefaultHttpClient();  
 		    HttpGet get = new HttpGet(getURL);
 		    get.setHeader("Content-type", "application/json");
+ 
 		    HttpResponse responseGet = client.execute(get);  
 		    HttpEntity resEntityGet = responseGet.getEntity();  
 		    String response="No internet connection";

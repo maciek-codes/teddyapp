@@ -35,7 +35,6 @@ public class Stats extends Activity {
         
         // Hide input keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        
         //TextView text = (TextView ) findViewById(R.id.statstext);
         //text.setText("Stats Screen");
         
@@ -55,7 +54,7 @@ public class Stats extends Activity {
         
     	
 		final Spinner builds = (Spinner) findViewById(R.id.building_spinner);
-		ArrayAdapter<CharSequence> adapterbuilds = ArrayAdapter.createFromResource(this, R.array.building_array, android.R.layout.simple_spinner_item);
+		ArrayAdapter<CharSequence> adapterbuilds = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
 		adapterbuilds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		builds.setAdapter(adapterbuilds);
 		selectedFrom =(String) (builds.getItemAtPosition(0));

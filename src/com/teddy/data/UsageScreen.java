@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,13 +27,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
 import android.view.WindowManager;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 public class UsageScreen extends Activity  {
+
 
 	// Remember list of buildings and rooms associated
 	Map<String, List<String>> buildingRoomDict;
@@ -42,10 +47,10 @@ public class UsageScreen extends Activity  {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.usagescreen);
-        
+
         // Hide input keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        
+
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Buttons
                 
@@ -150,11 +155,12 @@ public class UsageScreen extends Activity  {
 
         });
         
-        // Handle room selection - change usage screen
+
         room.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
             	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
+
             	selectedFrom2 =(String) (room.getItemAtPosition(position));    
 				//text2.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
 			    // Change room adapter				
@@ -167,10 +173,6 @@ public class UsageScreen extends Activity  {
 
         });
         
-        
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Buttons click
-      
         usage.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
 
@@ -197,42 +199,7 @@ public class UsageScreen extends Activity  {
         
         
 	}
-//	/////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	//Options/ menu
-//	
-//	public void showlist(String selected,String selected2)
-//	{
-//		
-//				
-//		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//		//HTTP req
-//		String T="null";
-//		try { T = (String)HTTPfunction("asa"); }
-//		catch(Exception e){ T="No internet connection"; }
-//		//TextView hp = (TextView ) findViewById(R.id.htt);
-//		//hp.setText("http: "+"ok");
-//		/////////////////////////////////////////////////////////////////////////////////////////////////////////
-//		//list
-//		final String[] A ={"No data",T};
-//		if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("All") ) A[0]=new String(T); 
-//		ListView list = (ListView)findViewById(R.id.usagelist);
-//		
-//		ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this,   android.R.layout.simple_list_item_1, A);
-//		// ArrayAdapter<CharSequence> adapterlist = ArrayAdapter.createFromResource(this,R.array.test, android.R.layout.simple_spinner_item);
-//		adapterlist.setDropDownViewResource(android.R.layout.simple_list_item_1);
-//		list.setAdapter(adapterlist);
-//		list.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
-//		
-//		
-//		@Override
-//		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-//			Intent i = new Intent(getApplicationContext(), Info.class);
-//			i.putExtra("info", A[arg2]);
-//        	startActivity(i);
-//		
-//		}
-//		});
-//	}
+
 	
 	
 	@Override

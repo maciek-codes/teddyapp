@@ -1,12 +1,5 @@
 package com.teddy.data;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -17,8 +10,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
-
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,7 +19,7 @@ import android.content.Intent;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class LoginActivity extends Activity {
+public class Teddyapp extends Activity {
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -65,9 +56,6 @@ public class LoginActivity extends Activity {
 
         setContentView(R.layout.activity_login);
 
-        // Hide input keyboard
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        
         // Set up the login form.
         mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
         mEmailView = (EditText) findViewById(R.id.email);
@@ -115,7 +103,6 @@ public class LoginActivity extends Activity {
             return;
         }
 
-	
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -127,45 +114,27 @@ public class LoginActivity extends Activity {
         boolean cancel = false;
         View focusView = null;
 
-        int ok=0;
-       
-        //check hardcoded password on server
-        //String pass="no";
-        //try{pass = (String)HTTPfunction("http://service-teddy2012.rhcloud.com/password");
-        //}catch(Exception e){}
-        //if( mPassword.equals( pass ) ) ok=1;
-        
-        
-        //check hardcoded password in app
         String PASS = getString(R.string.password);
+        int ok=0;
         if( mPassword.equals( PASS ) ) ok=1;
-                       
-		
-		// Check for a valid password.
+        // Check for a valid password.
         if (TextUtils.isEmpty(mPassword)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
-        }
-        //internet hardcoded
-        //else if (pass.equals("No internet connection")) {
-
-          //  mPasswordView.setError(getString(R.string.error_no_internet));
-          //  focusView = mPasswordView;
-          //  cancel = true;}
-
-        
-        else if (mPassword.length() < 4) {
+        } else if (mPassword.length() < 4) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
-        else if(ok==0)
+        
+        /////////////////////////////////////////////////////////////////////////////////////////password check
+       /* else if(ok==0)
         {
             mPasswordView.setError(getString(R.string.error_incorrect_password));
             focusView = mPasswordView;
             cancel = true;
-        }
+        }*/
 
         String email11 = getString(R.string.full);
         String email12 = getString(R.string.min);
@@ -190,8 +159,7 @@ public class LoginActivity extends Activity {
             cancel = true;
         }
         /////////////////////////////////////////////////////////////////////////////////////////password check
-       else if (!mEmail.contains("@")&&ok3==0) {
-
+     /*  else if (!mEmail.contains("@")&&ok3==0) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
@@ -200,15 +168,8 @@ public class LoginActivity extends Activity {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
-
-        }//*/
+        }*/
         
-        //!!!!!!!!!!!!!!!!!!!!!!
-        //delete this for password
-        cancel=false;
-        //delete this for password
-    
-       
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -223,28 +184,6 @@ public class LoginActivity extends Activity {
         }
     }
 
-    
-
-    public String HTTPfunction(String getURL) {
-		try {
-		    HttpClient client = new DefaultHttpClient();  
-		    HttpGet get = new HttpGet(getURL);
-		    HttpResponse responseGet = client.execute(get);  
-		    HttpEntity resEntityGet = responseGet.getEntity();  
-		    String response="No internet connection";
-		    if (resEntityGet != null) {  
-		        // do something with the response
-		        response = EntityUtils.toString(resEntityGet);
-		        //Log.i("GET RESPONSE", response);
-		        return response;
-		    }
-		} catch (Exception e) {
-		    //e.printStackTrace();
-		    System.out.println(e.getMessage());
-		}
-	     return "No internet connection";
-	}
-    
     /**
      * Shows the progress UI and hides the login form.
      */
@@ -333,5 +272,4 @@ public class LoginActivity extends Activity {
             showProgress(false);
         }
     }
-    
 }

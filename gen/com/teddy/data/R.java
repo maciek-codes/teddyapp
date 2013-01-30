@@ -9,9 +9,7 @@ package com.teddy.data;
 
 public final class R {
     public static final class array {
-        public static final int building_array=0x7f070000;
-        public static final int period_array=0x7f070002;
-        public static final int room_array=0x7f070001;
+        public static final int period_array=0x7f070000;
     }
     public static final class attr {
     }
