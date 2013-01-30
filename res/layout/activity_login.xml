@@ -61,7 +61,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@color/white"
+                android:textColor="@color/ultrablue"
                 android:textColorHint="@color/ultrablue" />
 
             <EditText
@@ -75,7 +75,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@color/white"
+                android:textColor="@color/ultrablue"
                 android:textColorHint="@color/ultrablue" />
 
             <Button

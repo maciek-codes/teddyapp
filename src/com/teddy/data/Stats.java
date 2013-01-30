@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,6 +32,9 @@ public class Stats extends Activity {
         
         //String selectedFrom, selectedFrom2;
         setContentView(R.layout.stats);
+        
+        // Hide input keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         
         //TextView text = (TextView ) findViewById(R.id.statstext);
         //text.setText("Stats Screen");

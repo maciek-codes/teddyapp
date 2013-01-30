@@ -1,11 +1,22 @@
 package com.teddy.data;
 
+import java.util.ArrayList;
+
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Intent;
@@ -14,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,6 +33,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 public class UsageScreen extends Activity  {
 
+	// Remember list of buildings and rooms associated
+	Map<String, List<String>> buildingRoomDict;
 	
 	String selectedFrom, selectedFrom2;
 	@Override
@@ -28,6 +42,10 @@ public class UsageScreen extends Activity  {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.usagescreen);
+        
+        // Hide input keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Buttons
                 
@@ -42,45 +60,87 @@ public class UsageScreen extends Activity  {
              
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////     
         //Spinners
-        
-	
         final Spinner build = (Spinner) findViewById(R.id.building_spinner);
-        ArrayAdapter<CharSequence> adapterbuild = ArrayAdapter.createFromResource(this, R.array.building_array, android.R.layout.simple_spinner_item);
+        final Spinner room = (Spinner) findViewById(R.id.room_spinner);
+        
+        // Set resources
+        ArrayAdapter<CharSequence> adapterbuild = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
         adapterbuild.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+ 
+        final ArrayAdapter<CharSequence> adapterroom = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        adapterroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+          
+        // Get data of buildings
+        // Use: http://service-teddy2012.rhcloud.com/buildings
+        // and: http://service-teddy2012.rhcloud.com/building_name/
+        buildingRoomDict = new HashMap<String, List<String>>();
+        JSONArray buildings = null;
+       
+        // Create a parser
+        JsonParser jParser = new JsonParser();
+        JSONObject buildingsObject = jParser.getJSONFromUrl("http://service-teddy2012.rhcloud.com/buildings");
+		try {
+			buildings = buildingsObject.getJSONArray("buildings");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+        for(int i = 0; i < buildings.length(); ++i) {
+        	JSONArray rooms = null;
+            JSONObject roomsObject;
+			String building = null;
+			ArrayList<String> listOfRooms = null;
+            try {
+            	building = buildings.get(i).toString();
+				roomsObject = jParser.getJSONFromUrl("http://service-teddy2012.rhcloud.com/" + building);
+				rooms = roomsObject.getJSONArray("rooms");
+				
+				listOfRooms = new ArrayList<String>();
+	            for(int j = 0; j < rooms.length(); ++j) {
+	            	String roomName = rooms.get(j).toString();
+	            	adapterroom.add(roomName);
+	            	listOfRooms.add(roomName);
+	            }
+		            
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
+            // If there are any rooms, add building to the list
+            if(listOfRooms != null && !listOfRooms.isEmpty()) {
+            	adapterbuild.add(building);
+            	buildingRoomDict.put(building, listOfRooms);
+            }
+        }
+        
+       
+        //Now use dictionary to populate the UI
         build.setAdapter(adapterbuild);
         selectedFrom =(String) (build.getItemAtPosition(0));
-                
-        build.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-            	//TextView text = (TextView ) findViewById(R.id.usagetext);
-				selectedFrom =(String) (build.getItemAtPosition(position));
-				//text.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
-				showlist(selectedFrom,selectedFrom2);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
-        });
         
-        final Spinner room = (Spinner) findViewById(R.id.room_spinner);
-        ArrayAdapter<CharSequence> adapterroom = ArrayAdapter.createFromResource(this, R.array.room_array, android.R.layout.simple_spinner_item);
-        adapterroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Room spinner adapter
         room.setAdapter(adapterroom);
         selectedFrom2 =(String) (room.getItemAtPosition(0));
         //TextView text0 = (TextView ) findViewById(R.id.usagetext);
 		//text0.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
-                
-        room.setOnItemSelectedListener(new OnItemSelectedListener() {
+         
+        // Add event handler to handle room selection
+        build.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
             	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
-				selectedFrom2 =(String) (room.getItemAtPosition(position));
-				//text2.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
-			    showlist(selectedFrom,selectedFrom2);
+            	selectedFrom =(String) (build.getItemAtPosition(position));
+            	List<String> listOfRooms = buildingRoomDict.get(selectedFrom);
+            	
+            	// Update room spinner when building changes
+            	adapterroom.clear();
+            	for(String r : listOfRooms){
+            		adapterroom.add(r);
+            	}
+            	room.setAdapter(adapterroom);
+            	selectedFrom2 =(String) (room.getItemAtPosition(0));
             }
 
             @Override
@@ -90,8 +150,27 @@ public class UsageScreen extends Activity  {
 
         });
         
+        // Handle room selection - change usage screen
+        room.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+            	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
+            	selectedFrom2 =(String) (room.getItemAtPosition(position));    
+				//text2.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+			    // Change room adapter				
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+        
+        
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Buttons click
+      
         usage.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
 
@@ -118,41 +197,42 @@ public class UsageScreen extends Activity  {
         
         
 	}
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//Options/ menu
-	
-	public void showlist(String selected,String selected2)
-	{
-		
-				
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//HTTP req
-		String T="null";
-		try { T = (String)HTTPfunction("http://service-teddy2012.rhcloud.com"); }
-		catch(Exception e){ T="No internet connection"; }
-		//TextView hp = (TextView ) findViewById(R.id.htt);
-		//hp.setText("http: "+"ok");
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//list
-		final String[] A ={"No data",T};
-		if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("All") ) A[0]=new String(T); 
-		ListView list = (ListView)findViewById(R.id.usagelist);
-		
-		ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this,   android.R.layout.simple_list_item_1, A);
-		adapterlist.setDropDownViewResource(android.R.layout.simple_list_item_1);
-		list.setAdapter(adapterlist);
-		list.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
-		
-		
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-			Intent i = new Intent(getApplicationContext(), Info.class);
-			i.putExtra("info", A[arg2]);
-        	startActivity(i);
-		
-		}
-		});
-	}
+//	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	//Options/ menu
+//	
+//	public void showlist(String selected,String selected2)
+//	{
+//		
+//				
+//		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//		//HTTP req
+//		String T="null";
+//		try { T = (String)HTTPfunction("asa"); }
+//		catch(Exception e){ T="No internet connection"; }
+//		//TextView hp = (TextView ) findViewById(R.id.htt);
+//		//hp.setText("http: "+"ok");
+//		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//		//list
+//		final String[] A ={"No data",T};
+//		if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("All") ) A[0]=new String(T); 
+//		ListView list = (ListView)findViewById(R.id.usagelist);
+//		
+//		ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this,   android.R.layout.simple_list_item_1, A);
+//		// ArrayAdapter<CharSequence> adapterlist = ArrayAdapter.createFromResource(this,R.array.test, android.R.layout.simple_spinner_item);
+//		adapterlist.setDropDownViewResource(android.R.layout.simple_list_item_1);
+//		list.setAdapter(adapterlist);
+//		list.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+//		
+//		
+//		@Override
+//		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
+//			Intent i = new Intent(getApplicationContext(), Info.class);
+//			i.putExtra("info", A[arg2]);
+//        	startActivity(i);
+//		
+//		}
+//		});
+//	}
 	
 	
 	@Override
@@ -180,25 +260,4 @@ public class UsageScreen extends Activity  {
 		    return super.onOptionsItemSelected(item);
 		}
 	}
-	
-	
-	public String HTTPfunction(String getURL) {
-		try {
-		    HttpClient client = new DefaultHttpClient();  
-		    HttpGet get = new HttpGet(getURL);
-		    HttpResponse responseGet = client.execute(get);  
-		    HttpEntity resEntityGet = responseGet.getEntity();  
-		    String response="No internet connection";
-		    if (resEntityGet != null) {  
-		        // do something with the response
-		        response = EntityUtils.toString(resEntityGet);
-		        //Log.i("GET RESPONSE", response);
-		        return response;
-		    }
-		} catch (Exception e) {
-		    //e.printStackTrace();
-		    System.out.println(e.getMessage());
-		}
-	     return "No internet connection";
-		    }
-	}
+}

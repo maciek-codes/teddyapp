@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,6 +31,9 @@ public class Power extends Activity {
         super.onCreate(savedInstanceState);
  
         setContentView(R.layout.power);
+        
+        // Hide input keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         
         //TextView text = (TextView ) findViewById(R.id.powertext);
         //text.setText("Power Screen");
@@ -129,7 +133,7 @@ public class Power extends Activity {
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//HTTP req
 		String T="null";
-		try { T = (String)HTTPfunction("http://service-teddy2012.rhcloud.com/log"); }
+		try { T = (String)HTTPfunction("http://service-teddy2012.rhcloud.com/log/mvb"); }
 		catch(Exception e){ T="No internet connection"; }
 		//TextView hp = (TextView ) findViewById(R.id.htt);
 		//hp.setText("http: "+"ok");
