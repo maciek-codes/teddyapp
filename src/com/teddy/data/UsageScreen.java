@@ -128,7 +128,7 @@ public class UsageScreen extends Activity  {
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//HTTP req
 		String T="null";
-		try { T = (String)HTTPfunction("http://service-teddy2012.rhcloud.com/log"); }
+		try { T = (String)HTTPfunction("http://service-teddy2012.rhcloud.com"); }
 		catch(Exception e){ T="No internet connection"; }
 		//TextView hp = (TextView ) findViewById(R.id.htt);
 		//hp.setText("http: "+"ok");
@@ -139,7 +139,6 @@ public class UsageScreen extends Activity  {
 		ListView list = (ListView)findViewById(R.id.usagelist);
 		
 		ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this,   android.R.layout.simple_list_item_1, A);
-		// ArrayAdapter<CharSequence> adapterlist = ArrayAdapter.createFromResource(this,R.array.test, android.R.layout.simple_spinner_item);
 		adapterlist.setDropDownViewResource(android.R.layout.simple_list_item_1);
 		list.setAdapter(adapterlist);
 		list.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {

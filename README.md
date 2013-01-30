@@ -1,4 +1,4 @@
-LoginActivity
+Teddy Android App
 =============
 
-Teddy Android App
+Teddy Android App project
