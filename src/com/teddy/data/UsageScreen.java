@@ -39,7 +39,7 @@ public class UsageScreen extends Activity  {
 
 
 	// Remember list of buildings and rooms associated
-	Map<String, List<String>> buildingRoomDict;
+	Map<String, ArrayList<String>> buildingRoomDict;
 	
 	String selectedFrom, selectedFrom2;
 	@Override
@@ -75,52 +75,29 @@ public class UsageScreen extends Activity  {
         final ArrayAdapter<CharSequence> adapterroom = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
         adapterroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
           
-        // Get data of buildings
-        // Use: http://service-teddy2012.rhcloud.com/buildings
-        // and: http://service-teddy2012.rhcloud.com/building_name/
-        buildingRoomDict = new HashMap<String, List<String>>();
-        JSONArray buildings = null;
-       
-        // Create a parser
-        JsonParser jParser = new JsonParser();
-        JSONObject buildingsObject = jParser.getJSONFromUrl("http://service-teddy2012.rhcloud.com/buildings");
-		try {
-			buildings = buildingsObject.getJSONArray("buildings");
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-        for(int i = 0; i < buildings.length(); ++i) {
-        	JSONArray rooms = null;
-            JSONObject roomsObject;
-			String building = null;
-			ArrayList<String> listOfRooms = null;
-            try {
-            	building = buildings.get(i).toString();
-				roomsObject = jParser.getJSONFromUrl("http://service-teddy2012.rhcloud.com/" + building);
-				rooms = roomsObject.getJSONArray("rooms");
-				
-				listOfRooms = new ArrayList<String>();
-	            for(int j = 0; j < rooms.length(); ++j) {
-	            	String roomName = rooms.get(j).toString();
-	            	adapterroom.add(roomName);
-	            	listOfRooms.add(roomName);
-	            }
-		            
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            
-            // If there are any rooms, add building to the list
-            if(listOfRooms != null && !listOfRooms.isEmpty()) {
-            	adapterbuild.add(building);
-            	buildingRoomDict.put(building, listOfRooms);
+        buildingRoomDict = RequestHelper.getRoomsAndBuildings();
+        String[] buildings = new String[buildingRoomDict.keySet().size()];
+        buildingRoomDict.keySet().toArray(buildings);
+        
+        for(int i = 0; i < buildings.length; ++i) {
+        	
+			String building = buildings[i];
+			ArrayList<String> listOfRooms = buildingRoomDict.get(building);
+			
+			// Skip if no rooms
+			if(listOfRooms == null || listOfRooms.size() <= 0)
+				continue;
+			
+			// Otherwise add them to spinner
+            for(int j = 0; j < listOfRooms.size(); ++j) {
+            	String roomName = listOfRooms.get(j).toString();
+            	adapterroom.add(roomName);
             }
+		   
+            // Add the building too
+            adapterbuild.add(building);
         }
         
-       
         //Now use dictionary to populate the UI
         build.setAdapter(adapterbuild);
         selectedFrom =(String) (build.getItemAtPosition(0));
@@ -128,25 +105,25 @@ public class UsageScreen extends Activity  {
         // Room spinner adapter
         room.setAdapter(adapterroom);
         selectedFrom2 =(String) (room.getItemAtPosition(0));
-        //TextView text0 = (TextView ) findViewById(R.id.usagetext);
-		//text0.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
          
         // Add event handler to handle room selection
         build.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-            	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
-            	selectedFrom =(String) (build.getItemAtPosition(position));
-            	List<String> listOfRooms = buildingRoomDict.get(selectedFrom);
-            	
-            	// Update room spinner when building changes
-            	adapterroom.clear();
-            	for(String r : listOfRooms){
-            		adapterroom.add(r);
-            	}
-            	room.setAdapter(adapterroom);
-            	selectedFrom2 =(String) (room.getItemAtPosition(0));
-            }
+        
+        	@Override
+        public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+        	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
+        	selectedFrom =(String) (build.getItemAtPosition(position));
+        	
+        	List<String> listOfRooms = buildingRoomDict.get(selectedFrom);
+        	
+        	// Update room spinner when building changes
+        	adapterroom.clear();
+        	for(String r : listOfRooms){
+        		adapterroom.add(r);
+        	}
+        	room.setAdapter(adapterroom);
+        	selectedFrom2 =(String) (room.getItemAtPosition(0));
+        }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {

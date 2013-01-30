@@ -35,10 +35,11 @@ public final class R {
         public static final int contenttext=0x7f0a000f;
         public static final int email=0x7f0a0004;
         public static final int homebutton=0x7f0a000e;
+        public static final int htt=0x7f0a0021;
         public static final int imageView1=0x7f0a0003;
         public static final int infotext=0x7f0a000a;
         public static final int instrtext=0x7f0a000d;
-        public static final int instructions=0x7f0a0022;
+        public static final int instructions=0x7f0a0024;
         public static final int layout=0x7f0a0010;
         public static final int layouthoz=0x7f0a000c;
         public static final int layoutlogo=0x7f0a0019;
@@ -50,7 +51,7 @@ public final class R {
         public static final int logoteddy=0x7f0a0009;
         public static final int logouob=0x7f0a001a;
         public static final int mainlayout=0x7f0a0008;
-        public static final int menu_forgot_password=0x7f0a0021;
+        public static final int menu_forgot_password=0x7f0a0023;
         public static final int nextbutton=0x7f0a0012;
         public static final int password=0x7f0a0005;
         public static final int period_spinner=0x7f0a001c;
@@ -61,11 +62,12 @@ public final class R {
         public static final int statistics=0x7f0a000b;
         public static final int statsbutton=0x7f0a0015;
         public static final int statslist=0x7f0a001e;
-        public static final int support=0x7f0a0023;
+        public static final int support=0x7f0a0025;
         public static final int supporttext=0x7f0a001f;
         public static final int unibutton=0x7f0a001d;
         public static final int usagebutton=0x7f0a0013;
-        public static final int usagelist=0x7f0a0020;
+        public static final int usagelist=0x7f0a0022;
+        public static final int usagetext=0x7f0a0020;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;

@@ -1,5 +1,9 @@
 package com.teddy.data;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -26,6 +30,10 @@ public class Power extends Activity {
 
 	String selectedFrom, selectedFrom2;
 	
+	// Remember list of buildings and rooms associated
+	Map<String, ArrayList<String>> buildingRoomDict;
+		
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,19 +54,60 @@ public class Power extends Activity {
         Button power =(Button) findViewById(R.id.powerbutton);
         power.setText("Power");
 
+        // Get spinner objects
         final Spinner buildp = (Spinner) findViewById(R.id.building_spinner);
-        ArrayAdapter<CharSequence> adapterbuildp = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        final Spinner roomp = (Spinner) findViewById(R.id.room_spinner);
+        
+        // Create adapters
+        final ArrayAdapter<CharSequence> adapterbuildp = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> adapterroomp = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        
         adapterbuildp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterroomp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        buildingRoomDict = RequestHelper.getRoomsAndBuildings();
+        String[] buildings = new String[buildingRoomDict.keySet().size()];
+        buildingRoomDict.keySet().toArray(buildings);
+        
+        for(int i = 0; i < buildings.length; ++i) {
+        	
+			String building = buildings[i];
+			ArrayList<String> listOfRooms = buildingRoomDict.get(building);
+			
+			// Skip if no rooms
+			if(listOfRooms == null || listOfRooms.size() <= 0)
+				continue;
+			
+			// Otherwise add them to spinner
+            for(int j = 0; j < listOfRooms.size(); ++j) {
+            	String roomName = listOfRooms.get(j).toString();
+            	adapterroomp.add(roomName);
+            }
+		   
+            // Add the building too
+            adapterbuildp.add(building);
+        }
+        
         buildp.setAdapter(adapterbuildp);
-        selectedFrom =(String) (buildp.getItemAtPosition(0));
+        roomp.setAdapter(adapterroomp);   
+        
+        if(buildp.getCount() > 0)
+        	selectedFrom =(String) (buildp.getItemAtPosition(0));
                 
         buildp.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-            	//TextView textp = (TextView ) findViewById(R.id.powertext);
-				selectedFrom =(String) (buildp.getItemAtPosition(position));
-				//textp.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
-            	showlist(selectedFrom,selectedFrom2);
+            	selectedFrom =(String) (buildp.getItemAtPosition(position));
+            	
+            	List<String> listOfRooms = buildingRoomDict.get(selectedFrom);
+            	
+            	// Update room spinner when building changes
+            	adapterroomp.clear();
+            	for(String r : listOfRooms){
+            		adapterroomp.add(r);
+            	}
+            	roomp.setAdapter(adapterroomp);
+            	selectedFrom2 =(String) (roomp.getItemAtPosition(0));
             }
 
             @Override
@@ -68,21 +117,16 @@ public class Power extends Activity {
 
         });
         
-        final Spinner roomp = (Spinner) findViewById(R.id.room_spinner);
-        ArrayAdapter<CharSequence> adapterroomp = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
-        adapterroomp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        roomp.setAdapter(adapterroomp);
-        selectedFrom2 =(String) (roomp.getItemAtPosition(0));
-        //TextView text0 = (TextView ) findViewById(R.id.powertext);
-		//text0.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+        
+        
+        if(roomp.getCount() > 0)
+        	selectedFrom2 =(String) (roomp.getItemAtPosition(0));
                 
         roomp.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-            	//TextView text2p = (TextView ) findViewById(R.id.powertext);
-				selectedFrom2 =(String) (roomp.getItemAtPosition(position));
-				//text2p.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
-            	showlist(selectedFrom,selectedFrom2);
+            	
+            	// TODO: Change Power screen when room selection chages
             }
 
             @Override
@@ -120,44 +164,6 @@ public class Power extends Activity {
 	}
 	
 	
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Options/ menu
-
-	public void showlist(String selected,String selected2)
-	{
-	
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//HTTP req
-		String T="null";
-		try { T = (String)HTTPfunction("http://service-teddy2012.rhcloud.com/log/mvb"); }
-		catch(Exception e){ T="No internet connection"; }
-		//TextView hp = (TextView ) findViewById(R.id.htt);
-		//hp.setText("http: "+"ok");
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//list
-		final String[] A ={T};
-		//if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("All") ) A[0]=new String(T); 
-		ListView list = (ListView)findViewById(R.id.powerlist);
-		
-		//TextView deb = (TextView ) findViewById(R.id.debug);
-		//deb.setText(selected+" " +selected2);
-		
-		ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this,   android.R.layout.simple_list_item_1, A);
-		// ArrayAdapter<CharSequence> adapterlist = ArrayAdapter.createFromResource(this,R.array.test, android.R.layout.simple_spinner_item);
-		adapterlist.setDropDownViewResource(android.R.layout.simple_list_item_1);
-		list.setAdapter(adapterlist);
-		list.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
-		
-		
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-				Intent i = new Intent(getApplicationContext(), Info.class);
-				i.putExtra("info", A[arg2]);
-				startActivity(i);
-			}
-		});
-	}
-
 	
 	@Override
     public void onBackPressed() {

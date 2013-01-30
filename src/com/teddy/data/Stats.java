@@ -1,5 +1,8 @@
 package com.teddy.data;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -23,7 +26,9 @@ import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 public class Stats extends Activity {
 
-	
+	// Remember list of buildings and rooms associated
+	Map<String, ArrayList<String>> buildingRoomDict;
+		
 	String selectedFrom, selectedFrom2;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,9 +61,27 @@ public class Stats extends Activity {
 		final Spinner builds = (Spinner) findViewById(R.id.building_spinner);
 		ArrayAdapter<CharSequence> adapterbuilds = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
 		adapterbuilds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
+		buildingRoomDict = RequestHelper.getRoomsAndBuildings();
+        String[] buildings = new String[buildingRoomDict.keySet().size()];
+        
+        buildingRoomDict.keySet().toArray(buildings);
+        
+        for(int i = 0; i < buildings.length; ++i) {
+        	
+			String building = buildings[i];
+		   
+            // Add the building too
+            adapterbuilds.add(building);
+        }
+		
 		builds.setAdapter(adapterbuilds);
-		selectedFrom =(String) (builds.getItemAtPosition(0));
-		  
+		
+		if(builds.getCount() > 0)
+			selectedFrom =(String) (builds.getItemAtPosition(0));
+		else 
+			return;
+		
 		builds.setOnItemSelectedListener(new OnItemSelectedListener() {
 		@Override
 		public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -79,16 +102,20 @@ public class Stats extends Activity {
 		ArrayAdapter<CharSequence> adapterperiod = ArrayAdapter.createFromResource(this, R.array.period_array, android.R.layout.simple_spinner_item);
 		adapterperiod.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		period.setAdapter(adapterperiod);
-		selectedFrom2 =(String) (period.getItemAtPosition(0));
-		//TextView text0 = (TextView ) findViewById(R.id.powertext);
-		//text0.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
-		  
+		
+		if(period.getCount() > 0)
+			selectedFrom2 =(String) (period.getItemAtPosition(0));
+		else
+			return;
+		
 		period.setOnItemSelectedListener(new OnItemSelectedListener() {
 		@Override
 		public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-			//TextView text2p = (TextView ) findViewById(R.id.powertext);
+			// Check if there are any items at all
+			if(period.getCount() <= 0)
+				return;
+			
 			selectedFrom2 =(String) (period.getItemAtPosition(position));
-			//text2p.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
 			showlist(selectedFrom,selectedFrom2);
 		}
 		
