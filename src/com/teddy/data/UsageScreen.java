@@ -36,7 +36,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 public class UsageScreen extends Activity  {
-
+	// Connection detector class
+	ConnectionDetector cd;
 
 	// Remember list of buildings and rooms associated
 	Map<String, ArrayList<String>> buildingRoomDict;
@@ -45,6 +46,9 @@ public class UsageScreen extends Activity  {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // creating connection detector class instance
+        cd = new ConnectionDetector(getApplicationContext());
         
         setContentView(R.layout.usagescreen);
 
@@ -75,105 +79,113 @@ public class UsageScreen extends Activity  {
         final ArrayAdapter<CharSequence> adapterroom = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
         adapterroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
           
-        buildingRoomDict = RequestHelper.getRoomsAndBuildings();
-        String[] buildings = new String[buildingRoomDict.keySet().size()];
-        buildingRoomDict.keySet().toArray(buildings);
         
-        for(int i = 0; i < buildings.length; ++i) {
-        	
-			String building = buildings[i];
-			ArrayList<String> listOfRooms = buildingRoomDict.get(building);
-			
-			// Skip if no rooms
-			if(listOfRooms == null || listOfRooms.size() <= 0)
-				continue;
-			
-			// Otherwise add them to spinner
-            for(int j = 0; j < listOfRooms.size(); ++j) {
-            	String roomName = listOfRooms.get(j).toString();
-            	adapterroom.add(roomName);
-            }
-		   
-            // Add the building too
-            adapterbuild.add(building);
+        if (cd.isConnectingToInternet()) {
+        	buildingRoomDict = RequestHelper.getRoomsAndBuildings();
+
+	        String[] buildings = new String[buildingRoomDict.keySet().size()];
+	        buildingRoomDict.keySet().toArray(buildings);
+	        
+	        for(int i = 0; i < buildings.length; ++i) {
+	        	
+				String building = buildings[i];
+				ArrayList<String> listOfRooms = buildingRoomDict.get(building);
+				
+				// Skip if no rooms
+				if(listOfRooms == null || listOfRooms.size() <= 0)
+					continue;
+				
+				// Otherwise add them to spinner
+	            for(int j = 0; j < listOfRooms.size(); ++j) {
+	            	String roomName = listOfRooms.get(j).toString();
+	            	adapterroom.add(roomName);
+	            }
+			   
+	            // Add the building too
+	            adapterbuild.add(building);
+	        }
+	        
+	        //Now use dictionary to populate the UI
+	        build.setAdapter(adapterbuild);
+	        selectedFrom =(String) (build.getItemAtPosition(0));
+	        
+	        // Room spinner adapter
+	        room.setAdapter(adapterroom);
+	        selectedFrom2 =(String) (room.getItemAtPosition(0));
+	         
+	        // Add event handler to handle room selection
+	        build.setOnItemSelectedListener(new OnItemSelectedListener() {
+	        
+	        	
+	        	@Override
+	        public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+	        	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
+	        	selectedFrom =(String) (build.getItemAtPosition(position));
+	        	
+	        	List<String> listOfRooms = buildingRoomDict.get(selectedFrom);
+	        	
+	        	// Update room spinner when building changes
+	        	adapterroom.clear();
+	        	for(String r : listOfRooms){
+	        		adapterroom.add(r);
+	        	}
+	        	room.setAdapter(adapterroom);
+	        	selectedFrom2 =(String) (room.getItemAtPosition(0));
+	        }
+	
+	            @Override
+	            public void onNothingSelected(AdapterView<?> parentView) {
+	                // your code here
+	            }
+	
+	        });
+	        
+	
+	        room.setOnItemSelectedListener(new OnItemSelectedListener() {
+	            @Override
+	            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+	            	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
+	
+	            	selectedFrom2 =(String) (room.getItemAtPosition(position));    
+					//text2.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
+				    // Change room adapter				
+	            }
+	
+	            @Override
+	            public void onNothingSelected(AdapterView<?> parentView) {
+	                // your code here
+	            }
+	
+	        });
+	        
+	        usage.setOnClickListener(new Button.OnClickListener(){
+	        	public void onClick(View v){
+	
+	        	}
+	        });
+	              
+	        power.setOnClickListener(new Button.OnClickListener(){
+	        public void onClick(View v){
+	
+	        	Intent i = new Intent(getApplicationContext(),  Power.class);
+	        	finish();
+	        	startActivity(i);
+	    	}
+	        });
+	        
+	        stats.setOnClickListener(new Button.OnClickListener(){
+	        	public void onClick(View v){
+	
+	            	Intent i = new Intent(getApplicationContext(), Stats.class);
+	            	finish();
+	            	startActivity(i);
+	        	}
+	        });
+        
         }
-        
-        //Now use dictionary to populate the UI
-        build.setAdapter(adapterbuild);
-        selectedFrom =(String) (build.getItemAtPosition(0));
-        
-        // Room spinner adapter
-        room.setAdapter(adapterroom);
-        selectedFrom2 =(String) (room.getItemAtPosition(0));
-         
-        // Add event handler to handle room selection
-        build.setOnItemSelectedListener(new OnItemSelectedListener() {
-        
-        	@Override
-        public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-        	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
-        	selectedFrom =(String) (build.getItemAtPosition(position));
-        	
-        	List<String> listOfRooms = buildingRoomDict.get(selectedFrom);
-        	
-        	// Update room spinner when building changes
-        	adapterroom.clear();
-        	for(String r : listOfRooms){
-        		adapterroom.add(r);
-        	}
-        	room.setAdapter(adapterroom);
-        	selectedFrom2 =(String) (room.getItemAtPosition(0));
+        else {
+        	System.out.println("No Internet Connection");
         }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
-        });
-        
-
-        room.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-            	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
-
-            	selectedFrom2 =(String) (room.getItemAtPosition(position));    
-				//text2.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
-			    // Change room adapter				
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
-        });
-        
-        usage.setOnClickListener(new Button.OnClickListener(){
-        	public void onClick(View v){
-
-        	}
-        });
-              
-        power.setOnClickListener(new Button.OnClickListener(){
-        public void onClick(View v){
-
-        	Intent i = new Intent(getApplicationContext(),  Power.class);
-        	finish();
-        	startActivity(i);
-    	}
-        });
-        
-        stats.setOnClickListener(new Button.OnClickListener(){
-        	public void onClick(View v){
-
-            	Intent i = new Intent(getApplicationContext(), Stats.class);
-            	finish();
-            	startActivity(i);
-        	}
-        });
-        
         
 	}
 
