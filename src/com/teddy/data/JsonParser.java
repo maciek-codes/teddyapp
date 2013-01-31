@@ -9,14 +9,11 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
  
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
  
 // Code from: http://www.androidhive.info/2012/01/android-json-parsing-tutorial/
 public class JsonParser {

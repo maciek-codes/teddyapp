@@ -114,9 +114,6 @@ public class Teddyapp extends Activity {
         boolean cancel = false;
         View focusView = null;
 
-        String PASS = getString(R.string.password);
-        int ok=0;
-        if( mPassword.equals( PASS ) ) ok=1;
         // Check for a valid password.
         if (TextUtils.isEmpty(mPassword)) {
             mPasswordView.setError(getString(R.string.error_field_required));
@@ -136,21 +133,10 @@ public class Teddyapp extends Activity {
             cancel = true;
         }*/
 
-        String email11 = getString(R.string.full);
-        String email12 = getString(R.string.min);
-        String email13 = getString(R.string.shorcut);
-        String email14 = getString(R.string.shorcut2);
-        String emaila1= "@";
-        String emaila2= "@";
-        String emaila3= "@";
-        String emaila4= "@";
-        String email1 = emaila1.concat(email11);
-        String email2 = emaila2.concat(email12);
-        String email3 = emaila3.concat(email13);
-        String email4 = emaila4.concat(email14);
-        int ok2=0,ok3=0;
-        if( mEmail.endsWith(email1) || mEmail.endsWith(email2) || mEmail.endsWith(email3) || mEmail.endsWith(email4)) ok2=1;
-        if( mEmail.equals("guest") || mEmail.equals("Guest") ) ok3=1;
+
+
+
+
         
         // Check for a valid email address.
         if (TextUtils.isEmpty(mEmail)) {
