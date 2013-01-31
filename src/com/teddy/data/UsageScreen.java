@@ -127,8 +127,7 @@ public class UsageScreen extends Activity  {
 	            }
 	
 	        });
-	        
-	
+
 	        room.setOnItemSelectedListener(new OnItemSelectedListener() {
 	            @Override
 	            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
