@@ -101,6 +101,7 @@ public class Power extends Activity {
             	
             	List<String> listOfRooms = buildingRoomDict.get(selectedFrom);
             	
+            	
             	// Update room spinner when building changes
             	adapterroomp.clear();
             	for(String r : listOfRooms){
@@ -108,6 +109,8 @@ public class Power extends Activity {
             	}
             	roomp.setAdapter(adapterroomp);
             	selectedFrom2 =(String) (roomp.getItemAtPosition(0));
+            	
+            	showlist(selectedFrom,selectedFrom2);
             }
 
             @Override
@@ -163,7 +166,29 @@ public class Power extends Activity {
               
 	}
 	
+	public void showlist(String selected,String selected2)	{
+
+		String T="null";
+		try { T = (String)HTTPfunction("http://service-teddy2012.rhcloud.com/log"); }
+		catch(Exception e){ T="No internet connection"; }
 	
+		final String[] A ={T};
+		if(!T.contains("null")&& selected.contains("MVB") && selected2.contains("Day") ) A[0]=new String(T); 
+		ListView list = (ListView)findViewById(R.id.powerlist);
+		
+		ArrayAdapter<String> adapterlist = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, A);
+		//ArrayAdapter<CharSequence> adapterlist = ArrayAdapter.createFromResource(this,R.array.period_array, android.R.layout.simple_spinner_item);
+		adapterlist.setDropDownViewResource(android.R.layout.simple_list_item_1);
+		list.setAdapter(adapterlist);
+		list.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {			
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
+				Intent i = new Intent(getApplicationContext(), Info.class);
+				i.putExtra("info", A[arg2]);
+				startActivity(i);
+			}
+		});
+	}
 	
 	@Override
     public void onBackPressed() {

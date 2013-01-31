@@ -35,13 +35,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 public class UsageScreen extends Activity  {
 
 
 	// Remember list of buildings and rooms associated
 	Map<String, ArrayList<String>> buildingRoomDict;
 	
-	String selectedFrom, selectedFrom2;
+	String buildingSelected, roomSelected;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,21 +101,21 @@ public class UsageScreen extends Activity  {
         
         //Now use dictionary to populate the UI
         build.setAdapter(adapterbuild);
-        selectedFrom =(String) (build.getItemAtPosition(0));
+        buildingSelected =(String) (build.getItemAtPosition(0));
         
         // Room spinner adapter
         room.setAdapter(adapterroom);
-        selectedFrom2 =(String) (room.getItemAtPosition(0));
+        roomSelected =(String) (room.getItemAtPosition(0));
          
         // Add event handler to handle room selection
         build.setOnItemSelectedListener(new OnItemSelectedListener() {
         
         	@Override
         public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-        	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
-        	selectedFrom =(String) (build.getItemAtPosition(position));
         	
-        	List<String> listOfRooms = buildingRoomDict.get(selectedFrom);
+    		buildingSelected =(String) (build.getItemAtPosition(position));
+        	
+        	List<String> listOfRooms = buildingRoomDict.get(buildingSelected);
         	
         	// Update room spinner when building changes
         	adapterroom.clear();
@@ -122,7 +123,7 @@ public class UsageScreen extends Activity  {
         		adapterroom.add(r);
         	}
         	room.setAdapter(adapterroom);
-        	selectedFrom2 =(String) (room.getItemAtPosition(0));
+        	roomSelected =(String) (room.getItemAtPosition(0));
         }
 
             @Override
@@ -137,10 +138,25 @@ public class UsageScreen extends Activity  {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
             	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
-
-            	selectedFrom2 =(String) (room.getItemAtPosition(position));    
-				//text2.setText("The list was clicked: "+selectedFrom+" "+selectedFrom2);
-			    // Change room adapter				
+            	JsonParser parser = new JsonParser();
+            	
+            	// Get new selection
+            	roomSelected =(String) (room.getItemAtPosition(position));    
+            	
+            	// Display available computers in this room:
+            	String requestUrl = "http://service-teddy2012.rhcloud.com/" + buildingSelected 
+            			+ "/" + roomSelected + "/available" ;
+            	JSONObject jObject = parser.getJSONFromUrl(requestUrl);
+            	int numberOfAvaliable = 0;
+            	try {
+            		numberOfAvaliable = jObject.getInt("number");
+				} catch (JSONException e) {
+					// TODO Catch exception here if json is not formulated well
+					e.printStackTrace();
+				}
+            	TextView text2 = (TextView) findViewById(R.id.usagetext);
+            	text2.setText(String.format("There are %d computers avaliable in %s, %s",
+            			numberOfAvaliable, roomSelected, buildingSelected));
             }
 
             @Override
