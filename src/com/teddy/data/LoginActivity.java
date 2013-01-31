@@ -15,7 +15,6 @@ import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -29,11 +28,20 @@ import android.content.Intent;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
+
+
 public class LoginActivity extends Activity {
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
+	private void showAlert(String msg){
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+    	alertDialog.setTitle("Developer Message");
+    	alertDialog.setMessage(msg);
+    	alertDialog.show();
+	}
+	
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello",
             "bar@example.com:world"
@@ -43,7 +51,7 @@ public class LoginActivity extends Activity {
     /**
      * The default email to populate the email field with.
      */
-    public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
+    public static final String defaultEmail = "teddy@teddy-service.tb";
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -51,7 +59,7 @@ public class LoginActivity extends Activity {
     private UserLoginTask mAuthTask = null;
     ConnectionDetector cd;
     // Values for email and password at the time of the login attempt.
-    private String mEmail="teddy@teddy-service.tb";
+    private String mEmail;
     private String mPassword;
 
     // UI references.
@@ -73,7 +81,7 @@ public class LoginActivity extends Activity {
         
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
-        mEmailView.setHint(mEmail);
+        mEmailView.setHint(defaultEmail);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -113,7 +121,11 @@ public class LoginActivity extends Activity {
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
-        if (mAuthTask != null) return;
+        boolean cancel = false;
+        View focusView = null;
+        boolean ok=false;
+        
+    	if (mAuthTask != null) return;
         
         cd = new ConnectionDetector(getApplicationContext());
         if (!cd.isConnectingToInternet()) {
@@ -130,13 +142,8 @@ public class LoginActivity extends Activity {
 	        
 	        // Store values at the time of the login attempt.
 	        mEmail = mEmailView.getText().toString();
-	        if (mEmail=="") mEmail="teddy@teddy-service.tb";
+	        if (mEmail.equals("")) mEmail=defaultEmail;
 	        mPassword = mPasswordView.getText().toString();
-	
-	        boolean cancel = false;
-	        View focusView = null;
-	
-	        int ok=0;
 	       
 	        //check hardcoded password on server
 	        //String pass="no";
@@ -147,7 +154,7 @@ public class LoginActivity extends Activity {
 	        
 	        //check hardcoded password in app
 	        String PASS = getString(R.string.password);
-	        if( mPassword.equals( PASS ) ) ok=1;
+	        if( mPassword.equals( PASS ) ) ok=true;
 
 	        //internet hardcoded
 	        //else if (pass.equals("No internet connection")) {
@@ -165,21 +172,19 @@ public class LoginActivity extends Activity {
 	            focusView = mEmailView;
 	            cancel = true;
 	        }
-	       else if (!mEmail.contains("@")) {
-	    	   
-	    	   mEmailView.setError(getString(R.string.error_invalid_email));
-	           focusView = mEmailView;
-	           cancel = true;
+	        else if (!mEmail.contains("@")) {
+	        	showAlert(mEmail);
+			    mEmailView.setError(getString(R.string.error_invalid_email));
+			    focusView = mEmailView;
+			    cancel = true;
 	        }
-	        System.out.println(mEmail);
+	        
 	        
 	        //!!!!!!!!!!!!!!!!!!!!!!
 	        //delete this for password
 	        cancel=false;
-	        //delete this for password
-	    
-	       
-	        if (cancel) {
+	        //delete this for password 
+	        if (cancel && !ok) {
 	            // There was an error; don't attempt login and focus the first
 	            // form field with an error.
 	            focusView.requestFocus();
@@ -264,7 +269,8 @@ public class LoginActivity extends Activity {
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-
+        	Intent i = new Intent(getApplicationContext(), UsageScreen.class);
+        	startActivity(i);
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -279,18 +285,13 @@ public class LoginActivity extends Activity {
                     return pieces[1].equals(mPassword);
                 }
             }
-
-            // TODO: register the new account here.
             return true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            if (success) {
-            	Intent i = new Intent(getApplicationContext(), UsageScreen.class);
-            	startActivity(i);
-            } else {
+            if (!success) {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }

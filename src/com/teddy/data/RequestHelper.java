@@ -1,22 +1,20 @@
 package com.teddy.data;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.widget.Spinner;
+import android.app.AlertDialog;
 
 public class RequestHelper {
 	
 	// Store array of rooms for each building
 	public static Map<String, ArrayList<String>> buildingRoomList = null;
 
+	
 	public static Map<String, ArrayList<String>> getRoomsAndBuildings() {
 		
 		// Maybe you got it before?
@@ -39,13 +37,18 @@ public class RequestHelper {
         // TODO: This can return null and we need to handle this situation when internet
         // Is not working
         
-        JSONObject buildingsObject = jParser.getJSONFromUrl("http://service-teddy2012.rhcloud.com/buildings");
-		try {
-			buildings = buildingsObject.getJSONArray("buildings");
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        try{
+        	JSONObject buildingsObject = jParser.getJSONFromUrl("http://service-teddy2012.rhcloud.com/buildings");
+        	try {
+    			buildings = buildingsObject.getJSONArray("buildings");
+    		} catch (JSONException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		
+        } catch(Error e){
+        	return null;
+        }
 		
 		for(int i = 0; i < buildings.length(); ++i) {
         	JSONArray rooms = null;
