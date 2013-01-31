@@ -1,21 +1,9 @@
 package com.teddy.data;
 
 import java.util.ArrayList;
-
-import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +21,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 public class UsageScreen extends Activity  {
@@ -153,7 +140,7 @@ public class UsageScreen extends Activity  {
 	            	
 	            	// Display available computers in this room:
 	            	String requestUrl = "http://service-teddy2012.rhcloud.com/" + buildingSelected 
-	            			+ "/" + roomSelected + "/available" ;
+	            			+ "/" + roomSelected + "/available";
 	            	JSONObject jObject = parser.getJSONFromUrl(requestUrl);
 	            	int numberOfAvaliable = 0;
 	            	try {
