@@ -1,0 +1,28 @@
+<resources>
+
+    <string name="app_name">Teddy</string>
+    <string name="icon">Image</string>
+    <string name="teddylogo">Teddy</string>
+    <string name="ibmlogo">IBM</string>
+    <string name="uoblogo">UoB</string>
+    <string name="statistics">Graph</string>
+    <string name="password">teddy2012</string>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="ultrablue">#2890b7</color>
+ 	<string-array name="building_array">
+        <item>MVB</item>
+    </string-array>
+    <string-array name="room_array">
+        <item>All</item>
+        <item>2.09</item>
+        <item>2.11</item>
+    </string-array>
+    <string-array name="period_array">
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+        <item>Year</item>
+    
+    </string-array>
+</resources>
