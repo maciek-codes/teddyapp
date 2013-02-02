@@ -84,6 +84,16 @@
         android:layout_weight="0.02"
         android:textColor="@color/white" />
 
+    <TextView
+        android:id="@+id/idleText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.02"
+        android:textColor="@color/white" />
+
     <ListView
         android:id="@+id/powerlist"
         android:layout_width="match_parent"
