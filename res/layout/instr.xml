@@ -45,7 +45,10 @@
             android:layout_marginRight="2dp"
             android:layout_marginTop="2dp"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:paddingRight="10dp"
+        	android:textSize="15sp" 
+        	android:textColor="@color/white" />
+
     </LinearLayout>
     
     <TextView
@@ -73,7 +76,9 @@
             android:layout_gravity="center"
             android:layout_weight="0.50"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:paddingRight="10dp"
+        	android:textColor="@color/white" />
+
 
         <Button
             android:id="@+id/nextbutton"
@@ -82,7 +87,9 @@
             android:layout_gravity="clip_horizontal"
             android:layout_weight="0.50"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:paddingRight="10dp"
+        	android:textColor="@color/white" />
+
     </LinearLayout>
 
 </LinearLayout>

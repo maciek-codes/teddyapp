@@ -9,7 +9,9 @@ package com.teddy.data;
 
 public final class R {
     public static final class array {
-        public static final int period_array=0x7f070000;
+        public static final int building_array=0x7f070000;
+        public static final int period_array=0x7f070002;
+        public static final int room_array=0x7f070001;
     }
     public static final class attr {
     }
@@ -35,13 +37,13 @@ public final class R {
         public static final int contenttext=0x7f0a000f;
         public static final int email=0x7f0a0004;
         public static final int homebutton=0x7f0a000e;
-        public static final int htt=0x7f0a0022;
+        public static final int htt=0x7f0a0024;
         public static final int idleText=0x7f0a0019;
         public static final int idletext=0x7f0a001e;
         public static final int imageView1=0x7f0a0003;
         public static final int infotext=0x7f0a000a;
         public static final int instrtext=0x7f0a000d;
-        public static final int instructions=0x7f0a0025;
+        public static final int instructions=0x7f0a0026;
         public static final int layout=0x7f0a0010;
         public static final int layouthoz=0x7f0a000c;
         public static final int layoutlogo=0x7f0a001b;
@@ -53,9 +55,10 @@ public final class R {
         public static final int logoteddy=0x7f0a0009;
         public static final int logouob=0x7f0a001c;
         public static final int mainlayout=0x7f0a0008;
-        public static final int menu_forgot_password=0x7f0a0024;
+        public static final int menu_forgot_password=0x7f0a0025;
         public static final int nextbutton=0x7f0a0012;
         public static final int password=0x7f0a0005;
+        public static final int period_spinner=0x7f0a0021;
         public static final int powerbutton=0x7f0a0014;
         public static final int powerlist=0x7f0a001a;
         public static final int powertext=0x7f0a0018;
@@ -64,11 +67,11 @@ public final class R {
         public static final int statistics=0x7f0a000b;
         public static final int statsbutton=0x7f0a0015;
         public static final int statslist=0x7f0a001f;
-        public static final int support=0x7f0a0026;
+        public static final int support=0x7f0a0027;
         public static final int supporttext=0x7f0a0020;
+        public static final int unibutton=0x7f0a0022;
         public static final int usagebutton=0x7f0a0013;
-        public static final int usagelist=0x7f0a0023;
-        public static final int usagetext=0x7f0a0021;
+        public static final int usagetext=0x7f0a0023;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
@@ -77,7 +80,8 @@ public final class R {
         public static final int power=0x7f030003;
         public static final int stats=0x7f030004;
         public static final int support=0x7f030005;
-        public static final int usagescreen=0x7f030006;
+        public static final int uni=0x7f030006;
+        public static final int usagescreen=0x7f030007;
     }
     public static final class menu {
         public static final int activity_login=0x7f090000;
@@ -113,13 +117,11 @@ public final class R {
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
-
         
 
         Base application theme for API 11+. This theme completely replaces
@@ -134,10 +136,14 @@ public final class R {
  API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f080000;
+        public static final int AppSpinnerItem=0x7f080002;
+        /**  Setting Spinner text colour 
+         */
+        public static final int AppTextAppearanceSpinnerItem=0x7f080003;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
-        public static final int LoginFormContainer=0x7f080002;
+        public static final int LoginFormContainer=0x7f080004;
     }
 }
