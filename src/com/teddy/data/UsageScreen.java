@@ -47,13 +47,13 @@ public class UsageScreen extends Activity  {
         //Buttons
                 
         Button usage =(Button) findViewById(R.id.usagebutton);
-        usage.setText("Comp");
+        usage.setText("Available");
         
         Button stats =(Button) findViewById(R.id.statsbutton);
-        stats.setText("Stats");
+        stats.setText("Statistics");
         
         Button power =(Button) findViewById(R.id.powerbutton);
-        power.setText("Power");
+        power.setText("Power Cost");
              
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////     
         //Spinners
@@ -149,8 +149,8 @@ public class UsageScreen extends Activity  {
 						e.printStackTrace();
 					}
 	            	TextView text2 = (TextView) findViewById(R.id.usagetext);
-	            	text2.setText(String.format("There are %d computers avaliable in %s, %s",
-	            			numberOfAvaliable, roomSelected, buildingSelected));
+	            	text2.setText(String.format("There are %d computers avaliabl",
+	            			numberOfAvaliable));
 	            }
 
 	            @Override

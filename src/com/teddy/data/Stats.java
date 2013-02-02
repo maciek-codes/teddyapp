@@ -36,13 +36,13 @@ public class Stats extends Activity {
         //text.setText("Stats Screen");
         
         Button usage =(Button) findViewById(R.id.usagebutton);
-        usage.setText("Comp");
+        usage.setText("Available");
         
         Button stats =(Button) findViewById(R.id.statsbutton);
-        stats.setText("Stats");
+        stats.setText("Statistics");
         
         Button power =(Button) findViewById(R.id.powerbutton);
-        power.setText("Power");
+        power.setText("Power Cost");
         
         Button uni =(Button) findViewById(R.id.unibutton);
         uni.setText("University");
