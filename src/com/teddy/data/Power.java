@@ -149,10 +149,10 @@ public class Power extends Activity {
 							e.printStackTrace();
 						}
 		            	TextView text2 = (TextView) findViewById(R.id.powertext);
-		            	text2.setText(String.format("The power consuption for tha last 15 mins, costed: %.2f GBP.",powerCost));
+		            	text2.setText(String.format("The power consuption for the last 15 minutes cost: %.2f GBP.",powerCost));
 		            	
 		            	TextView idletxt = (TextView) findViewById(R.id.idleText);
-		            	idletxt.setText(String.format("The idle machines costed: %.2f GBP.",idleCost));
+		            	idletxt.setText(String.format("Possible savings: %.2f GBP.",idleCost));
 		            }
 
 		            @Override
