@@ -149,7 +149,7 @@ public class UsageScreen extends Activity  {
 						e.printStackTrace();
 					}
 	            	TextView text2 = (TextView) findViewById(R.id.usagetext);
-	            	text2.setText(String.format("There are %d computers avaliabl",
+	            	text2.setText(String.format("There are %d computers avaliable.",
 	            			numberOfAvaliable));
 	            }
 
@@ -168,7 +168,6 @@ public class UsageScreen extends Activity  {
 	              
 	        power.setOnClickListener(new Button.OnClickListener(){
 	        public void onClick(View v){
-	
 	        	Intent i = new Intent(getApplicationContext(),  Power.class);
 	        	finish();
 	        	startActivity(i);
@@ -177,7 +176,6 @@ public class UsageScreen extends Activity  {
 	        
 	        stats.setOnClickListener(new Button.OnClickListener(){
 	        	public void onClick(View v){
-	
 	            	Intent i = new Intent(getApplicationContext(), Stats.class);
 	            	finish();
 	            	startActivity(i);

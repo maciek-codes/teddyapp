@@ -6,7 +6,7 @@
     android:background="@color/black"
     android:orientation="vertical" >
 
-   <ImageView
+    <ImageView
         android:id="@+id/logoteddy"
         android:layout_width="102dp"
         android:layout_height="46dp"
@@ -24,104 +24,114 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:orientation="horizontal" >
-        
-    <Button
-        android:id="@+id/usagebutton"
-        style="android:buttonStyle "
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
 
-    <Button
-        android:id="@+id/powerbutton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal"
-        android:layout_weight="1"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
+        <Button
+            android:id="@+id/usagebutton"
+            style="android:buttonStyle "
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
 
-    <Button
-        android:id="@+id/statsbutton"
-        android:layout_width="0dp"
+        <Button
+            android:id="@+id/powerbutton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <Button
+            android:id="@+id/statsbutton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layouthoz"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
-    
-   </LinearLayout> 
-   
-     <LinearLayout
-         xmlns:android="http://schemas.android.com/apk/res/android"
-         android:id="@+id/layouthoz"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginLeft="3dp"
-         android:layout_marginRight="3dp"
-         android:layout_marginTop="2dp"
-         android:orientation="horizontal">
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal" >
 
         <Spinner
             android:id="@+id/building_spinner"
             android:layout_width="106dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0.32" />
 
         <Spinner
-            android:id="@+id/period_spinner"
+            android:id="@+id/room_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-        <Button
-        android:id="@+id/unibutton"
-        style="android:buttonStyle "
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/powertext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.02"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/idletext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.02"
+        android:textColor="@color/white" />
+
     <ListView
-          android:id="@+id/statslist"
-          android:layout_width="match_parent"
-          android:layout_height="0dp"
-          android:layout_weight="0.61"
-          android:background="@color/white" >
+        android:id="@+id/statslist"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.61"
+        android:background="@color/white" >
+    </ListView>
 
-     </ListView>
-     
-     <LinearLayout
-         xmlns:android="http://schemas.android.com/apk/res/android"
-         android:id="@+id/layoutlogo"
-         android:layout_width="fill_parent"
-         android:layout_height="48dp"
-         android:layout_marginLeft="3dp"
-         android:layout_marginRight="3dp"
-         android:layout_marginTop="5dp"
-         android:orientation="horizontal" >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layoutlogo"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
 
-         <ImageView
-             android:id="@+id/logouob"
-             android:layout_width="119dp"
-             android:layout_height="match_parent"
-             android:layout_gravity="bottom"
-             android:layout_marginBottom="5dp"
-             android:layout_marginLeft="20dp"
-             android:contentDescription="@string/teddylogo"
-             android:src="@drawable/uoblogo" />
+        <ImageView
+            android:id="@+id/logouob"
+            android:layout_width="119dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:contentDescription="@string/teddylogo"
+            android:src="@drawable/uoblogo" />
 
-         <ImageView
-             android:id="@+id/logoibm"
-             android:layout_width="83dp"
-             android:layout_height="32dp"
-             android:layout_gravity="bottom"
-             android:layout_marginBottom="10dp"
-             android:layout_marginLeft="50dp"
-             android:contentDescription="@string/ibmlogo"
-             android:src="@drawable/ibm" />
-
-     </LinearLayout>
+        <ImageView
+            android:id="@+id/logoibm"
+            android:layout_width="83dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="50dp"
+            android:contentDescription="@string/ibmlogo"
+            android:src="@drawable/ibm" />
+    </LinearLayout>
 
 </LinearLayout>
-
