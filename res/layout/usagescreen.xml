@@ -82,7 +82,7 @@
             android:layout_weight="1" />
 
     </LinearLayout>
-    <!-- 
+     
     <TextView
         android:id="@+id/usagetext"
         android:layout_width="fill_parent"
@@ -100,8 +100,6 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/white" />
-
-     </LinearLayout>
 
 </LinearLayout>
 
