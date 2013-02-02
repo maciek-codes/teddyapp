@@ -1,6 +1,8 @@
 package com.teddy.data;
 
 import android.view.View;
+import android.view.WindowManager;
+
 import android.widget.Button;
 import android.widget.TextView;
 import android.app.Activity;
@@ -15,6 +17,9 @@ public class Support extends Activity {
         super.onCreate(savedInstanceState);
  
         setContentView(R.layout.support);
+        
+        // Hide input keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         
         TextView text = (TextView ) findViewById(R.id.supporttext);
         text.setText("Support");

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainlayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@color/black"
     android:orientation="vertical" >
 
@@ -36,6 +36,7 @@
         android:textSize="10sp"
         android:textColor="@color/white" />
 
+
     <Button
         android:id="@+id/powerbutton"
         android:layout_width="0dp"
@@ -47,6 +48,7 @@
         android:background="@color/ultrablue"
         android:textSize="10sp" 
         android:textColor="@color/white"/>
+
 
     <Button
         android:id="@+id/statsbutton"
@@ -80,6 +82,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
+
     </LinearLayout>
 
     <ListView

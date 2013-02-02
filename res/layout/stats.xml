@@ -57,6 +57,7 @@
         android:background="@color/ultrablue"
         android:textSize="10sp" 
         android:textColor="@color/white" />
+
     
    </LinearLayout> 
    
@@ -90,6 +91,7 @@
         android:paddingRight="10dp"
         android:textSize="10sp" 
         android:textColor="@color/white" />
+
     </LinearLayout>
     <ListView
           android:id="@+id/statslist"
