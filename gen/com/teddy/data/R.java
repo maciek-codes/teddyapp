@@ -17,6 +17,7 @@ public final class R {
     }
     public static final class color {
         public static final int black=0x7f060000;
+        public static final int grey=0x7f060003;
         public static final int ultrablue=0x7f060002;
         public static final int white=0x7f060001;
     }
@@ -32,46 +33,45 @@ public final class R {
         public static final int uoblogo=0x7f020005;
     }
     public static final class id {
-        public static final int backbutton=0x7f0a0011;
-        public static final int building_spinner=0x7f0a0016;
-        public static final int contenttext=0x7f0a000f;
+        public static final int backbutton=0x7f0a0014;
+        public static final int building_spinner=0x7f0a0019;
+        public static final int contenttext=0x7f0a0012;
         public static final int email=0x7f0a0004;
-        public static final int homebutton=0x7f0a000e;
-        public static final int htt=0x7f0a0024;
-        public static final int idleText=0x7f0a0019;
-        public static final int idletext=0x7f0a001e;
+        public static final int homebutton=0x7f0a0011;
+        public static final int htt=0x7f0a0023;
+        public static final int idleText=0x7f0a001c;
+        public static final int idletext=0x7f0a001d;
         public static final int imageView1=0x7f0a0003;
         public static final int infotext=0x7f0a000a;
-        public static final int instrtext=0x7f0a000d;
-        public static final int instructions=0x7f0a0026;
-        public static final int layout=0x7f0a0010;
-        public static final int layouthoz=0x7f0a000c;
-        public static final int layoutlogo=0x7f0a001b;
+        public static final int instrtext=0x7f0a0010;
+        public static final int instructions=0x7f0a0025;
+        public static final int layout=0x7f0a0013;
+        public static final int layouthoz=0x7f0a000f;
+        public static final int layoutlogo=0x7f0a000c;
         public static final int login=0x7f0a0006;
         public static final int login_form=0x7f0a0002;
         public static final int login_status=0x7f0a0000;
         public static final int login_status_message=0x7f0a0001;
-        public static final int logoibm=0x7f0a001d;
+        public static final int logoibm=0x7f0a000e;
         public static final int logoteddy=0x7f0a0009;
-        public static final int logouob=0x7f0a001c;
+        public static final int logouob=0x7f0a000d;
         public static final int mainlayout=0x7f0a0008;
-        public static final int menu_forgot_password=0x7f0a0025;
-        public static final int nextbutton=0x7f0a0012;
+        public static final int menu_forgot_password=0x7f0a0024;
+        public static final int nextbutton=0x7f0a0015;
         public static final int password=0x7f0a0005;
-        public static final int period_spinner=0x7f0a0021;
-        public static final int powerbutton=0x7f0a0014;
-        public static final int powerlist=0x7f0a001a;
-        public static final int powertext=0x7f0a0018;
-        public static final int room_spinner=0x7f0a0017;
+        public static final int period_spinner=0x7f0a001f;
+        public static final int powerbutton=0x7f0a0017;
+        public static final int powertext=0x7f0a001b;
+        public static final int room_spinner=0x7f0a001a;
         public static final int sign_in_button=0x7f0a0007;
         public static final int statistics=0x7f0a000b;
-        public static final int statsbutton=0x7f0a0015;
-        public static final int statslist=0x7f0a001f;
-        public static final int support=0x7f0a0027;
-        public static final int supporttext=0x7f0a0020;
-        public static final int unibutton=0x7f0a0022;
-        public static final int usagebutton=0x7f0a0013;
-        public static final int usagetext=0x7f0a0023;
+        public static final int statsbutton=0x7f0a0018;
+        public static final int statslist=0x7f0a0021;
+        public static final int support=0x7f0a0026;
+        public static final int supporttext=0x7f0a001e;
+        public static final int unibutton=0x7f0a0020;
+        public static final int usagebutton=0x7f0a0016;
+        public static final int usagetext=0x7f0a0022;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
@@ -104,6 +104,9 @@ public final class R {
         public static final int min=0x7f050013;
         public static final int password=0x7f050006;
         /**  Strings related to login 
+ Strings related to login 
+ Strings related to login 
+ Strings related to login 
          */
         public static final int prompt_email=0x7f050007;
         public static final int prompt_password=0x7f050008;

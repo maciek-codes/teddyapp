@@ -10,7 +10,6 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="ultrablue">#2890b7</color>
-    <color name="grey">#363A36</color>
  	<string-array name="building_array">
         <item>MVB</item>
     </string-array>
