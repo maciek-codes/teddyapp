@@ -9,7 +9,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -129,8 +131,6 @@ public class Stats extends Activity {
 	        room.setOnItemSelectedListener(new OnItemSelectedListener() {
 	            @Override
 	            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-	            	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
-	            	JsonParser parser = new JsonParser();
 	            	
 	            	// Get new selection
 	            	roomSelected =(String) (room.getItemAtPosition(position));
@@ -143,22 +143,7 @@ public class Stats extends Activity {
 	            	String requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected 
 	            			+ "/" + roomSelected + "/" + year + "/" + month;
 	            	
-	            	JSONObject jObject = parser.getJSONFromUrl(requestUrl);
-	            	double powerCost = 0,idleCost=0;
-	            	try {
-	            		powerCost = jObject.getDouble("Total_Power_Cost");
-	            		idleCost = jObject.getDouble("power_cost_no_idle");
-					} catch (JSONException e) {
-						// TODO Catch exception here if json is not formulated well
-						e.printStackTrace();
-					}
-	            	
-	            	System.out.println(idleCost);
-	            	TextView text2 = (TextView) findViewById(R.id.powertext);
-	            	text2.setText(String.format("The power consuption for the last month cost: %.2f GBP.",powerCost));
-	            	
-	            	TextView text3 = (TextView) findViewById(R.id.idletext);
-	            	text3.setText(String.format("Possible savings: %.2f GBP.",idleCost));
+	            	new GetStatsTask().execute(requestUrl);
 	            }
 
 	            @Override
@@ -221,5 +206,50 @@ public class Stats extends Activity {
 		    default:
 		    return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	// Get power stats json asynchronously
+	private class GetStatsTask extends AsyncTask<String, Void, JSONObject> {
+		
+		// Progress dialog
+		ProgressDialog prog;
+	    
+		protected void onPreExecute() {
+			prog = new ProgressDialog(Stats.this);
+		    prog.setTitle("Waiting...");
+		    prog.setMessage("Retrieving data from the service.");       
+		    prog.setIndeterminate(false);
+		    prog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		    prog.show();
+		}
+	    
+		protected JSONObject doInBackground(String... urls) {
+			JsonParser parser = new JsonParser();
+			
+			JSONObject jObject = parser.getJSONFromUrl(urls[0]);
+			
+			return jObject;
+		}
+		
+	
+	     protected void onPostExecute(JSONObject result) {
+    	 	prog.hide();
+ 
+			double powerCost = 0, idleCost = 0;
+			
+			try {
+				powerCost = result.getDouble("Total_Power_Cost");
+				idleCost = result.getDouble("power_cost_no_idle");
+				} catch (JSONException e) {
+					// TODO Catch exception here if JSON is not formulated well
+					e.printStackTrace();
+				}
+			
+			TextView powerTextView = (TextView) findViewById(R.id.powertext);
+			powerTextView.setText(String.format("The power consuption for the last month cost: %.2f GBP.",powerCost));
+			
+			TextView idleTextView = (TextView) findViewById(R.id.idletext);
+			idleTextView.setText(String.format("Possible savings: %.2f GBP.",idleCost));
+	     }
 	}
 }

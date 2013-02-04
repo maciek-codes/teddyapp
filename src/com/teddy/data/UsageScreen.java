@@ -8,8 +8,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -140,17 +142,9 @@ public class UsageScreen extends Activity  {
 	            	// Display available computers in this room:
 	            	String requestUrl = "http://service-teddy2012.rhcloud.com/" + buildingSelected 
 	            			+ "/" + roomSelected + "/available";
-	            	JSONObject jObject = parser.getJSONFromUrl(requestUrl);
-	            	int numberOfAvaliable = 0;
-	            	try {
-	            		numberOfAvaliable = jObject.getInt("number");
-					} catch (JSONException e) {
-						// TODO Catch exception here if json is not formulated well
-						e.printStackTrace();
-					}
-	            	TextView text2 = (TextView) findViewById(R.id.usagetext);
-	            	text2.setText(String.format("There are %d computers avaliable.",
-	            			numberOfAvaliable));
+	            	
+	            	// Get data from server
+	            	new GetUsageStatsTask().execute(requestUrl);
 	            }
 
 	            @Override
@@ -214,5 +208,44 @@ public class UsageScreen extends Activity  {
 		    default:
 		    return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	// Get power stats json asynchronously
+	private class GetUsageStatsTask extends AsyncTask<String, Void, JSONObject> {
+		
+		// Progress dialog
+		ProgressDialog prog;
+	    
+		protected void onPreExecute() {
+			prog = new ProgressDialog(UsageScreen.this);
+		    prog.setTitle("Waiting...");
+		    prog.setMessage("Retrieving data from the service.");       
+		    prog.setIndeterminate(false);
+		    prog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		    prog.show();
+		}
+	    
+		protected JSONObject doInBackground(String... urls) {
+			JsonParser parser = new JsonParser();
+			
+			JSONObject jObject = parser.getJSONFromUrl(urls[0]);
+			
+			return jObject;
+		}
+		
+
+	     protected void onPostExecute(JSONObject result) {
+	    	 prog.hide();
+	    	 
+	    	 int numberOfAvaliable = 0;
+         	 try {
+         		 numberOfAvaliable = result.getInt("number");
+         	 } catch (JSONException e) {
+         		 // TODO Catch exception here if JSON is not formulated well
+         		 e.printStackTrace();
+         	 }
+         	 TextView usageTextView = (TextView) findViewById(R.id.usagetext);
+         	 usageTextView.setText(String.format("There are %d computers avaliable.", numberOfAvaliable));
+	     }
 	}
 }

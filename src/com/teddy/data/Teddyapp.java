@@ -22,7 +22,7 @@ import android.content.Intent;
 public class Teddyapp extends Activity {
     /**
      * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
+     * TODO: remove after connecting to a real authentication system.pu
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello",
