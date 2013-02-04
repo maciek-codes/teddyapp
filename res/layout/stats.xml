@@ -8,11 +8,10 @@
 
     <ImageView
         android:id="@+id/logoteddy"
-        android:layout_width="102dp"
-        android:layout_height="46dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="40dp"
+        android:layout_width="251px"
+        android:layout_height="0dip"
         android:layout_weight="0.02"
+        android:layout_gravity="center"
         android:contentDescription="@string/teddylogo"
         android:src="@drawable/logoteddy" />
 
@@ -29,27 +28,37 @@
             android:id="@+id/usagebutton"
             style="android:buttonStyle "
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:paddingRight="10dp"
+            android:background="@color/grey"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/powerbutton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="fill_horizontal"
             android:layout_weight="1"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:paddingRight="10dp"
+            android:background="@color/grey"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/statsbutton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:paddingRight="10dp"
+            android:background="@color/ultrablue"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+       
     </LinearLayout>
 
     <LinearLayout
@@ -64,9 +73,9 @@
 
         <Spinner
             android:id="@+id/building_spinner"
-            android:layout_width="106dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.32" />
+            android:layout_weight="1" />
 
         <Spinner
             android:id="@+id/room_spinner"
@@ -94,14 +103,6 @@
         android:layout_marginTop="10dp"
         android:layout_weight="0.02"
         android:textColor="@color/white" />
-
-    <ListView
-        android:id="@+id/statslist"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.61"
-        android:background="@color/white" >
-    </ListView>
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
