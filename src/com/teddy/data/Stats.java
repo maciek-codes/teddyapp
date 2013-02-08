@@ -8,6 +8,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
@@ -170,8 +171,8 @@ public class Stats extends Activity {
 	        		// Get new selection
 	            	timeSelected =(String) (time.getItemAtPosition(position));
 	            	
-	            	if(first==0){first=1;}
-	            	else if(first==1)
+	            	//if(first==0){first=1;}           ///////calendar here  ************
+	            	//else if(first==1)
 	            	{
 	            		first=2;
 	            		Calendar cal = Calendar.getInstance();
@@ -179,7 +180,7 @@ public class Stats extends Activity {
 	            	   	month = cal.get(Calendar.MONTH)+1;
 	            	   	day = cal.get(Calendar.DAY_OF_MONTH);
 	            	}
-	            	else if(first==2)
+	            	/*else if(first==2)
 	            	{
 	            		showDatePickerDialog(stats);
 	            		first=1;
@@ -187,8 +188,8 @@ public class Stats extends Activity {
 	            	    month=DatePickerFragment.selectedmonth+1;
 	            	    day=DatePickerFragment.selectedday;
 	            	}
-	            	
-	            	// Display available computers in this room:
+	            	*/
+	            	// Display available computers in this room:    ***************
 	            	String requestUrl="";
 					if(timeSelected.equals("Month")) {
 						display=3;
@@ -272,10 +273,10 @@ public class Stats extends Activity {
 		}
 	}
 	
-	public void showDatePickerDialog(View v) {
+	/*public void showDatePickerDialog(View v) {
 	    DialogFragment newFragment = new DatePickerFragment();
 	    newFragment.show(getFragmentManager(), "datePicker");
-	}
+	}*/
 	
 	// Get power stats json asynchronously
 	private class GetStatsTask extends AsyncTask<String, Void, JSONObject> {
@@ -314,6 +315,9 @@ public class Stats extends Activity {
 					// TODO Catch exception here if JSON is not formulated well
 					e.printStackTrace();
 				}
+				catch (NullPointerException e) {
+					e.printStackTrace();
+				}	
 			
 			
 			TextView powerTextView = (TextView) findViewById(R.id.powertext);

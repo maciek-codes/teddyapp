@@ -44,6 +44,9 @@ public class RequestHelper {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
+        	catch (NullPointerException e) {
+                e.printStackTrace();
+            }
     		
         } catch(Error e){
         	return null;
@@ -71,6 +74,9 @@ public class RequestHelper {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			catch (NullPointerException e) {
+	            e.printStackTrace();
+	        }
             
             // If there are any rooms, add building to the list
             if(listOfRooms != null && !listOfRooms.isEmpty()) {

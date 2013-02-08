@@ -244,6 +244,11 @@ public class UsageScreen extends Activity  {
          		 // TODO Catch exception here if JSON is not formulated well
          		 e.printStackTrace();
          	 }
+         	catch (NullPointerException e) {   //exception
+                
+	         		            		
+         		e.printStackTrace();
+            }
          	 TextView usageTextView = (TextView) findViewById(R.id.usagetext);
          	 usageTextView.setText(String.format("There are %d computers avaliable.", numberOfAvaliable));
 	     }

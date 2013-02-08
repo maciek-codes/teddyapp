@@ -247,6 +247,9 @@ public class Power extends Activity {
 					// TODO Catch exception here if JSON is not formulated well
 					e.printStackTrace();
             	 }	
+            	/* catch (NullPointerException e) {                  // exception
+                     e.printStackTrace();
+                 }*/
             	 TextView powerTextView = (TextView) findViewById(R.id.powertext);
             	 powerTextView.setText(String.format("The power consuption for the last 15 minutes cost: %.2f GBP.",powerCost));
             	
