@@ -9,7 +9,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -241,6 +243,19 @@ public class Stats extends Activity {
 				powerCost = result.getDouble("Total_Power_Cost");
 				idleCost = result.getDouble("power_cost_no_idle");
 				} catch (JSONException e) {
+					
+					AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(getBaseContext());
+
+	         		dlgAlert.setMessage("Problem retreaving data from service");
+	         		dlgAlert.setTitle("Error");
+	         		dlgAlert.setPositiveButton("OK", null);
+	         		new DialogInterface.OnClickListener() {
+	         	        public void onClick(DialogInterface dialog, int which) {
+	         	        	finish();
+	         	        }
+	         	    };
+	         		dlgAlert.setCancelable(true);
+	         		dlgAlert.create().show();
 					// TODO Catch exception here if JSON is not formulated well
 					e.printStackTrace();
 				}

@@ -1,6 +1,7 @@
 package com.teddy.data;
 
 import java.util.ArrayList;
+import android.app.AlertDialog;
 import java.util.List;
 import java.util.Map;
 
@@ -8,8 +9,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -145,6 +148,8 @@ public class UsageScreen extends Activity  {
 	            	
 	            	// Get data from server
 	            	new GetUsageStatsTask().execute(requestUrl);
+	            	
+
 	            }
 
 	            @Override
@@ -240,7 +245,42 @@ public class UsageScreen extends Activity  {
 	    	 int numberOfAvaliable = 0;
          	 try {
          		 numberOfAvaliable = result.getInt("number");
+         		 
+         		 
+////////////////////////////////////////////////////////////////////////here       	
+/*AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(getBaseContext());
+
+dlgAlert.setMessage("Problem retreaving data from service");
+dlgAlert.setTitle("Error");
+dlgAlert.setPositiveButton("OK", null);
+new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int which) {
+	
+}
+};
+dlgAlert.setCancelable(true);
+dlgAlert.create().show();*/
+/////////////////////////////////////////////////////////////////////////////////
+         		 
+         		 
+         		 
          	 } catch (JSONException e) {
+         		
+         		 
+         		AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(getBaseContext());
+
+         		dlgAlert.setMessage("Problem retreaving data from service");
+         		dlgAlert.setTitle("Error");
+         		dlgAlert.setPositiveButton("OK", null);
+         		new DialogInterface.OnClickListener() {
+         	        public void onClick(DialogInterface dialog, int which) {
+         	        	finish();
+         	        }
+         	    };
+         		dlgAlert.setCancelable(true);
+         		dlgAlert.create().show();
+         		 
+         		 
          		 // TODO Catch exception here if JSON is not formulated well
          		 e.printStackTrace();
          	 }
@@ -249,3 +289,10 @@ public class UsageScreen extends Activity  {
 	     }
 	}
 }
+
+
+
+/*AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+alertDialog.setTitle("No Internet");
+alertDialog.setMessage("Please check your internet connection");
+alertDialog.show();*/
