@@ -119,7 +119,7 @@
         android:layout_marginRight="3dp"
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
-        android:gravity="center_horizontal" >
+        android:layout_gravity="center_horizontal" >
 
         <ImageView
             android:id="@+id/logouob"
