@@ -44,27 +44,45 @@
             android:layout_gravity="right"
             android:layout_marginRight="2dp"
             android:layout_marginTop="2dp"
+            android:background="@color/ultrablue"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-        	android:textSize="15sp" 
-            android:background="@color/grey"
-        	android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mainlayout"
+        android:layout_width="match_parent"
+        android:layout_height="92dp"
+        android:layout_weight="0.60"
+        android:background="@color/black"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/contenttext"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.40"
+            android:gravity="center_horizontal"
+            android:maxLines="10000"
+            android:scrollbars="vertical"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/lab"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="0.22"
+            android:contentDescription="@string/lab"
+            android:src="@drawable/lab" />
 
     </LinearLayout>
-    
-    <TextView
-        android:id="@+id/contenttext"
-        android:layout_width="fill_parent"
-        android:maxLines = "10000"
-        android:scrollbars = "vertical"
-        android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        android:layout_weight="0.94"
-        android:gravity="center_horizontal"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="15sp" />
-    
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layout"
@@ -78,24 +96,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.50"
+            android:background="@color/ultrablue"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:background="@color/grey"
-        	android:textColor="@color/white" />
-
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/nextbutton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="clip_horizontal"
             android:layout_weight="0.50"
+            android:background="@color/ultrablue"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:background="@color/grey"
-        	android:textColor="@color/white" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layoutlogo"

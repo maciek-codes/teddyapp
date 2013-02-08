@@ -30,11 +30,11 @@
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_weight="1"
+            android:background="@color/ultrablue"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:background="@color/grey"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/powerbutton"
@@ -42,22 +42,22 @@
             android:layout_height="35dp"
             android:layout_gravity="fill_horizontal"
             android:layout_weight="1"
+            android:background="@color/ultrablue"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:background="@color/grey"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/statsbutton"
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_weight="1"
+            android:background="@color/orange"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:background="@color/ultrablue"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="14sp" />
        
     </LinearLayout>
 
@@ -79,6 +79,12 @@
 
         <Spinner
             android:id="@+id/room_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        
+        <Spinner
+            android:id="@+id/time_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

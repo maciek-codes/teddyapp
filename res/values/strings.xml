@@ -5,10 +5,12 @@
     <string name="teddylogo">Teddy</string>
     <string name="ibmlogo">IBM</string>
     <string name="uoblogo">UoB</string>
+    <string name="lab">Lab</string>
     <string name="statistics">Graph</string>
     <string name="password">teddy2012</string>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="orange">#FF6501</color>
     <color name="ultrablue">#2890b7</color>
     <color name="grey">#363A36</color>
  	<string-array name="building_array">

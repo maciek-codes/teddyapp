@@ -43,10 +43,10 @@
             android:layout_gravity="right"
             android:layout_marginRight="2dp"
             android:layout_marginTop="2dp"
+            android:background="@color/ultrablue"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:background="@color/grey"
-        	android:textColor="@color/white" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

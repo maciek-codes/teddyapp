@@ -9,9 +9,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,11 +27,12 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 public class Stats extends Activity {
 	ConnectionDetector cd;
+	int year=0,month=0,day=0, display=0, first=0;
 
 	// Remember list of buildings and rooms associated
 	Map<String, ArrayList<String>> buildingRoomDict;
 	
-	String buildingSelected, roomSelected;
+	String buildingSelected, roomSelected, timeSelected;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,7 @@ public class Stats extends Activity {
         Button usage =(Button) findViewById(R.id.usagebutton);
         usage.setText("Available");
         
-        Button stats =(Button) findViewById(R.id.statsbutton);
+        final Button stats =(Button) findViewById(R.id.statsbutton);
         stats.setText("Statistics");
         
         Button power =(Button) findViewById(R.id.powerbutton);
@@ -61,6 +61,7 @@ public class Stats extends Activity {
         //Spinners
         final Spinner build = (Spinner) findViewById(R.id.building_spinner);
         final Spinner room = (Spinner) findViewById(R.id.room_spinner);
+        final Spinner time = (Spinner) findViewById(R.id.time_spinner);
         
         // Set resources
         ArrayAdapter<CharSequence> adapterbuild = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
@@ -68,9 +69,14 @@ public class Stats extends Activity {
  
         final ArrayAdapter<CharSequence> adapterroom = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
         adapterroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		final ArrayAdapter<CharSequence> adaptertime = ArrayAdapter.createFromResource(this, R.array.period_array, android.R.layout.simple_spinner_item);
+        adaptertime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
           
         
         if (cd.isConnectingToInternet()) {
+        	
+        	
         	buildingRoomDict = RequestHelper.getRoomsAndBuildings();
 
 	        String[] buildings = new String[buildingRoomDict.keySet().size()];
@@ -102,6 +108,10 @@ public class Stats extends Activity {
 	        // Room spinner adapter
 	        room.setAdapter(adapterroom);
 	        roomSelected =(String) (room.getItemAtPosition(0));
+	        
+	        // Room spinner adapter
+	        time.setAdapter(adaptertime);
+	        timeSelected =(String) (time.getItemAtPosition(0));
 	         
 	        // Add event handler to handle room selection
 	        build.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -121,6 +131,8 @@ public class Stats extends Activity {
 	        	}
 	        	room.setAdapter(adapterroom);
 	        	roomSelected =(String) (room.getItemAtPosition(0));
+	        	time.setAdapter(adaptertime);
+	        	timeSelected =(String) (time.getItemAtPosition(0));
 	        }
 	
 	            @Override
@@ -136,16 +148,9 @@ public class Stats extends Activity {
 	            	
 	            	// Get new selection
 	            	roomSelected =(String) (room.getItemAtPosition(position));
+	            	time.setAdapter(adaptertime);
+		        	timeSelected =(String) (time.getItemAtPosition(0));
 	            	
-	            	Calendar cal = Calendar.getInstance();
-	            	int year = cal.get(Calendar.YEAR);  
-	            	int month = cal.get(Calendar.MONTH)+1;
-	            	
-	            	// Display available computers in this room:
-	            	String requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected 
-	            			+ "/" + roomSelected + "/" + year + "/" + month;
-	            	
-	            	new GetStatsTask().execute(requestUrl);
 	            }
 
 	            @Override
@@ -153,6 +158,63 @@ public class Stats extends Activity {
 	                // your code here
 	            }
 
+	        });
+	        
+	        
+	        time.setOnItemSelectedListener(new OnItemSelectedListener() {
+	        
+	        	
+	        	@Override
+	        	public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+	        	
+	        		// Get new selection
+	            	timeSelected =(String) (time.getItemAtPosition(position));
+	            	
+	            	if(first==0){first=1;}
+	            	else if(first==1)
+	            	{
+	            		first=2;
+	            		Calendar cal = Calendar.getInstance();
+	            	   	year = cal.get(Calendar.YEAR);  
+	            	   	month = cal.get(Calendar.MONTH)+1;
+	            	   	day = cal.get(Calendar.DAY_OF_MONTH);
+	            	}
+	            	else if(first==2)
+	            	{
+	            		showDatePickerDialog(stats);
+	            		first=1;
+	            	    year=DatePickerFragment.selectedyear;
+	            	    month=DatePickerFragment.selectedmonth+1;
+	            	    day=DatePickerFragment.selectedday;
+	            	}
+	            	
+	            	// Display available computers in this room:
+	            	String requestUrl="";
+					if(timeSelected.equals("Month")) {
+						display=3;
+	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
+					}
+	            	else if(timeSelected.equals("Year")) {
+	            		display=4;
+	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
+	            	}
+	            	else if(timeSelected.equals("Day")) {
+	            		display=1;
+	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
+	            	}
+	            	else if(timeSelected.equals("Week")) {
+	            		display=2;
+	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
+	            	}
+					
+	            	new GetStatsTask().execute(requestUrl);
+	        	}
+	
+	            @Override
+	            public void onNothingSelected(AdapterView<?> parentView) {
+	                // your code here
+	            }
+	
 	        });
 	        
 	        usage.setOnClickListener(new Button.OnClickListener(){
@@ -210,6 +272,11 @@ public class Stats extends Activity {
 		}
 	}
 	
+	public void showDatePickerDialog(View v) {
+	    DialogFragment newFragment = new DatePickerFragment();
+	    newFragment.show(getFragmentManager(), "datePicker");
+	}
+	
 	// Get power stats json asynchronously
 	private class GetStatsTask extends AsyncTask<String, Void, JSONObject> {
 		
@@ -223,6 +290,7 @@ public class Stats extends Activity {
 		    prog.setIndeterminate(false);
 		    prog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		    prog.show();
+		    
 		}
 	    
 		protected JSONObject doInBackground(String... urls) {
@@ -243,25 +311,16 @@ public class Stats extends Activity {
 				powerCost = result.getDouble("Total_Power_Cost");
 				idleCost = result.getDouble("power_cost_no_idle");
 				} catch (JSONException e) {
-					
-					AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(getBaseContext());
-
-	         		dlgAlert.setMessage("Problem retreaving data from service");
-	         		dlgAlert.setTitle("Error");
-	         		dlgAlert.setPositiveButton("OK", null);
-	         		new DialogInterface.OnClickListener() {
-	         	        public void onClick(DialogInterface dialog, int which) {
-	         	        	finish();
-	         	        }
-	         	    };
-	         		dlgAlert.setCancelable(true);
-	         		dlgAlert.create().show();
 					// TODO Catch exception here if JSON is not formulated well
 					e.printStackTrace();
 				}
 			
+			
 			TextView powerTextView = (TextView) findViewById(R.id.powertext);
-			powerTextView.setText(String.format("The power consuption for the last month cost: %.2f GBP.",powerCost));
+			if(display==1)powerTextView.setText("In "+day+"/"+month+"/"+year+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
+			else if (display==2) powerTextView.setText("In week "+ (day+7)%7 +" of "+month+"/"+year+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
+			else if (display==3) powerTextView.setText("In "+month+"/"+year+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
+			else if (display==4) powerTextView.setText("In "+year+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
 			
 			TextView idleTextView = (TextView) findViewById(R.id.idletext);
 			idleTextView.setText(String.format("Possible savings: %.2f GBP.",idleCost));
