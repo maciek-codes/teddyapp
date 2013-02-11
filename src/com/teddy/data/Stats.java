@@ -174,7 +174,7 @@ public class Stats extends Activity {
 	            	//if(first==0){first=1;}           ///////calendar here  ************
 	            	//else if(first==1)
 	            	{
-	            		first=2;
+	            		//first=2;
 	            		Calendar cal = Calendar.getInstance();
 	            	   	year = cal.get(Calendar.YEAR);  
 	            	   	month = cal.get(Calendar.MONTH)+1;
@@ -197,11 +197,11 @@ public class Stats extends Activity {
 					}
 	            	else if(timeSelected.equals("Year")) {
 	            		display=4;
-	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
+	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year;
 	            	}
 	            	else if(timeSelected.equals("Day")) {
 	            		display=1;
-	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
+	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
 	            	}
 	            	else if(timeSelected.equals("Week")) {
 	            		display=2;
@@ -261,6 +261,9 @@ public class Stats extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
 		switch (item.getItemId()) {
+		 	case R.id.video:
+			startActivity(new Intent(this, About.class));
+			return true;
 		    case R.id.instructions:
 		    startActivity(new Intent(this, Instr.class));
 		    return true;

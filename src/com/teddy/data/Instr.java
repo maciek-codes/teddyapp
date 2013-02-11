@@ -55,7 +55,7 @@ public class Instr extends Activity {
         
         home.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
-            	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
+            	Intent i = new Intent(getApplicationContext(), UsageScreen.class);
             	finish();
             	i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             	startActivity(i);

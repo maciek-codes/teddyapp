@@ -198,6 +198,9 @@ public class UsageScreen extends Activity  {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
 		switch (item.getItemId()) {
+			case R.id.video:
+			startActivity(new Intent(this, About.class));
+			return true;
 		    case R.id.instructions:
 		    startActivity(new Intent(this, Instr.class));
 		    return true;

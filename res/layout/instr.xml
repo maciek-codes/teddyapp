@@ -4,7 +4,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/black"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingTop="10dp" >
 
     <ImageView
         android:id="@+id/logoteddy"
@@ -79,6 +81,8 @@
             android:layout_height="30dp"
             android:layout_weight="0.22"
             android:contentDescription="@string/lab"
+            android:paddingTop="10dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/lab" />
 
     </LinearLayout>

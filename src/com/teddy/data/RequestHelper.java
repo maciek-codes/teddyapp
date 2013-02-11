@@ -8,6 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+
 public class RequestHelper {
 	
 	// Store array of rooms for each building
@@ -45,7 +50,28 @@ public class RequestHelper {
     			e.printStackTrace();
     		}
         	catch (NullPointerException e) {
-                e.printStackTrace();
+        		
+        		/*AlertDialog.Builder builder = new AlertDialog.Builder(___);
+        		 builder.setMessage("Are you sure you want to exit?")
+        		        .setCancelable(false)
+        		        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        		            public void onClick(DialogInterface dialog, int id) {
+        		            	
+        		            	// e.printStackTrace();
+        		            }
+        		        })
+        		        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+        		            public void onClick(DialogInterface dialog, int id) {
+        		                 dialog.cancel();
+        		            }
+        		        });
+        		 
+        		 AlertDialog alert = builder.create();
+        		 alert.show();
+        		 */
+        		
+        		e.printStackTrace();
+        	   
             }
     		
         } catch(Error e){

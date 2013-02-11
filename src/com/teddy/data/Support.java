@@ -6,6 +6,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -25,14 +29,34 @@ public class Support extends Activity {
         text.setText("Support");
         
         TextView content = (TextView ) findViewById(R.id.contenttext);
-        content.setText("Support: uob.ibm.teddy@gmail.com \n\n Application Developed by:\n\n Cristian Cernatescu \n Alexandru Dumitrescu \n Maciej Kumorek \n Christa Mpundu \n Aankhi Mukherjee \n Ioannis Troumpis \n\n\n\n in colaboration with :");
+        content.setText("\n\n\nSupport: uob.ibm.teddy@gmail.com \n\n\n Application Developed by:\n\n Cristian Cernatescu \n Alexandru Dumitrescu \n Maciej Kumorek \n Christa Mpundu \n Aankhi Mukherjee \n Ioannis Troumpis \n\n\n\n in colaboration with :");
 	
         Button home =(Button) findViewById(R.id.homebutton);
         home.setText("Home");
+    
+        
         
         home.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
-            	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
+
+
+        		/*AlertDialog.Builder builder = new AlertDialog.Builder(Support.this);
+        		 builder.setMessage("Are you sure you want to exit?")
+        		        .setCancelable(false)
+        		        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        		            public void onClick(DialogInterface dialog, int id) {
+        		            }
+        		        })
+        		        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+        		            public void onClick(DialogInterface dialog, int id) {
+        		                 dialog.cancel();
+        		            }
+        		        });
+        		 
+        		 AlertDialog alert = builder.create();
+        		 alert.show();
+        		*/
+        		Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
             	finish();
             	i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             	startActivity(i);
