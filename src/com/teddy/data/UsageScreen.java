@@ -179,11 +179,11 @@ public class UsageScreen extends Activity  {
         }
         else {
         	System.out.println("No Internet Connection");
-        }  
-	}
+        }
+        
+       }
 
-	
-	
+		
 	@Override
     public void onBackPressed() {
      finish();

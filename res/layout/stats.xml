@@ -98,7 +98,9 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_weight="0.02"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:onClick="onClick"
+		android:clickable="true" />
 
     <TextView
         android:id="@+id/idletext"
@@ -108,7 +110,9 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_weight="0.02"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:onClick="onClick"
+		android:clickable="true"  />
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

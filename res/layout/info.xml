@@ -15,26 +15,21 @@
         android:contentDescription="@string/teddylogo"
         android:src="@drawable/logoteddy" />
 
+    <RelativeLayout
+        android:id="@+id/graph"
+        android:layout_width="fill_parent"
+        android:layout_height="250dp" >
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/infotext"
         android:layout_width="306dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1.52"
+        android:layout_weight="0.36"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white"
         android:textSize="20sp" />
-
-    <ImageView
-        android:id="@+id/statistics"
-        android:layout_width="match_parent"
-        android:layout_height="278dp"
-        android:layout_marginBottom="3dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_weight="0.34"
-        android:contentDescription="@string/statistics"
-        android:src="@drawable/statistics" />
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layoutlogo"

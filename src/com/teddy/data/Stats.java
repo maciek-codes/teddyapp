@@ -29,11 +29,12 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class Stats extends Activity {
 	ConnectionDetector cd;
 	int year=0,month=0,day=0, display=0, first=0;
+	
 
 	// Remember list of buildings and rooms associated
 	Map<String, ArrayList<String>> buildingRoomDict;
 	
-	String buildingSelected, roomSelected, timeSelected;
+	String buildingSelected, roomSelected, timeSelected, requestUrl;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,7 +191,7 @@ public class Stats extends Activity {
 	            	}
 	            	*/
 	            	// Display available computers in this room:    ***************
-	            	String requestUrl="";
+	            	requestUrl="";
 					if(timeSelected.equals("Month")) {
 						display=3;
 	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
@@ -245,7 +246,13 @@ public class Stats extends Activity {
         }  
 	}
 
-	
+
+	public void onClick(View v) {
+		Intent i = new Intent(getApplicationContext(),  Info.class);
+     	i.putExtra("URL", requestUrl);
+     	i.putExtra("period", timeSelected);
+     	startActivity(i);
+    } 
 	
 	@Override
     public void onBackPressed() {
@@ -282,11 +289,12 @@ public class Stats extends Activity {
 	}*/
 	
 	// Get power stats json asynchronously
-	private class GetStatsTask extends AsyncTask<String, Void, JSONObject> {
+	public class GetStatsTask extends AsyncTask<String, Void, JSONObject> {
 		
+		public double powerCost = 0, idleCost = 0;
 		// Progress dialog
 		ProgressDialog prog;
-	    
+		    
 		protected void onPreExecute() {
 			prog = new ProgressDialog(Stats.this);
 		    prog.setTitle("Waiting...");
@@ -296,20 +304,21 @@ public class Stats extends Activity {
 		    prog.show();
 		    
 		}
-	    
+		
 		protected JSONObject doInBackground(String... urls) {
 			JsonParser parser = new JsonParser();
 			
 			JSONObject jObject = parser.getJSONFromUrl(urls[0]);
 			
 			return jObject;
+			
 		}
 		
 	
 	     protected void onPostExecute(JSONObject result) {
     	 	prog.hide();
  
-			double powerCost = 0, idleCost = 0;
+			powerCost = 0; idleCost = 0;
 			
 			try {
 				powerCost = result.getDouble("Total_Power_Cost");
@@ -332,5 +341,7 @@ public class Stats extends Activity {
 			TextView idleTextView = (TextView) findViewById(R.id.idletext);
 			idleTextView.setText(String.format("Possible savings: %.2f GBP.",idleCost));
 	     }
+	     
+	     
 	}
 }
