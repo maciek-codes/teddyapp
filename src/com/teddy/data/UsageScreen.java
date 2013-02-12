@@ -1,6 +1,7 @@
 package com.teddy.data;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -8,11 +9,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,7 +53,8 @@ public class UsageScreen extends Activity  {
 
         // Hide input keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
+        
+       
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Buttons
                 
@@ -254,6 +264,23 @@ public class UsageScreen extends Activity  {
             }
          	 TextView usageTextView = (TextView) findViewById(R.id.usagetext);
          	 usageTextView.setText(String.format("There are %d computers avaliable.", numberOfAvaliable));
-	     }
+         	 
+         	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+             //Notification
+         	
+             AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
+             PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(UsageScreen.this, UsageScreen.class), PendingIntent.FLAG_UPDATE_CURRENT);
+             am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 150, pi);
+             
+             NotificationManager nm;
+             nm = (NotificationManager) UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
+             CharSequence from = "Teddy";
+             CharSequence message = "There are "+numberOfAvaliable +" computers available";
+             PendingIntent contentIntent = PendingIntent.getActivity(UsageScreen.this, 0,new Intent(), 0);
+                       
+             Notification notif = new Notification(R.drawable.logoteddy_2, "There are "+numberOfAvaliable +" computers available", System.currentTimeMillis());
+             notif.setLatestEventInfo(UsageScreen.this, from, message, contentIntent);
+             nm.notify(1, notif);
+     }
 	}
 }
