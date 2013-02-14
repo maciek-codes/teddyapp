@@ -224,7 +224,6 @@ public class Stats extends Activity {
 		        	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
 		        	finish();
 		        	startActivity(i);
-
 		        	overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
 	        	}
 	        });

@@ -1,5 +1,7 @@
 package com.teddy.data;
 
+import com.teddy.data.Info.GetStatsTask;
+
 import android.content.Intent;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,10 +16,16 @@ import android.os.Bundle;
 
 public class Settings extends Activity {
 
-	static String timeSelected="Off";
+	static String timeSelected="15 Minutes";
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras(); 
+        if(extras !=null)
+        {
+        	timeSelected = extras.getString("time");
+        	
+        }     
         setContentView(R.layout.settings);
         // Hide input keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -28,6 +36,7 @@ public class Settings extends Activity {
         home.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
             	Intent i = new Intent(getApplicationContext(), UsageScreen.class);
+            	i.putExtra("time",timeSelected );
             	finish();
             	i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             	startActivity(i);
@@ -46,7 +55,11 @@ public class Settings extends Activity {
     	final ArrayAdapter<CharSequence> adaptertime = ArrayAdapter.createFromResource(this, R.array.time_array, android.R.layout.simple_spinner_item);
         adaptertime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         time.setAdapter(adaptertime);
-        
+        if(timeSelected.equals("Off"))time.setSelection(0);
+        else if(timeSelected.equals("15 Minutes"))time.setSelection(1);
+        else if(timeSelected.equals("1 Hour"))time.setSelection(2);
+        else if(timeSelected.equals("6 Hours"))time.setSelection(3);
+        else if(timeSelected.equals("Daily"))time.setSelection(4);
         time.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {

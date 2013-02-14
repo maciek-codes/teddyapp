@@ -42,6 +42,8 @@ public class UsageScreen extends Activity  {
 	Map<String, ArrayList<String>> buildingRoomDict;
 	
 	String buildingSelected, roomSelected;
+	static String timeSelected="15 Minutes";
+	static int no=0;
 	
 	
 	@Override
@@ -54,7 +56,13 @@ public class UsageScreen extends Activity  {
 	@Override
     public void onStart(){
         super.onStart();
-    	
+    	 
+        Bundle extras = getIntent().getExtras(); 
+        if(extras !=null)
+        {
+        	timeSelected = extras.getString("time");
+        	
+        }   
     	
         // creating connection detector class instance
         cd = new ConnectionDetector(getApplicationContext());
@@ -225,7 +233,10 @@ public class UsageScreen extends Activity  {
         	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			return true;
 			case R.id.settings:
-			startActivity(new Intent(this, Settings.class));finish();
+			Intent i = new Intent(getApplicationContext(), Settings.class);
+			i.putExtra("time", timeSelected);
+            finish();
+            startActivity(i);
 	        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			return true;
 		    case R.id.instructions:
@@ -291,10 +302,18 @@ public class UsageScreen extends Activity  {
          	 
          	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
              //Notification
-         	 //String tSelected= timeSelected.Settings;
+         	 String time=timeSelected;
+         	
+         	 Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
              AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
-             PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(UsageScreen.this, UsageScreen.class), PendingIntent.FLAG_UPDATE_CURRENT);
-             am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 150, pi);
+             PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent , PendingIntent.FLAG_UPDATE_CURRENT);
+             
+             
+             if(timeSelected.equals("Off"))am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pi);
+         	 else if(timeSelected.equals("15 Minutes"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pi);
+         	 else if(timeSelected.equals("1 Hour"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),AlarmManager.INTERVAL_HOUR , pi);
+         	 else if(timeSelected.equals("6 Hours"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR*6, pi);
+         	 else if(timeSelected.equals("Daily"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),AlarmManager.INTERVAL_DAY , pi);
              
              NotificationManager nm;
              nm = (NotificationManager) UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
