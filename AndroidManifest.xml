@@ -67,6 +67,11 @@
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden">
         </activity>
+        <activity
+            android:name="com.teddy.data.Settings"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
         
         
     </application>

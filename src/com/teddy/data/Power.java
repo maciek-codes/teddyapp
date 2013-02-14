@@ -69,7 +69,7 @@ public class Power extends Activity {
 	          
 	        
 	        if (cd.isConnectingToInternet()) {
-	        	buildingRoomDict = RequestHelper.getRoomsAndBuildings();
+	        	buildingRoomDict = RequestHelper.getRoomsAndBuildings(Power.this);
 
 		        String[] buildings = new String[buildingRoomDict.keySet().size()];
 		        buildingRoomDict.keySet().toArray(buildings);
@@ -157,6 +157,7 @@ public class Power extends Activity {
 			        	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
 			        	finish();
 			        	startActivity(i);
+			        	overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
 		        	}
 		        });
 		              
@@ -173,6 +174,7 @@ public class Power extends Activity {
 		            	Intent i = new Intent(getApplicationContext(), Stats.class);
 		            	finish();
 		            	startActivity(i);
+		            	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
 		        	}
 		        });
 	        
@@ -200,13 +202,18 @@ public class Power extends Activity {
 			switch (item.getItemId()) {
 				case R.id.video:
 				startActivity(new Intent(this, About.class));
+	        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 				return true;
+				case R.id.settings:
+				startActivity(new Intent(this, Settings.class));finish();
+			    overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			    case R.id.instructions:
 			    startActivity(new Intent(this, Instr.class));
+	        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			    return true;
 			    case R.id.support:
-			    {
-			    startActivity(new Intent(this, Support.class));finish();}
+			    startActivity(new Intent(this, Support.class));finish();
+	        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			    return true;
 			    default:
 			    return super.onOptionsItemSelected(item);
@@ -231,7 +238,13 @@ public class Power extends Activity {
 			protected JSONObject doInBackground(String... urls) {
 				JsonParser parser = new JsonParser();
 				
-				JSONObject jObject = parser.getJSONFromUrl(urls[0]);
+				JSONObject jObject = null;
+				try {
+					jObject = parser.getJSONFromUrl(urls[0]);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				return jObject;
 			}
@@ -250,14 +263,15 @@ public class Power extends Activity {
 					// TODO Catch exception here if JSON is not formulated well
 					e.printStackTrace();
             	 }	
-            	/* catch (NullPointerException e) {                  // exception
-                     e.printStackTrace();
-                 }*/
             	 TextView powerTextView = (TextView) findViewById(R.id.powertext);
             	 powerTextView.setText(String.format("The power consuption for the last 15 minutes cost: %.2f GBP.",powerCost));
             	
             	 TextView idleTextView = (TextView) findViewById(R.id.idleText);
             	 idleTextView.setText(String.format("Possible savings: %.2f GBP.",idleCost));
+            	 
+            	 TextView calcTextView = (TextView) findViewById(R.id.calcText);
+            	 calcTextView.setText(String.format("The power cost was calculated in relation with the folowing factors:\n\nNumber of machines: ___\n" +
+            	 		"Cost per KWt: ___\netc"));
 		     }
 		}
 }

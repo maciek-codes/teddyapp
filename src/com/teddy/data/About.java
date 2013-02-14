@@ -1,6 +1,7 @@
 package com.teddy.data;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.MediaController;
@@ -30,5 +31,12 @@ public class About extends Activity {
             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT);
         }
     
+    }
+    @Override
+    public void onBackPressed() {
+		Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
+    	finish();
+    	startActivity(i);
+    	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
     }
 }

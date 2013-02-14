@@ -8,9 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 
 public class RequestHelper {
@@ -18,99 +20,118 @@ public class RequestHelper {
 	// Store array of rooms for each building
 	public static Map<String, ArrayList<String>> buildingRoomList = null;
 
-	
-	public static Map<String, ArrayList<String>> getRoomsAndBuildings() {
-		
+
+	public static Map<String, ArrayList<String>> getRoomsAndBuildings(Context thisContext) {
+
 		// Maybe you got it before?
 		if(buildingRoomList != null) {
 			return buildingRoomList;
 		}
-		
+
 		// Otherwise populate the list and return it
 		buildingRoomList = new HashMap<String, ArrayList<String>>();
-        JSONArray buildings = null;
-       
-        // Create a parser
-        JsonParser jParser = new JsonParser();
-        
-        // Get data of buildings
-        // Use: http://service-teddy2012.rhcloud.com/buildings
-        // and: http://service-teddy2012.rhcloud.com/building_name/
-        
-        
-        // TODO: This can return null and we need to handle this situation when internet
-        // Is not working
-        
-        try{
-        	JSONObject buildingsObject = jParser.getJSONFromUrl("http://service-teddy2012.rhcloud.com/buildings");
-        	try {
-    			buildings = buildingsObject.getJSONArray("buildings");
-    		} catch (JSONException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-        	catch (NullPointerException e) {
-        		
-        		/*AlertDialog.Builder builder = new AlertDialog.Builder(___);
-        		 builder.setMessage("Are you sure you want to exit?")
-        		        .setCancelable(false)
-        		        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-        		            public void onClick(DialogInterface dialog, int id) {
-        		            	
-        		            	// e.printStackTrace();
-        		            }
-        		        })
-        		        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-        		            public void onClick(DialogInterface dialog, int id) {
-        		                 dialog.cancel();
-        		            }
-        		        });
-        		 
-        		 AlertDialog alert = builder.create();
-        		 alert.show();
-        		 */
-        		
-        		e.printStackTrace();
-        	   
-            }
-    		
-        } catch(Error e){
-        	return null;
-        }
-		
+		JSONArray buildings = null;
+
+		// Create a parser
+		JsonParser jParser = new JsonParser();
+
+		// Get data of buildings
+		// Use: http://service-teddy2012.rhcloud.com/buildings
+		// and: http://service-teddy2012.rhcloud.com/building_name/
+
+
+		// TODO: This can return null and we need to handle this situation when internet
+		// Is not working
+
+		try {
+			JSONObject buildingsObject = jParser.getJSONFromUrl("http://service-teddy2012.rhcloud.com/buildings");
+			buildings = buildingsObject.getJSONArray("buildings");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+			//!!!!!!!!!!!!!!!!
+			//http://developer.android.com/reference/android/app/ApplicationErrorReport.html
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(thisContext);
+			builder.setMessage("Are you sure you want to exit?")
+			.setCancelable(false)
+			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+
+					// e.printStackTrace();
+				}
+			})
+			.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					dialog.cancel();
+				}
+			});
+
+			AlertDialog alert = builder.create();
+			alert.show();
+			
+			return null;
+		}
+		catch (NullPointerException e) {
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(thisContext);
+			builder.setMessage("Are you sure you want to exit?")
+			.setCancelable(false)
+			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+
+					// e.printStackTrace();
+				}
+			})
+			.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					dialog.cancel();
+				}
+			});
+
+			AlertDialog alert = builder.create();
+			alert.show();
+
+
+			e.printStackTrace();
+			return null;
+
+		}
+
 		for(int i = 0; i < buildings.length(); ++i) {
-        	JSONArray rooms = null;
-            JSONObject roomsObject;
+			JSONArray rooms = null;
+			JSONObject roomsObject;
 			String building = null;
 			ArrayList<String> listOfRooms = null;
-            
+
 			try {
-            	building = buildings.get(i).toString();
+				building = buildings.get(i).toString();
 				roomsObject = jParser.getJSONFromUrl("http://service-teddy2012.rhcloud.com/" + building);
 				rooms = roomsObject.getJSONArray("rooms");
-				
+
 				listOfRooms = new ArrayList<String>();
-	            for(int j = 0; j < rooms.length(); ++j) {
-	            	String roomName = rooms.get(j).toString();
-	            	//adapterroom.add(roomName);
-	            	listOfRooms.add(roomName);
-	            }
-		            
+				for(int j = 0; j < rooms.length(); ++j) {
+					String roomName = rooms.get(j).toString();
+					//adapterroom.add(roomName);
+					listOfRooms.add(roomName);
+				}
+
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			catch (NullPointerException e) {
-	            e.printStackTrace();
-	        }
-            
-            // If there are any rooms, add building to the list
-            if(listOfRooms != null && !listOfRooms.isEmpty()) {
-            	//adapterbuild.add(building);
-            	buildingRoomList.put(building, listOfRooms);
-            }
-        }
-		
+				e.printStackTrace();
+			}
+
+			// If there are any rooms, add building to the list
+			if(listOfRooms != null && !listOfRooms.isEmpty()) {
+				//adapterbuild.add(building);
+				buildingRoomList.put(building, listOfRooms);
+			}
+		}
+
 		return buildingRoomList;
 	}
 }

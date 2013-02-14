@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import java.util.ArrayList;
@@ -154,7 +155,13 @@ public class Info extends Activity {
   		protected JSONObject doInBackground(String... urls) {
   			JsonParser parser = new JsonParser();
   			
-  			JSONObject jObject = parser.getJSONFromUrl(urls[0]);
+  			JSONObject jObject = null;
+			try {
+				jObject = parser.getJSONFromUrl(urls[0]);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
   			
   			return jObject;
   			
@@ -185,4 +192,11 @@ public class Info extends Activity {
   	     
   	     
   	}
+      @Override
+      public void onBackPressed() {
+  		Intent i = new Intent(getApplicationContext(),  Stats.class);
+      	finish();
+      	startActivity(i);
+      	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+      }
 }

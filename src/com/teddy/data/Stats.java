@@ -79,7 +79,7 @@ public class Stats extends Activity {
         if (cd.isConnectingToInternet()) {
         	
         	
-        	buildingRoomDict = RequestHelper.getRoomsAndBuildings();
+        	buildingRoomDict = RequestHelper.getRoomsAndBuildings(Stats.this);
 
 	        String[] buildings = new String[buildingRoomDict.keySet().size()];
 	        buildingRoomDict.keySet().toArray(buildings);
@@ -224,6 +224,8 @@ public class Stats extends Activity {
 		        	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
 		        	finish();
 		        	startActivity(i);
+
+		        	overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
 	        	}
 	        });
 	              
@@ -232,6 +234,7 @@ public class Stats extends Activity {
 	            	Intent i = new Intent(getApplicationContext(), Power.class);
 	            	finish();
 	            	startActivity(i);	
+		        	overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
 	
 		    	}
 	        });
@@ -252,6 +255,7 @@ public class Stats extends Activity {
      	i.putExtra("URL", requestUrl);
      	i.putExtra("period", timeSelected);
      	startActivity(i);
+    	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
     } 
 	
 	@Override
@@ -270,13 +274,18 @@ public class Stats extends Activity {
 		switch (item.getItemId()) {
 		 	case R.id.video:
 			startActivity(new Intent(this, About.class));
+        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			return true;
+		 	case R.id.settings:
+			startActivity(new Intent(this, Settings.class));finish();
+		    overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    case R.id.instructions:
 		    startActivity(new Intent(this, Instr.class));
+		    overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    return true;
 		    case R.id.support:
-		    {
-		    startActivity(new Intent(this, Support.class));finish();}
+		    startActivity(new Intent(this, Support.class));finish();
+		    overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    return true;
 		    default:
 		    return super.onOptionsItemSelected(item);
@@ -308,7 +317,13 @@ public class Stats extends Activity {
 		protected JSONObject doInBackground(String... urls) {
 			JsonParser parser = new JsonParser();
 			
-			JSONObject jObject = parser.getJSONFromUrl(urls[0]);
+			JSONObject jObject = null;
+			try {
+				jObject = parser.getJSONFromUrl(urls[0]);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			return jObject;
 			

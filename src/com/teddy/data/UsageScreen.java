@@ -42,14 +42,24 @@ public class UsageScreen extends Activity  {
 	Map<String, ArrayList<String>> buildingRoomDict;
 	
 	String buildingSelected, roomSelected;
+	
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        setContentView(R.layout.usagescreen);
+    }
+	
+	
+	@Override
+    public void onStart(){
+        super.onStart();
+    	
+    	
         // creating connection detector class instance
         cd = new ConnectionDetector(getApplicationContext());
         
-        setContentView(R.layout.usagescreen);
+        
 
         // Hide input keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -81,7 +91,7 @@ public class UsageScreen extends Activity  {
           
         
         if (cd.isConnectingToInternet()) {
-        	buildingRoomDict = RequestHelper.getRoomsAndBuildings();
+        	buildingRoomDict = RequestHelper.getRoomsAndBuildings(UsageScreen.this);
 
 	        String[] buildings = new String[buildingRoomDict.keySet().size()];
 	        buildingRoomDict.keySet().toArray(buildings);
@@ -175,6 +185,7 @@ public class UsageScreen extends Activity  {
 	        	Intent i = new Intent(getApplicationContext(),  Power.class);
 	        	finish();
 	        	startActivity(i);
+	        	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out); 
 	    	}
 	        });
 	        
@@ -183,6 +194,7 @@ public class UsageScreen extends Activity  {
 	            	Intent i = new Intent(getApplicationContext(), Stats.class);
 	            	finish();
 	            	startActivity(i);
+	            	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
 	        	}
 	        });
         
@@ -210,13 +222,19 @@ public class UsageScreen extends Activity  {
 		switch (item.getItemId()) {
 			case R.id.video:
 			startActivity(new Intent(this, About.class));
+        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+			return true;
+			case R.id.settings:
+			startActivity(new Intent(this, Settings.class));finish();
+	        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			return true;
 		    case R.id.instructions:
 		    startActivity(new Intent(this, Instr.class));
+        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    return true;
 		    case R.id.support:
-		    {
-		    startActivity(new Intent(this, Support.class));finish();}
+		    startActivity(new Intent(this, Support.class));finish();
+        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    return true;
 		    default:
 		    return super.onOptionsItemSelected(item);
@@ -241,7 +259,13 @@ public class UsageScreen extends Activity  {
 		protected JSONObject doInBackground(String... urls) {
 			JsonParser parser = new JsonParser();
 			
-			JSONObject jObject = parser.getJSONFromUrl(urls[0]);
+			JSONObject jObject = null;
+			try {
+				jObject = parser.getJSONFromUrl(urls[0]);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			return jObject;
 		}
@@ -267,7 +291,7 @@ public class UsageScreen extends Activity  {
          	 
          	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
              //Notification
-         	
+         	 //String tSelected= timeSelected.Settings;
              AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
              PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(UsageScreen.this, UsageScreen.class), PendingIntent.FLAG_UPDATE_CURRENT);
              am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 150, pi);

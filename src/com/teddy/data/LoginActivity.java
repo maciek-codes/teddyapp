@@ -271,6 +271,7 @@ public class LoginActivity extends Activity {
             // TODO: attempt authentication against a network service.
         	Intent i = new Intent(getApplicationContext(), UsageScreen.class);
         	startActivity(i);
+        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
             try {
                 // Simulate network access.
                 Thread.sleep(2000);

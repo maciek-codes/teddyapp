@@ -55,7 +55,7 @@ public class JsonParser {
          return jObj;
     }
  
-    public JSONObject getJSONFromUrl(String url) {
+    public JSONObject getJSONFromUrl(String url) throws JSONException {
  
         // Making HTTP request
         try {
@@ -97,7 +97,7 @@ public class JsonParser {
         try {
             jObj = new JSONObject(json);
         } catch (JSONException e) {
-            Log.e("JSON Parser", "Error parsing data " + e.toString());
+            throw e;
         }
  
         // return JSON String

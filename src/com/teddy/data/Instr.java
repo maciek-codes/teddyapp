@@ -59,6 +59,7 @@ public class Instr extends Activity {
             	finish();
             	i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             	startActivity(i);
+            	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
         	}
         });
         final String translation=value;
@@ -71,6 +72,9 @@ public class Instr extends Activity {
 
             	finish();
             	startActivity(i);
+            	if(translation.equals("1"))overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out); 
+
+            	if(translation.equals("2"))overridePendingTransition(R.anim.fadein,R.anim.fadeout);
         	}
         });
              
@@ -82,6 +86,9 @@ public class Instr extends Activity {
             	if(translation.equals("2")) i.putExtra("id", "1");
             	finish();
             	startActivity(i);
+            	if(translation.equals("1")) overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+            	if(translation.equals("2")) overridePendingTransition(R.anim.push_left_in,R.anim.push_right_out);
+            	
         	}
         });
              
