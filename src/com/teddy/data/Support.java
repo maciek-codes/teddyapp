@@ -1,5 +1,6 @@
 package com.teddy.data;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -16,10 +17,23 @@ import android.os.Bundle;
 
 public class Support extends Activity {
 
+	static String textSize="Medium";
+	static int textSizeInt=16;
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
  
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            textSize = extras.getString("text");
+        	if(textSize.equals("Small"))textSizeInt=14;
+            else if(textSize.equals("Medium"))textSizeInt=16;
+            else if(textSize.equals("Big"))textSizeInt=20;
+            else if(textSize.equals("Extra Big"))textSizeInt=30;
+            
+        }
+        
         setContentView(R.layout.support);
         
         // Hide input keyboard
@@ -30,7 +44,9 @@ public class Support extends Activity {
         
         TextView content = (TextView ) findViewById(R.id.contenttext);
         content.setText("\n\n\nSupport: uob.ibm.teddy@gmail.com \n\n\n Application Developed by:\n\n Cristian Cernatescu \n Alexandru Dumitrescu \n Maciej Kumorek \n Christa Mpundu \n Aankhi Mukherjee \n Ioannis Troumpis \n\n\n\n in colaboration with :");
-	
+        content.setTextSize(textSizeInt);
+        content.setMovementMethod(new ScrollingMovementMethod());
+        
         Button home =(Button) findViewById(R.id.homebutton);
         home.setText("Home");
     

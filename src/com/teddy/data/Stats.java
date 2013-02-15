@@ -29,15 +29,30 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class Stats extends Activity {
 	ConnectionDetector cd;
 	int year=0,month=0,day=0, display=0, first=0;
+	static String textSize ="Medium";
+	static String timeSelected="15 Minutes";
+	static int textSizeInt=16;
 	
 
 	// Remember list of buildings and rooms associated
 	Map<String, ArrayList<String>> buildingRoomDict;
 	
-	String buildingSelected, roomSelected, timeSelected, requestUrl;
+	String buildingSelected, roomSelected, timeSelected2, requestUrl;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Bundle extras = getIntent().getExtras(); 
+        if(extras !=null)
+        {
+        	timeSelected = extras.getString("time");
+        	textSize = extras.getString("text");
+        	if(textSize.equals("Small"))textSizeInt=14;
+            else if(textSize.equals("Medium"))textSizeInt=16;
+            else if(textSize.equals("Big"))textSizeInt=20;
+            else if(textSize.equals("Extra Big"))textSizeInt=30;
+        	
+        }   
         
         // creating connection detector class instance
         cd = new ConnectionDetector(getApplicationContext());
@@ -113,7 +128,7 @@ public class Stats extends Activity {
 	        
 	        // Room spinner adapter
 	        time.setAdapter(adaptertime);
-	        timeSelected =(String) (time.getItemAtPosition(0));
+	        timeSelected2 =(String) (time.getItemAtPosition(0));
 	         
 	        // Add event handler to handle room selection
 	        build.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -134,7 +149,7 @@ public class Stats extends Activity {
 	        	room.setAdapter(adapterroom);
 	        	roomSelected =(String) (room.getItemAtPosition(0));
 	        	time.setAdapter(adaptertime);
-	        	timeSelected =(String) (time.getItemAtPosition(0));
+	        	timeSelected2 =(String) (time.getItemAtPosition(0));
 	        }
 	
 	            @Override
@@ -151,7 +166,7 @@ public class Stats extends Activity {
 	            	// Get new selection
 	            	roomSelected =(String) (room.getItemAtPosition(position));
 	            	time.setAdapter(adaptertime);
-		        	timeSelected =(String) (time.getItemAtPosition(0));
+		        	timeSelected2 =(String) (time.getItemAtPosition(0));
 	            	
 	            }
 
@@ -170,7 +185,7 @@ public class Stats extends Activity {
 	        	public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 	        	
 	        		// Get new selection
-	            	timeSelected =(String) (time.getItemAtPosition(position));
+	            	timeSelected2 =(String) (time.getItemAtPosition(position));
 	            	
 	            	//if(first==0){first=1;}           ///////calendar here  ************
 	            	//else if(first==1)
@@ -192,19 +207,19 @@ public class Stats extends Activity {
 	            	*/
 	            	// Display available computers in this room:    ***************
 	            	requestUrl="";
-					if(timeSelected.equals("Month")) {
+					if(timeSelected2.equals("Month")) {
 						display=3;
 	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
 					}
-	            	else if(timeSelected.equals("Year")) {
+	            	else if(timeSelected2.equals("Year")) {
 	            		display=4;
 	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year;
 	            	}
-	            	else if(timeSelected.equals("Day")) {
+	            	else if(timeSelected2.equals("Day")) {
 	            		display=1;
 	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
 	            	}
-	            	else if(timeSelected.equals("Week")) {
+	            	else if(timeSelected2.equals("Week")) {
 	            		display=2;
 	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
 	            	}
@@ -222,6 +237,8 @@ public class Stats extends Activity {
 	        usage.setOnClickListener(new Button.OnClickListener(){
 	        	public void onClick(View v){
 		        	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
+		        	i.putExtra("time", timeSelected);
+					i.putExtra("text", textSize);
 		        	finish();
 		        	startActivity(i);
 		        	overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
@@ -231,6 +248,8 @@ public class Stats extends Activity {
 	        power.setOnClickListener(new Button.OnClickListener(){
 		        public void onClick(View v){
 	            	Intent i = new Intent(getApplicationContext(), Power.class);
+	            	i.putExtra("time", timeSelected);
+	    			i.putExtra("text", textSize);
 	            	finish();
 	            	startActivity(i);	
 		        	overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
@@ -252,7 +271,7 @@ public class Stats extends Activity {
 	public void onClick(View v) {
 		Intent i = new Intent(getApplicationContext(),  Info.class);
      	i.putExtra("URL", requestUrl);
-     	i.putExtra("period", timeSelected);
+     	i.putExtra("period", timeSelected2);
      	startActivity(i);
     	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
     } 
@@ -269,22 +288,34 @@ public class Stats extends Activity {
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
+		Intent i;
 		switch (item.getItemId()) {
-		 	case R.id.video:
-			startActivity(new Intent(this, About.class));
+			case R.id.video:
+			i = new Intent(getApplicationContext(), About.class);
+			startActivity(i);
         	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			return true;
-		 	case R.id.settings:
-			startActivity(new Intent(this, Settings.class));finish();
-		    overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+			case R.id.settings:
+			i = new Intent(getApplicationContext(), Settings.class);
+			i.putExtra("time", timeSelected);
+			i.putExtra("text", textSize);
+            finish();
+            startActivity(i);
+	        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+			return true;
 		    case R.id.instructions:
-		    startActivity(new Intent(this, Instr.class));
-		    overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+		    i = new Intent(getApplicationContext(), Instr.class);
+		    i.putExtra("text", textSize);
+			i.putExtra("id", "1");
+			startActivity(i);
+        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    return true;
 		    case R.id.support:
-		    startActivity(new Intent(this, Support.class));finish();
-		    overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+		    i = new Intent(getApplicationContext(), Support.class);
+			i.putExtra("text", textSize);
+			startActivity(i);
+		    finish();
+        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    return true;
 		    default:
 		    return super.onOptionsItemSelected(item);
@@ -351,9 +382,11 @@ public class Stats extends Activity {
 			else if (display==2) powerTextView.setText("In week "+ (day+7)%7 +" of "+month+"/"+year+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
 			else if (display==3) powerTextView.setText("In "+month+"/"+year+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
 			else if (display==4) powerTextView.setText("In "+year+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
+			powerTextView.setTextSize(textSizeInt);
 			
 			TextView idleTextView = (TextView) findViewById(R.id.idletext);
 			idleTextView.setText(String.format("Possible savings: %.2f GBP.",idleCost));
+			idleTextView.setTextSize(textSizeInt);
 	     }
 	     
 	     

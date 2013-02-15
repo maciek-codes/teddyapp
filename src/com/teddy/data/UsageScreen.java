@@ -8,6 +8,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -43,8 +44,9 @@ public class UsageScreen extends Activity  {
 	
 	String buildingSelected, roomSelected;
 	static String timeSelected="15 Minutes";
-	static int no=0;
-	
+	static String textSize="Medium";
+	static int textSizeInt=16;
+	static int count=1;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,11 @@ public class UsageScreen extends Activity  {
         if(extras !=null)
         {
         	timeSelected = extras.getString("time");
+        	textSize = extras.getString("text");
+        	if(textSize.equals("Small"))textSizeInt=14;
+            else if(textSize.equals("Medium"))textSizeInt=16;
+            else if(textSize.equals("Big"))textSizeInt=20;
+            else if(textSize.equals("Extra Big"))textSizeInt=30;
         	
         }   
     	
@@ -191,6 +198,8 @@ public class UsageScreen extends Activity  {
 	        power.setOnClickListener(new Button.OnClickListener(){
 	        public void onClick(View v){
 	        	Intent i = new Intent(getApplicationContext(),  Power.class);
+	        	i.putExtra("time", timeSelected);
+				i.putExtra("text", textSize);
 	        	finish();
 	        	startActivity(i);
 	        	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out); 
@@ -200,6 +209,8 @@ public class UsageScreen extends Activity  {
 	        stats.setOnClickListener(new Button.OnClickListener(){
 	        	public void onClick(View v){
 	            	Intent i = new Intent(getApplicationContext(), Stats.class);
+	            	i.putExtra("time", timeSelected);
+	    			i.putExtra("text", textSize);
 	            	finish();
 	            	startActivity(i);
 	            	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
@@ -226,25 +237,33 @@ public class UsageScreen extends Activity  {
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
+		Intent i;
 		switch (item.getItemId()) {
 			case R.id.video:
-			startActivity(new Intent(this, About.class));
+			i = new Intent(getApplicationContext(), About.class);
+			startActivity(i);
         	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			return true;
 			case R.id.settings:
-			Intent i = new Intent(getApplicationContext(), Settings.class);
+			i = new Intent(getApplicationContext(), Settings.class);
 			i.putExtra("time", timeSelected);
+			i.putExtra("text", textSize);
             finish();
             startActivity(i);
 	        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			return true;
 		    case R.id.instructions:
-		    startActivity(new Intent(this, Instr.class));
-        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+		    i = new Intent(getApplicationContext(), Instr.class);
+		    i.putExtra("text", textSize);
+			i.putExtra("id", "1");
+		    startActivity(i);
+			overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    return true;
 		    case R.id.support:
-		    startActivity(new Intent(this, Support.class));finish();
+		    i = new Intent(getApplicationContext(), Support.class);
+		    i.putExtra("text", textSize);
+			startActivity(i);
+		    finish();
         	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    return true;
 		    default:
@@ -253,6 +272,7 @@ public class UsageScreen extends Activity  {
 	}
 	
 	// Get power stats json asynchronously
+	@SuppressLint("NewApi")
 	private class GetUsageStatsTask extends AsyncTask<String, Void, JSONObject> {
 		
 		// Progress dialog
@@ -299,12 +319,25 @@ public class UsageScreen extends Activity  {
             }
          	 TextView usageTextView = (TextView) findViewById(R.id.usagetext);
          	 usageTextView.setText(String.format("There are %d computers avaliable.", numberOfAvaliable));
+         	 usageTextView.setTextSize(textSizeInt);
          	 
          	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
              //Notification
          	 String time=timeSelected;
+         	 
+         	Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
+         	AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
+         	PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent , PendingIntent.FLAG_UPDATE_CURRENT);
+         	am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 100, pi);
          	
-         	 Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
+         	NotificationManager nm;
+            nm = (NotificationManager) UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);
+                      
+            Notification notif = new Notification(R.drawable.logoteddy_2, "There are "+numberOfAvaliable +" computers available", System.currentTimeMillis());
+            notif.setLatestEventInfo(UsageScreen.this, "test","test2", pi);
+            nm.notify(1, notif);
+         	
+         	 /*Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
              AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
              PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent , PendingIntent.FLAG_UPDATE_CURRENT);
              
@@ -323,7 +356,7 @@ public class UsageScreen extends Activity  {
                        
              Notification notif = new Notification(R.drawable.logoteddy_2, "There are "+numberOfAvaliable +" computers available", System.currentTimeMillis());
              notif.setLatestEventInfo(UsageScreen.this, from, message, contentIntent);
-             nm.notify(1, notif);
+             nm.notify(1, notif);*/
      }
 	}
 }

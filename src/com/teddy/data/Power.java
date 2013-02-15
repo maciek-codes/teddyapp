@@ -25,6 +25,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class Power extends Activity {
 	// Connection detector class
 		ConnectionDetector cd;
+		static String textSize ="Medium";
+		static String timeSelected="15 Minutes";
+		static int textSizeInt=16;
 
 		// Remember list of buildings and rooms associated
 		Map<String, ArrayList<String>> buildingRoomDict;
@@ -34,6 +37,18 @@ public class Power extends Activity {
 		@Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
+	        
+	        Bundle extras = getIntent().getExtras(); 
+	        if(extras !=null)
+	        {
+	        	timeSelected = extras.getString("time");
+	        	textSize = extras.getString("text");
+	        	if(textSize.equals("Small"))textSizeInt=14;
+	            else if(textSize.equals("Medium"))textSizeInt=16;
+	            else if(textSize.equals("Big"))textSizeInt=20;
+	            else if(textSize.equals("Extra Big"))textSizeInt=30;
+	        	
+	        }   
 	        
 	        // creating connection detector class instance
 	        cd = new ConnectionDetector(getApplicationContext());
@@ -155,6 +170,8 @@ public class Power extends Activity {
 		        usage.setOnClickListener(new Button.OnClickListener(){
 		        	public void onClick(View v){
 			        	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
+			        	i.putExtra("time", timeSelected);
+						i.putExtra("text", textSize);
 			        	finish();
 			        	startActivity(i);
 			        	overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
@@ -169,9 +186,13 @@ public class Power extends Activity {
 		        });
 		        
 		        stats.setOnClickListener(new Button.OnClickListener(){
-		        	public void onClick(View v){
+		        	
+
+					public void onClick(View v){
 		
 		            	Intent i = new Intent(getApplicationContext(), Stats.class);
+		            	i.putExtra("time", timeSelected);
+		    			i.putExtra("text", textSize);
 		            	finish();
 		            	startActivity(i);
 		            	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
@@ -198,21 +219,33 @@ public class Power extends Activity {
 		}
 		
 		public boolean onOptionsItemSelected(MenuItem item) {
-			
+			Intent i;
 			switch (item.getItemId()) {
 				case R.id.video:
-				startActivity(new Intent(this, About.class));
+				i = new Intent(getApplicationContext(), About.class);
+				startActivity(i);
 	        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 				return true;
 				case R.id.settings:
-				startActivity(new Intent(this, Settings.class));finish();
-			    overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+				i = new Intent(getApplicationContext(), Settings.class);
+				i.putExtra("time", timeSelected);
+				i.putExtra("text", textSize);
+	            finish();
+	            startActivity(i);
+		        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+				return true;
 			    case R.id.instructions:
-			    startActivity(new Intent(this, Instr.class));
+			    i = new Intent(getApplicationContext(), Instr.class);
+			    i.putExtra("text", textSize);
+				i.putExtra("id", "1");
+				startActivity(i);
 	        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			    return true;
 			    case R.id.support:
-			    startActivity(new Intent(this, Support.class));finish();
+			    i = new Intent(getApplicationContext(), Support.class);
+				i.putExtra("text", textSize);
+				startActivity(i);
+			    finish();
 	        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			    return true;
 			    default:
@@ -265,13 +298,16 @@ public class Power extends Activity {
             	 }	
             	 TextView powerTextView = (TextView) findViewById(R.id.powertext);
             	 powerTextView.setText(String.format("The power consuption for the last 15 minutes cost: %.2f GBP.",powerCost));
+            	 powerTextView.setTextSize(textSizeInt);
             	
             	 TextView idleTextView = (TextView) findViewById(R.id.idleText);
             	 idleTextView.setText(String.format("Possible savings: %.2f GBP.",idleCost));
+            	 idleTextView.setTextSize(textSizeInt);
             	 
             	 TextView calcTextView = (TextView) findViewById(R.id.calcText);
             	 calcTextView.setText(String.format("The power cost was calculated in relation with the folowing factors:\n\nNumber of machines: ___\n" +
             	 		"Cost per KWt: ___\netc"));
+            	 calcTextView.setTextSize(textSizeInt);
 		     }
 		}
 }

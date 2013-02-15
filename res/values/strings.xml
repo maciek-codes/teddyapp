@@ -34,4 +34,10 @@
         <item>6 Hours</item>
         <item>Daily</item>
     </string-array>
+    <string-array name="text_array">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Big</item>
+        <item>Extra Big</item>
+    </string-array>
 </resources>
