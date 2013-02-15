@@ -146,6 +146,9 @@ public class Power extends Activity {
 		        room.setOnItemSelectedListener(new OnItemSelectedListener() {
 		            @Override
 		            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+		            	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
+		            	JsonParser parser = new JsonParser();
+		            	
 		            	// Get new selection
 		            	roomSelected =(String) (room.getItemAtPosition(position));    
 		            	

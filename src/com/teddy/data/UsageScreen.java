@@ -1,6 +1,7 @@
 package com.teddy.data;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +18,11 @@ import android.app.ProgressDialog;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -164,6 +168,9 @@ public class UsageScreen extends Activity  {
 	        room.setOnItemSelectedListener(new OnItemSelectedListener() {
 	            @Override
 	            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+	            	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
+	            	JsonParser parser = new JsonParser();
+	            	
 	            	// Get new selection
 	            	roomSelected =(String) (room.getItemAtPosition(position));    
 	            	
@@ -312,7 +319,11 @@ public class UsageScreen extends Activity  {
          	 usageTextView.setText(String.format("There are %d computers avaliable.", numberOfAvaliable));
          	 usageTextView.setTextSize(textSizeInt);
          	 
-         	 Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
+         	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+             //Notification
+         	 String time=timeSelected;
+         	 /*
+         	Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
          	AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
          	PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent , PendingIntent.FLAG_UPDATE_CURRENT);
          	am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 100, pi);
@@ -322,14 +333,14 @@ public class UsageScreen extends Activity  {
                       
             Notification notif = new Notification(R.drawable.logoteddy_2, "There are "+numberOfAvaliable +" computers available", System.currentTimeMillis());
             notif.setLatestEventInfo(UsageScreen.this, "test","test2", pi);
-            nm.notify(1, notif);
+            nm.notify(1, notif);*/
          	
-         	 /*Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
+         	 Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
              AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
              PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent , PendingIntent.FLAG_UPDATE_CURRENT);
              
              
-             if(timeSelected.equals("Off"))am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pi);
+             if(timeSelected.equals("Off"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pi);
          	 else if(timeSelected.equals("15 Minutes"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pi);
          	 else if(timeSelected.equals("1 Hour"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),AlarmManager.INTERVAL_HOUR , pi);
          	 else if(timeSelected.equals("6 Hours"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR*6, pi);
@@ -343,7 +354,7 @@ public class UsageScreen extends Activity  {
                        
              Notification notif = new Notification(R.drawable.logoteddy_2, "There are "+numberOfAvaliable +" computers available", System.currentTimeMillis());
              notif.setLatestEventInfo(UsageScreen.this, from, message, contentIntent);
-             nm.notify(1, notif);*/
+             nm.notify(1, notif);
      }
 	}
 }
