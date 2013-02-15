@@ -3,9 +3,7 @@ package com.teddy.data;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.teddy.data.Stats.GetStatsTask;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
