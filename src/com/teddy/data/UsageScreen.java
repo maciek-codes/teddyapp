@@ -237,41 +237,39 @@ public class UsageScreen extends Activity  {
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent i;
-		switch (item.getItemId()) {
-			case R.id.video:
-			i = new Intent(getApplicationContext(), About.class);
-			startActivity(i);
-        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
-			return true;
-			case R.id.settings:
-			i = new Intent(getApplicationContext(), Settings.class);
-			i.putExtra("time", timeSelected);
-			i.putExtra("text", textSize);
-            finish();
-            startActivity(i);
-	        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
-			return true;
-		    case R.id.instructions:
-		    i = new Intent(getApplicationContext(), Instr.class);
-		    i.putExtra("text", textSize);
-			i.putExtra("id", "1");
-		    startActivity(i);
-			overridePendingTransition(R.anim.fadein,R.anim.fadeout);
-		    return true;
-		    case R.id.support:
-		    i = new Intent(getApplicationContext(), Support.class);
-		    i.putExtra("text", textSize);
-			startActivity(i);
-		    finish();
-        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
-		    return true;
-		    default:
-		    return super.onOptionsItemSelected(item);
+		
+		Context ctx = getApplicationContext();
+		Intent i = null;
+		
+		int id = item.getItemId();
+		if(id == R.id.video) {
+				
+				i = new Intent(ctx, About.class);
+		} else if(id == R.id.settings) {
+			
+				i = new Intent(ctx, Settings.class);
+				i.putExtra("time", timeSelected);
+				i.putExtra("text", textSize);
+		} else if(id == R.id.instructions) {
+			
+				i = new Intent(ctx, Instr.class);
+			    i.putExtra("text", textSize);
+				i.putExtra("id", "1");
+		} else if(id == R.id.support) {
+			
+			i = new Intent(ctx, Support.class);
+			    i.putExtra("text", textSize);
+			    finish();
+		} else {
+		    	return super.onOptionsItemSelected(item);
 		}
+		
+		startActivity(i);
+		overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+	    return true;
 	}
 	
-	// Get power stats json asynchronously
+	// Get power statistics JSON asynchronously
 	@SuppressLint("NewApi")
 	private class GetUsageStatsTask extends AsyncTask<String, Void, JSONObject> {
 		
