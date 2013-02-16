@@ -60,7 +60,7 @@ public class Info extends Activity {
         List<double[]> values = new ArrayList<double[]>();
           
         values.add(Costs);
-        int[] colors = new int[] { Color.parseColor("#FF6501")};
+        int[] colors = new int[] { Color.parseColor("#ff1b3d")};
         XYMultipleSeriesRenderer renderer = buildBarRenderer(colors);
         renderer.setOrientation(Orientation.HORIZONTAL);
         setChartSettings(renderer, "Costs for "+timeselected, "", "Pounds", 0.5,
