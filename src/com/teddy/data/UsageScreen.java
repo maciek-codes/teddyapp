@@ -340,9 +340,20 @@ public class UsageScreen extends Activity  {
 	     protected void onPostExecute(JSONObject result) {
 	    	 prog.hide();
 	    	 
+	    	 //{"busy": 3, "total_number": 79, "off_or_disconnected": 14, "busy_but_idle": 2, "date": "2013-02-16T14:30:06", "number_avaliable": 52}
+	    	 
 	    	 int numberOfAvaliable = 0;
+	    	 int offOrDisconected = 0;
+	    	 int busy = 0;
+	    	 int busyButIdle = 0;
+	    	 int used = 0;
+	    	 
          	 try {
-         		 numberOfAvaliable = result.getInt("number");
+         		 numberOfAvaliable = result.getInt("number_avaliable");
+         		 offOrDisconected = result.getInt("off_or_disconnected");
+         		 busy = result.getInt("busy");
+         		 busyButIdle = result.getInt("busy_but_idle");
+         		 used = busy+busyButIdle;
          	 } catch (JSONException e) {
          		 // TODO Catch exception here if JSON is not formulated well
          		 e.printStackTrace();
@@ -352,8 +363,9 @@ public class UsageScreen extends Activity  {
 	         		            		
          		e.printStackTrace();
             }
+         	 
          	 TextView usageTextView = (TextView) findViewById(R.id.usagetext);
-         	 usageTextView.setText(String.format("There are %d computers avaliable.", numberOfAvaliable));
+         	 usageTextView.setText(String.format("%d available computers\n\n%d turned off or disconnected computers\n\n%d computers being used of which\n      - %d active\n      - %d idle", numberOfAvaliable,offOrDisconected,used,busy,busyButIdle));
          	 usageTextView.setTextSize(textSizeInt);
          	 
          	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
