@@ -206,20 +206,21 @@ public class Stats extends Activity {
 	            	}
 	            	*/
 	            	// Display available computers in this room:    ***************
-	            	requestUrl="";
-					if(timeSelected2.equals("Month")) {
+	            	//requestUrl="http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
+	            	//display=1;
+					if(timeSelected2.equals("Last Month")) {
 						display=3;
 	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
 					}
-	            	else if(timeSelected2.equals("Year")) {
+	            	else if(timeSelected2.equals("Last Year")) {
 	            		display=4;
 	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year;
 	            	}
-	            	else if(timeSelected2.equals("Day")) {
+	            	else if(timeSelected2.equals("Last Day")) {
 	            		display=1;
 	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
 	            	}
-	            	else if(timeSelected2.equals("Week")) {
+	            	else if(timeSelected2.equals("Last Week")) {
 	            		display=2;
 	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
 	            	}
@@ -330,6 +331,7 @@ public class Stats extends Activity {
 	// Get power stats json asynchronously
 	public class GetStatsTask extends AsyncTask<String, Void, JSONObject> {
 		
+				
 		public double powerCost = 0, idleCost = 0;
 		// Progress dialog
 		ProgressDialog prog;
@@ -364,10 +366,20 @@ public class Stats extends Activity {
     	 	prog.hide();
  
 			powerCost = 0; idleCost = 0;
+			String start_date="null",end_date="null";
+			String[] start={"null","null"}, end={"null","null"},start_format={"null","null","null"},end_format={"null","null","null"};
+			
 			
 			try {
-				powerCost = result.getDouble("Total_Power_Cost");
+				powerCost = result.getDouble("total_power_cost");
 				idleCost = result.getDouble("power_cost_no_idle");
+				start_date = result.getString("start_date");
+        		end_date = result.getString("end_date");
+        		
+        		start =start_date.split("T");
+        		end = end_date.split("T");
+        		start_format =start[0].split("-");
+        		end_format =end[0].split("-");
 				} catch (JSONException e) {
 					// TODO Catch exception here if JSON is not formulated well
 					e.printStackTrace();
@@ -378,10 +390,10 @@ public class Stats extends Activity {
 			
 			
 			TextView powerTextView = (TextView) findViewById(R.id.powertext);
-			if(display==1)powerTextView.setText("In "+day+"/"+month+"/"+year+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
-			else if (display==2) powerTextView.setText("In week "+ (day+7)%7 +" of "+month+"/"+year+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
-			else if (display==3) powerTextView.setText("In "+month+"/"+year+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
-			else if (display==4) powerTextView.setText("In "+year+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
+			if(display==1)powerTextView.setText("Today, "+day+"/"+month+"/"+year+" from "+start[1]+" to "+end[1]+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
+			else if (display==2) powerTextView.setText("In week "+ (day+7)%7 +" of "+month+"/"+year+" from "+start_format[2]+"/"+start_format[1]+"/"+start_format[0]+", "+start[1]+" to "+end_format[2]+"/"+end_format[1]+"/"+end_format[0]+", "+end[1]+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
+			else if (display==3) powerTextView.setText("In "+month+"/"+year+" from "+start_format[2]+"/"+start_format[1]+"/"+start_format[0]+", "+start[1]+" to "+end_format[2]+"/"+end_format[1]+"/"+end_format[0]+", "+end[1]+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
+			else if (display==4) powerTextView.setText("In "+year+" from "+start_format[2]+"/"+start_format[1]+"/"+start_format[0]+", "+start[1]+" to "+end_format[2]+"/"+end_format[1]+"/"+end_format[0]+", "+end[1]+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
 			powerTextView.setTextSize(textSizeInt);
 			
 			TextView idleTextView = (TextView) findViewById(R.id.idletext);

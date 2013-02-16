@@ -19,10 +19,22 @@
         <item>2.11</item>
     </string-array>
     <string-array name="period_array">
-        <item>Day</item>
-        <item>Week</item>
-        <item>Month</item>
-        <item>Year</item>
-    
+        <item>Last Day</item>
+        <item>Last Week</item>
+        <item>Last Month</item>
+        <item>Last Year</item>
+    </string-array>
+    <string-array name="time_array">
+        <item>Off</item>
+        <item>15 Minutes</item>
+        <item>1 Hour</item>
+        <item>6 Hours</item>
+        <item>Daily</item>
+    </string-array>
+    <string-array name="text_array">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Big</item>
+        <item>Extra Big</item>
     </string-array>
 </resources>

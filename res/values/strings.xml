@@ -22,10 +22,10 @@
         <item>2.11</item>
     </string-array>
     <string-array name="period_array">
-        <item>Last day</item>
-        <item>Last week</item>
-        <item>Last month</item>
-        <item>Last year</item>
+        <item>Last Day</item>
+        <item>Last Week</item>
+        <item>Last Month</item>
+        <item>Last Year</item>
     </string-array>
     <string-array name="time_array">
         <item>Off</item>

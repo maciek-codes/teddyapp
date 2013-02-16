@@ -15,6 +15,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.app.TaskStackBuilder;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,6 +37,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 public class UsageScreen extends Activity  {
 	// Connection detector class
 	ConnectionDetector cd;
@@ -46,7 +49,7 @@ public class UsageScreen extends Activity  {
 	static String timeSelected="15 Minutes";
 	static String textSize="Medium";
 	static int textSizeInt=16;
-	static int count=1;
+	static int count=0;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -238,6 +241,7 @@ public class UsageScreen extends Activity  {
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
+		/*
 		Context ctx = getApplicationContext();
 		Intent i = null;
 		
@@ -266,8 +270,42 @@ public class UsageScreen extends Activity  {
 		
 		startActivity(i);
 		overridePendingTransition(R.anim.fadein,R.anim.fadeout);
-	    return true;
+	    return true;*/
+	
+		Intent i;
+		switch (item.getItemId()) {
+			case R.id.video:
+			i = new Intent(getApplicationContext(), About.class);
+			startActivity(i);
+        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+			return true;
+			case R.id.settings:
+			i = new Intent(getApplicationContext(), Settings.class);
+			i.putExtra("time", timeSelected);
+			i.putExtra("text", textSize);
+            finish();
+            startActivity(i);
+	        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+			return true;
+		    case R.id.instructions:
+		    i = new Intent(getApplicationContext(), Instr.class);
+		    i.putExtra("text", textSize);
+			i.putExtra("id", "1");
+			startActivity(i);
+        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+		    return true;
+		    case R.id.support:
+		    i = new Intent(getApplicationContext(), Support.class);
+			i.putExtra("text", textSize);
+			startActivity(i);
+		    finish();
+        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+		    return true;
+		    default:
+		    return super.onOptionsItemSelected(item);
+		}
 	}
+	
 	
 	// Get power statistics JSON asynchronously
 	@SuppressLint("NewApi")
@@ -299,7 +337,6 @@ public class UsageScreen extends Activity  {
 			return jObject;
 		}
 		
-
 	     protected void onPostExecute(JSONObject result) {
 	    	 prog.hide();
 	    	 
@@ -321,40 +358,58 @@ public class UsageScreen extends Activity  {
          	 
          	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
              //Notification
-         	 String time=timeSelected;
-         	 /*
-         	Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
-         	AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
-         	PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent , PendingIntent.FLAG_UPDATE_CURRENT);
-         	am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 100, pi);
+         	 String time=timeSelected; 
+         	 
          	
-         	NotificationManager nm;
-            nm = (NotificationManager) UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);
-                      
-            Notification notif = new Notification(R.drawable.logoteddy_2, "There are "+numberOfAvaliable +" computers available", System.currentTimeMillis());
-            notif.setLatestEventInfo(UsageScreen.this, "test","test2", pi);
-            nm.notify(1, notif);*/
+         	 
+         	 ///////////--------------------------------------------
+         	/*Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
+            //AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
+                        
+            //PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent , PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pi=PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            //am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 15000, pi);
+            
+            
+            NotificationCompat.Builder builder =
+         	        new NotificationCompat.Builder(getApplicationContext())
+            		.setSmallIcon(R.drawable.logoteddy_2)
+            		.setContentTitle("Teddy")
+            		.setContentText("There are "+numberOfAvaliable +" computers available");
+         			//.setWhen(System.currentTimeMillis())
+         			//.setContentIntent(pi);
+     	
+         	NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+         	manager.notify(0, builder.build());*/
          	
+            
+            //-----------------------------------------------------------------
          	 Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
              AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
+             
              PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent , PendingIntent.FLAG_UPDATE_CURRENT);
-             
-             
-             if(timeSelected.equals("Off"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pi);
+             if(timeSelected.equals("Off"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 0, pi);
          	 else if(timeSelected.equals("15 Minutes"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pi);
          	 else if(timeSelected.equals("1 Hour"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),AlarmManager.INTERVAL_HOUR , pi);
          	 else if(timeSelected.equals("6 Hours"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR*6, pi);
          	 else if(timeSelected.equals("Daily"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),AlarmManager.INTERVAL_DAY , pi);
              
-             NotificationManager nm;
-             nm = (NotificationManager) UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
-             CharSequence from = "Teddy";
-             CharSequence message = "There are "+numberOfAvaliable +" computers available";
+             NotificationManager nm = (NotificationManager) UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
              PendingIntent contentIntent = PendingIntent.getActivity(UsageScreen.this, 0,new Intent(), 0);
                        
+            /* NotificationCompat.Builder builder =
+          	        new NotificationCompat.Builder(UsageScreen.this)
+          	        .setSmallIcon(R.drawable.logoteddy_2)
+          	        .setContentTitle("Teddy")
+          	        .setContentText("There are "+numberOfAvaliable +" computers available")
+          			.setWhen(System.currentTimeMillis()+10*1000)
+          			.setContentIntent(pi);
+             */
+             
              Notification notif = new Notification(R.drawable.logoteddy_2, "There are "+numberOfAvaliable +" computers available", System.currentTimeMillis());
-             notif.setLatestEventInfo(UsageScreen.this, from, message, contentIntent);
-             nm.notify(1, notif);
+             notif.setLatestEventInfo(UsageScreen.this, "Teddy", "There are "+numberOfAvaliable +" computers available", contentIntent);
+             /*NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE); 
+             nm.notify(1, builder.build());*/
      }
 	}
 }

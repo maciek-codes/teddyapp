@@ -256,6 +256,8 @@ public class Power extends Activity {
 		// Get power stats json asynchronously
 		private class GetPowerStatsTask extends AsyncTask<String, Void, JSONObject> {
 			
+			
+			
 			// Progress dialog
 			ProgressDialog prog;
 		    
@@ -292,6 +294,7 @@ public class Power extends Activity {
             	 try {
             	    powerCost = result.getDouble("power_cost");
             		idleCost = result.getDouble("power_cost_idle");
+            		
             	 } catch (JSONException e) {
 					// TODO Catch exception here if JSON is not formulated well
 					e.printStackTrace();
