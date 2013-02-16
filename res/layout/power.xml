@@ -42,7 +42,7 @@
             android:layout_height="35dp"
             android:layout_gravity="fill_horizontal"
             android:layout_weight="1"
-            android:background="@color/orange"
+            android:background="@color/red"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="@color/white"

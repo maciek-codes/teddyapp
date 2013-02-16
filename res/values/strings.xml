@@ -13,6 +13,7 @@
     <color name="orange">#FF6501</color>
     <color name="ultrablue">#2890b7</color>
     <color name="grey">#363A36</color>
+    <color name="red">#ff1b3d</color>
  	<string-array name="building_array">
         <item>MVB</item>
     </string-array>
