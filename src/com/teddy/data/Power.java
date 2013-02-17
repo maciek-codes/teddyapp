@@ -296,9 +296,12 @@ public class Power extends Activity {
             		idleCost = result.getDouble("power_cost_idle");
             		
             	 } catch (JSONException e) {
-					// TODO Catch exception here if JSON is not formulated well
+					// TODO  Catch exception here if JSON is not formulated well
 					e.printStackTrace();
-            	 }	
+            	 }
+            	 catch (NullPointerException e) {
+            		 e.printStackTrace();
+            	 }
             	 TextView powerTextView = (TextView) findViewById(R.id.powertext);
             	 powerTextView.setText(String.format("The power consuption for the last 15 minutes cost: %.2f GBP.",powerCost));
             	 powerTextView.setTextSize(textSizeInt);

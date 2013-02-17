@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.animation.AnimatorSet.Builder;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -40,20 +41,37 @@ public class RequestHelper {
 		// and: http://service-teddy2012.rhcloud.com/building_name/
 
 
-		// TODO: This can return null and we need to handle this situation when internet
+		// TODO:DONE1 This can return null and we need to handle this situation when internet
 		// Is not working
 
 		try {
 			JSONObject buildingsObject = jParser.getJSONFromUrl("http://service-teddy2012.rhcloud.com/buildings");
 			buildings = buildingsObject.getJSONArray("buildings");
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			// TODO DONE1 aici Auto-generated catch block
 			
-			e.printStackTrace();
+			android.os.Process.killProcess(android.os.Process.myPid());
+
+			
+			
+			/*android.app.AlertDialog.Builder builder = new AlertDialog.Builder(com.teddy.data.LoginActivity.this);
+		    builder.setMessage("This will end the activity");
+		    builder.setCancelable(true);
+		    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+
+					android.os.Process.killProcess(android.os.Process.myPid());
+					// e.printStackTrace();
+				}
+			});
+		    AlertDialog dialog = builder.create();
+		    dialog.show();
+			
+			//e.printStackTrace();
 			//!!!!!!!!!!!!!!!!
 			//http://developer.android.com/reference/android/app/ApplicationErrorReport.html
 			
-			AlertDialog.Builder builder = new AlertDialog.Builder(thisContext);
+			/*AlertDialog.Builder builder = new AlertDialog.Builder(thisContext);
 			builder.setMessage("Are you sure you want to exit?")
 			.setCancelable(false)
 			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -70,16 +88,17 @@ public class RequestHelper {
 
 			AlertDialog alert = builder.create();
 			alert.show();
-			
-			return null;
+			*/
+			//return null;
 		}
 		catch (NullPointerException e) {
-
+			//TODO: DONE1
 			AlertDialog.Builder builder = new AlertDialog.Builder(thisContext);
 			builder.setMessage("Are you sure you want to exit?")
 			.setCancelable(false)
 			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
+					android.os.Process.killProcess(android.os.Process.myPid());
 
 					// e.printStackTrace();
 				}
@@ -95,6 +114,8 @@ public class RequestHelper {
 
 
 			e.printStackTrace();
+			android.os.Process.killProcess(android.os.Process.myPid());
+
 			return null;
 
 		}
@@ -118,11 +139,16 @@ public class RequestHelper {
 				}
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
+				// TODO: DONE1 Auto-generated catch block
 				e.printStackTrace();
+				android.os.Process.killProcess(android.os.Process.myPid());
+
 			}
 			catch (NullPointerException e) {
+				//TODO: DONE
 				e.printStackTrace();
+				android.os.Process.killProcess(android.os.Process.myPid());
+
 			}
 
 			// If there are any rooms, add building to the list
