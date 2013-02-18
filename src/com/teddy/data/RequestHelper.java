@@ -3,19 +3,10 @@ package com.teddy.data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.animation.AnimatorSet.Builder;
-import android.app.ActivityManager;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.widget.Toast;
 
 public class RequestHelper {
 	

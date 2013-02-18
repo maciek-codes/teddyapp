@@ -1,19 +1,18 @@
 package com.teddy.data;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.teddy.data.Stats.GetStatsTask;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.graphics.Color;
+import android.graphics.Paint.Align;
+import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.List;
- 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart.Type;
@@ -22,11 +21,6 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer.Orientation;
- 
-import android.graphics.Color;
-import android.graphics.Paint.Align;
-import android.widget.RelativeLayout;
-
 
 public class Info extends Activity {
 

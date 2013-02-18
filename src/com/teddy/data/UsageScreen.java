@@ -1,43 +1,32 @@
 package com.teddy.data;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.app.TaskStackBuilder;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.view.WindowManager;
-
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
 public class UsageScreen extends Activity  {
 	// Connection detector class
 	ConnectionDetector cd;
@@ -171,9 +160,6 @@ public class UsageScreen extends Activity  {
 	        room.setOnItemSelectedListener(new OnItemSelectedListener() {
 	            @Override
 	            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-	            	//TextView text2 = (TextView ) findViewById(R.id.usagetext);
-	            	JsonParser parser = new JsonParser();
-	            	
 	            	// Get new selection
 	            	roomSelected =(String) (room.getItemAtPosition(position));    
 	            	
@@ -374,9 +360,7 @@ public class UsageScreen extends Activity  {
          	 usageTextView.setText(String.format("%d available computers\n\n%d turned off or disconnected computers\n\n%d computers being used of which\n      - %d active\n      - %d idle", numberOfAvaliable,offOrDisconected,used,busy,busyButIdle));
          	 usageTextView.setTextSize(textSizeInt);
          	 
-         	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-             //Notification
-         	 String time=timeSelected; 
+         	  
          	 
          	
          	 
@@ -412,7 +396,7 @@ public class UsageScreen extends Activity  {
          	 else if(timeSelected.equals("6 Hours"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR*6, pi);
          	 else if(timeSelected.equals("Daily"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),AlarmManager.INTERVAL_DAY , pi);
              
-             NotificationManager nm = (NotificationManager) UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
+             UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
              PendingIntent contentIntent = PendingIntent.getActivity(UsageScreen.this, 0,new Intent(), 0);
                        
             /* NotificationCompat.Builder builder =

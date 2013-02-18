@@ -7,17 +7,7 @@
     android:gravity="fill_vertical"
     android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/logoteddy"
-        android:layout_width="105dp"
-        android:layout_height="56dp"
-        android:layout_gravity="top"
-        android:layout_marginLeft="40dp"
-        android:contentDescription="@string/teddylogo"
-        android:src="@drawable/logoteddy" />
-
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layouthoz"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -66,7 +56,7 @@
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:textAlignment="center"
+            
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -92,7 +82,6 @@
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -112,7 +101,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layoutlogo"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
