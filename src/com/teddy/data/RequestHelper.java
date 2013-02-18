@@ -15,13 +15,19 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.widget.Toast;
 
 public class RequestHelper {
 	
 	// Store array of rooms for each building
 	public static Map<String, ArrayList<String>> buildingRoomList = null;
-
-
+	
+	/* TODO: Display error message
+	public static void displayExceptionMessage(String msg)
+	{
+	    Toast.makeText( msg, Toast.LENGTH_SHORT).show();
+	}
+/*/
 	public static Map<String, ArrayList<String>> getRoomsAndBuildings(Context thisContext) {
 
 		// Maybe you got it before?
@@ -52,7 +58,7 @@ public class RequestHelper {
 			
 			android.os.Process.killProcess(android.os.Process.myPid());
 
-			
+			//displayExceptionMessage(e.getMessage());
 			
 			/*android.app.AlertDialog.Builder builder = new AlertDialog.Builder(com.teddy.data.LoginActivity.this);
 		    builder.setMessage("This will end the activity");
@@ -93,7 +99,7 @@ public class RequestHelper {
 		}
 		catch (NullPointerException e) {
 			//TODO: DONE1
-			AlertDialog.Builder builder = new AlertDialog.Builder(thisContext);
+			/*AlertDialog.Builder builder = new AlertDialog.Builder(thisContext);
 			builder.setMessage("Are you sure you want to exit?")
 			.setCancelable(false)
 			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -111,12 +117,12 @@ public class RequestHelper {
 
 			AlertDialog alert = builder.create();
 			alert.show();
-
+*/
 
 			e.printStackTrace();
 			android.os.Process.killProcess(android.os.Process.myPid());
 
-			return null;
+			//return null;
 
 		}
 
@@ -145,7 +151,7 @@ public class RequestHelper {
 
 			}
 			catch (NullPointerException e) {
-				//TODO: DONE
+				//TODO: DONE1
 				e.printStackTrace();
 				android.os.Process.killProcess(android.os.Process.myPid());
 

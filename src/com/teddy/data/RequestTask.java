@@ -34,10 +34,14 @@ class RequestTask extends AsyncTask<String, String, String>{
                 throw new IOException(statusLine.getReasonPhrase());
             }
         } catch (ClientProtocolException e) {
-            //TODO Handle problems..
+            //TODO DONE1 Handle problems..
         	e.printStackTrace();
+			android.os.Process.killProcess(android.os.Process.myPid());
+
         } catch (IOException e) {
-            //TODO Handle problems..
+            //TODO DONE1 Handle problems..
+			android.os.Process.killProcess(android.os.Process.myPid());
+
         	e.printStackTrace();
         }
         return responseString;

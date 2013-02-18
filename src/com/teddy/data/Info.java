@@ -159,8 +159,10 @@ public class Info extends Activity {
 			try {
 				jObject = parser.getJSONFromUrl(urls[0]);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
+				// TODO DONE1 Auto-generated catch block
 				e.printStackTrace();
+				android.os.Process.killProcess(android.os.Process.myPid());
+
 			}
   			
   			return jObject;
@@ -175,8 +177,10 @@ public class Info extends Activity {
   				powerCost = result.getDouble("Total_Power_Cost");
   				idleCost = result.getDouble("power_cost_no_idle");
   				} catch (JSONException e) {
-  					// TODO Catch exception here if JSON is not formulated well
+  					// TODO DONE1 Catch exception here if JSON is not formulated well
   					e.printStackTrace();
+  					android.os.Process.killProcess(android.os.Process.myPid());
+
   				}
   				catch (NullPointerException e) {
   					e.printStackTrace();
