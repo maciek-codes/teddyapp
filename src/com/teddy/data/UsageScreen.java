@@ -1,5 +1,6 @@
 package com.teddy.data;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -342,6 +344,8 @@ public class UsageScreen extends Activity  {
 	    	 int busy = 0;
 	    	 int busyButIdle = 0;
 	    	 int used = 0;
+	    	 Long time = System.currentTimeMillis();
+	    	 String timestamp = new SimpleDateFormat ("MM/dd/yyyy HH:mm:ss").format(new java.util.Date(time));
 	    	 
          	 try {
          		 numberOfAvaliable = result.getInt("number_avaliable");
@@ -411,7 +415,11 @@ public class UsageScreen extends Activity  {
              
              UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
              PendingIntent contentIntent = PendingIntent.getActivity(UsageScreen.this, 0,new Intent(), 0);
-                       
+             TextView timeStamp = (TextView) findViewById(R.id.timestamp);
+         	 timeStamp.setText(String.format("Last refreshed at: %s", timestamp));
+         	 timeStamp.setTextSize(textSizeInt);
+                          
+             
             /* NotificationCompat.Builder builder =
           	        new NotificationCompat.Builder(UsageScreen.this)
           	        .setSmallIcon(R.drawable.logoteddy_2)
