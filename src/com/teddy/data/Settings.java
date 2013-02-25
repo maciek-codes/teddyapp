@@ -16,6 +16,7 @@ public class Settings extends Activity {
 
 	static String timeSelected="15 Minutes";
 	static String textSize ="Medium";
+	static String textColor ="White";
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,7 @@ public class Settings extends Activity {
         {
         	timeSelected = extras.getString("time");
         	textSize = extras.getString("text");
+        	textColor = extras.getString("color");
         	
         }     
         setContentView(R.layout.settings);
@@ -38,6 +40,7 @@ public class Settings extends Activity {
             	Intent i = new Intent(getApplicationContext(), UsageScreen.class);
             	i.putExtra("time",timeSelected );
             	i.putExtra("text",textSize );
+            	i.putExtra("color",textColor );
             	finish();
             	i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             	startActivity(i);
@@ -51,9 +54,12 @@ public class Settings extends Activity {
     	notifTextView.setText(String.format("Notifications"));
     	TextView sizeTextView = (TextView) findViewById(R.id.textSize);
     	sizeTextView.setText(String.format("Text Size"));
+    	TextView sizeColorView = (TextView) findViewById(R.id.textColor);
+    	sizeColorView.setText(String.format("Text Color"));
     	
     	final Spinner time = (Spinner) findViewById(R.id.time_spinner);
     	final Spinner text = (Spinner) findViewById(R.id.textsize_spinner);
+    	final Spinner color = (Spinner) findViewById(R.id.textcolor_spinner);
         
         // Set resources
     	final ArrayAdapter<CharSequence> adaptertime = ArrayAdapter.createFromResource(this, R.array.time_array, android.R.layout.simple_spinner_item);
@@ -63,6 +69,10 @@ public class Settings extends Activity {
         final ArrayAdapter<CharSequence> adaptertext = ArrayAdapter.createFromResource(this, R.array.text_array, android.R.layout.simple_spinner_item);
         adaptertext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         text.setAdapter(adaptertext);
+
+        final ArrayAdapter<CharSequence> adaptercolor = ArrayAdapter.createFromResource(this, R.array.textcolor_array, android.R.layout.simple_spinner_item);
+        adaptercolor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        color.setAdapter(adaptercolor);
         
         if(timeSelected.equals("Off"))time.setSelection(0);
         else if(timeSelected.equals("15 Minutes"))time.setSelection(1);
@@ -74,6 +84,14 @@ public class Settings extends Activity {
         else if(textSize.equals("Medium"))text.setSelection(1);
         else if(textSize.equals("Big"))text.setSelection(2);
         else if(textSize.equals("Extra Big"))text.setSelection(3);
+        
+        if(textColor.equals("White"))color.setSelection(0);
+        else if(textColor.equals("Black"))color.setSelection(1);
+        else if(textColor.equals("Red"))color.setSelection(2);
+        else if(textColor.equals("Blue"))color.setSelection(3);
+        else if(textColor.equals("Green"))color.setSelection(4);
+        else if(textColor.equals("Yellow"))color.setSelection(5);
+        else if(textColor.equals("Orange"))color.setSelection(6);
        
         
         time.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -106,6 +124,21 @@ public class Settings extends Activity {
             }
 
         });
+        
+        color.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+            	            	
+            	// Get new selection
+            	textColor =(String) (color.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
 	} 
   	      
 	
@@ -114,7 +147,8 @@ public class Settings extends Activity {
   		Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
   		i.putExtra("time",timeSelected );
     	i.putExtra("text",textSize );
-      	finish();
+    	i.putExtra("color",textColor );
+    	finish();
       	startActivity(i);
       	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
       }

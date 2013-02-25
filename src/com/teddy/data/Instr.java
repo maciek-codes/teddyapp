@@ -15,6 +15,7 @@ public class Instr extends Activity {
     int sessionId;
     static String textSize="Medium";
 	static int textSizeInt=16;
+	static String textColor="White";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class Instr extends Activity {
         if (extras != null) {
             value = extras.getString("id");
             textSize = extras.getString("text");
+            textColor = extras.getString("color");
         	if(textSize.equals("Small"))textSizeInt=14;
             else if(textSize.equals("Medium"))textSizeInt=16;
             else if(textSize.equals("Big"))textSizeInt=20;
@@ -45,6 +47,13 @@ public class Instr extends Activity {
         if(value.equals("1")) content.setText("Welcome to Teddy! \n\n\n\n1. Introduction\n\n\nThis app monitors usage of computers in different labs across University of Bristol.\n\n");
         else if(value.equals("2")) content.setText("\n\n2. How to use\n\n\n\n (i) Available: This shows you the number of computers currently available for usage. Use the drop-down menus to select the building and room number. This is up-to-date over the last 15 minutes.\n\n (ii) Power Cost: This shows you the power costs for the last 15 minutes and the possible savings. Savings can be made because of the high number of idle computers, especially during off-peak time.\n\n (iii) Statistics: Statistics displays the power costs for different computer labs over a certain period of time. You can choose to view the data on a weekly, monthly or annual basis.\n");
         content.setTextSize(textSizeInt);
+        if(textColor.equals("White"))content.setTextColor(getResources().getColor(R.color.white));
+        else if(textColor.equals("Black"))content.setTextColor(getResources().getColor(R.color.black));
+        else if(textColor.equals("Red"))content.setTextColor(getResources().getColor(R.color.red));
+        else if(textColor.equals("Blue"))content.setTextColor(getResources().getColor(R.color.blue));
+        else if(textColor.equals("Green"))content.setTextColor(getResources().getColor(R.color.green));
+        else if(textColor.equals("Yellow"))content.setTextColor(getResources().getColor(R.color.yellow));
+        else if(textColor.equals("Orange"))content.setTextColor(getResources().getColor(R.color.orange));
         
         content.setMovementMethod(new ScrollingMovementMethod());
 	
@@ -74,6 +83,7 @@ public class Instr extends Activity {
             	if(translation.equals("1")) i.putExtra("id", "2");
             	if(translation.equals("2")) i.putExtra("id", "2");
             	i.putExtra("text", "textSize");
+    			i.putExtra("color", textColor);
 
             	finish();
             	startActivity(i);
@@ -90,6 +100,7 @@ public class Instr extends Activity {
             	if(translation.equals("1")) i.putExtra("id", "1");
             	if(translation.equals("2")) i.putExtra("id", "1");
             	i.putExtra("text", "textSize");
+    			i.putExtra("color", textColor);
             	finish();
             	startActivity(i);
             	if(translation.equals("1")) overridePendingTransition(R.anim.fadein,R.anim.fadeout);

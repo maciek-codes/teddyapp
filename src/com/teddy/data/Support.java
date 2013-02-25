@@ -15,6 +15,7 @@ public class Support extends Activity {
 
 	static String textSize="Medium";
 	static int textSizeInt=16;
+	static String textColor="White";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,8 @@ public class Support extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             textSize = extras.getString("text");
+
+            textColor = extras.getString("color");
         	if(textSize.equals("Small"))textSizeInt=14;
             else if(textSize.equals("Medium"))textSizeInt=16;
             else if(textSize.equals("Big"))textSizeInt=20;
@@ -42,6 +45,16 @@ public class Support extends Activity {
         content.setText("\n\n\nSupport: uob.ibm.teddy@gmail.com \n\n\n Application Developed by:\n\n Cristian Cernatescu \n Alexandru Dumitrescu \n Maciej Kumorek \n Christa Mpundu \n Aankhi Mukherjee \n Ioannis Troumpis \n\n\n\n in colaboration with :");
         content.setTextSize(textSizeInt);
         content.setMovementMethod(new ScrollingMovementMethod());
+        
+
+		if(textColor.equals("White"))content.setTextColor(getResources().getColor(R.color.white));
+        else if(textColor.equals("Black"))content.setTextColor(getResources().getColor(R.color.black));
+        else if(textColor.equals("Red"))content.setTextColor(getResources().getColor(R.color.red));
+        else if(textColor.equals("Blue"))content.setTextColor(getResources().getColor(R.color.blue));
+        else if(textColor.equals("Green"))content.setTextColor(getResources().getColor(R.color.green));
+        else if(textColor.equals("Yellow"))content.setTextColor(getResources().getColor(R.color.yellow));
+        else if(textColor.equals("Orange"))content.setTextColor(getResources().getColor(R.color.orange));
+		
         
         Button home =(Button) findViewById(R.id.homebutton);
         home.setText("Home");

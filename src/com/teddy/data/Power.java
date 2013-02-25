@@ -28,6 +28,7 @@ public class Power extends Activity {
 		static String textSize ="Medium";
 		static String timeSelected="15 Minutes";
 		static int textSizeInt=16;
+		static String textColor="White";
 
 		// Remember list of buildings and rooms associated
 		Map<String, ArrayList<String>> buildingRoomDict;
@@ -43,6 +44,7 @@ public class Power extends Activity {
 	        {
 	        	timeSelected = extras.getString("time");
 	        	textSize = extras.getString("text");
+	        	textColor = extras.getString("color");
 	        	if(textSize.equals("Small"))textSizeInt=14;
 	            else if(textSize.equals("Medium"))textSizeInt=16;
 	            else if(textSize.equals("Big"))textSizeInt=20;
@@ -169,6 +171,7 @@ public class Power extends Activity {
 			        	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
 			        	i.putExtra("time", timeSelected);
 						i.putExtra("text", textSize);
+						i.putExtra("color", textColor);
 			        	finish();
 			        	startActivity(i);
 			        	overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
@@ -190,6 +193,7 @@ public class Power extends Activity {
 		            	Intent i = new Intent(getApplicationContext(), Stats.class);
 		            	i.putExtra("time", timeSelected);
 		    			i.putExtra("text", textSize);
+						i.putExtra("color", textColor);
 		            	finish();
 		            	startActivity(i);
 		            	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
@@ -227,6 +231,7 @@ public class Power extends Activity {
 				i = new Intent(getApplicationContext(), Settings.class);
 				i.putExtra("time", timeSelected);
 				i.putExtra("text", textSize);
+				i.putExtra("color", textColor);
 	            finish();
 	            startActivity(i);
 		        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -235,12 +240,14 @@ public class Power extends Activity {
 			    i = new Intent(getApplicationContext(), Instr.class);
 			    i.putExtra("text", textSize);
 				i.putExtra("id", "1");
+				i.putExtra("color", textColor);
 				startActivity(i);
 	        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			    return true;
 			    case R.id.support:
 			    i = new Intent(getApplicationContext(), Support.class);
 				i.putExtra("text", textSize);
+				i.putExtra("color", textColor);
 				startActivity(i);
 			    finish();
 	        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -306,15 +313,40 @@ public class Power extends Activity {
             	 TextView powerTextView = (TextView) findViewById(R.id.powertext);
             	 powerTextView.setText(String.format("The power consuption for the last 15 minutes cost: %.2f GBP.",powerCost));
             	 powerTextView.setTextSize(textSizeInt);
+
+            	 if(textColor.equals("White"))powerTextView.setTextColor(getResources().getColor(R.color.white));
+                 else if(textColor.equals("Black"))powerTextView.setTextColor(getResources().getColor(R.color.black));
+                 else if(textColor.equals("Red"))powerTextView.setTextColor(getResources().getColor(R.color.red));
+                 else if(textColor.equals("Blue"))powerTextView.setTextColor(getResources().getColor(R.color.blue));
+                 else if(textColor.equals("Green"))powerTextView.setTextColor(getResources().getColor(R.color.green));
+                 else if(textColor.equals("Yellow"))powerTextView.setTextColor(getResources().getColor(R.color.yellow));
+                 else if(textColor.equals("Orange"))powerTextView.setTextColor(getResources().getColor(R.color.orange));
             	
             	 TextView idleTextView = (TextView) findViewById(R.id.idleText);
             	 idleTextView.setText(String.format("Possible savings: %.2f GBP.",idleCost));
             	 idleTextView.setTextSize(textSizeInt);
+
+
+      			if(textColor.equals("White"))idleTextView.setTextColor(getResources().getColor(R.color.white));
+                  else if(textColor.equals("Black"))idleTextView.setTextColor(getResources().getColor(R.color.black));
+                  else if(textColor.equals("Red"))idleTextView.setTextColor(getResources().getColor(R.color.red));
+                  else if(textColor.equals("Blue"))idleTextView.setTextColor(getResources().getColor(R.color.blue));
+                  else if(textColor.equals("Green"))idleTextView.setTextColor(getResources().getColor(R.color.green));
+                  else if(textColor.equals("Yellow"))idleTextView.setTextColor(getResources().getColor(R.color.yellow));
+                  else if(textColor.equals("Orange"))idleTextView.setTextColor(getResources().getColor(R.color.orange));
             	 
             	 TextView calcTextView = (TextView) findViewById(R.id.calcText);
             	 calcTextView.setText(String.format("The power cost was calculated in relation with the folowing factors:\n\nNumber of machines: ___\n" +
             	 		"Cost per KWt: ___\netc"));
             	 calcTextView.setTextSize(textSizeInt);
+
+      			if(textColor.equals("White"))calcTextView.setTextColor(getResources().getColor(R.color.white));
+                  else if(textColor.equals("Black"))calcTextView.setTextColor(getResources().getColor(R.color.black));
+                  else if(textColor.equals("Red"))calcTextView.setTextColor(getResources().getColor(R.color.red));
+                  else if(textColor.equals("Blue"))calcTextView.setTextColor(getResources().getColor(R.color.blue));
+                  else if(textColor.equals("Green"))calcTextView.setTextColor(getResources().getColor(R.color.green));
+                  else if(textColor.equals("Yellow"))calcTextView.setTextColor(getResources().getColor(R.color.yellow));
+                  else if(textColor.equals("Orange"))calcTextView.setTextColor(getResources().getColor(R.color.orange));
 		     }
 		}
 }

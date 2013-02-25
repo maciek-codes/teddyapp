@@ -14,6 +14,9 @@
     <color name="ultrablue">#2890b7</color>
     <color name="grey">#363A36</color>
     <color name="red">#ff1b3d</color>
+    <color name="blue">#2457FF</color>
+    <color name="green">#13AB1D</color>
+    <color name="yellow">#F8FF24</color>
  	<string-array name="building_array">
         <item>MVB</item>
     </string-array>
@@ -40,5 +43,14 @@
         <item>Medium</item>
         <item>Big</item>
         <item>Extra Big</item>
+    </string-array>
+    <string-array name="textcolor_array">
+        <item>White</item>
+        <item>Black</item>
+        <item>Red</item>
+        <item>Blue</item>
+    	<item>Green</item>
+        <item>Yellow</item>
+        <item>Orange</item>
     </string-array>
 </resources>

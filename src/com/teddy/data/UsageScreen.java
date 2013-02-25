@@ -38,6 +38,7 @@ public class UsageScreen extends Activity  {
 	static String timeSelected="15 Minutes";
 	static String textSize="Medium";
 	static int textSizeInt=16;
+	static String textColor="White";
 	static int count=0;
 	
 	@Override
@@ -56,6 +57,7 @@ public class UsageScreen extends Activity  {
         {
         	timeSelected = extras.getString("time");
         	textSize = extras.getString("text");
+        	textColor = extras.getString("color");
         	if(textSize.equals("Small"))textSizeInt=14;
             else if(textSize.equals("Medium"))textSizeInt=16;
             else if(textSize.equals("Big"))textSizeInt=20;
@@ -189,6 +191,7 @@ public class UsageScreen extends Activity  {
 	        	Intent i = new Intent(getApplicationContext(),  Power.class);
 	        	i.putExtra("time", timeSelected);
 				i.putExtra("text", textSize);
+				i.putExtra("color", textColor);
 	        	finish();
 	        	startActivity(i);
 	        	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out); 
@@ -200,6 +203,7 @@ public class UsageScreen extends Activity  {
 	            	Intent i = new Intent(getApplicationContext(), Stats.class);
 	            	i.putExtra("time", timeSelected);
 	    			i.putExtra("text", textSize);
+	    			i.putExtra("color", textColor);
 	            	finish();
 	            	startActivity(i);
 	            	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
@@ -269,6 +273,7 @@ public class UsageScreen extends Activity  {
 			i = new Intent(getApplicationContext(), Settings.class);
 			i.putExtra("time", timeSelected);
 			i.putExtra("text", textSize);
+			i.putExtra("color", textColor);
             finish();
             startActivity(i);
 	        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -277,12 +282,14 @@ public class UsageScreen extends Activity  {
 		    i = new Intent(getApplicationContext(), Instr.class);
 		    i.putExtra("text", textSize);
 			i.putExtra("id", "1");
+			i.putExtra("color", textColor);
 			startActivity(i);
         	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    return true;
 		    case R.id.support:
 		    i = new Intent(getApplicationContext(), Support.class);
 			i.putExtra("text", textSize);
+			i.putExtra("color", textColor);
 			startActivity(i);
 		    finish();
         	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -360,7 +367,13 @@ public class UsageScreen extends Activity  {
          	 usageTextView.setText(String.format("%d available computers\n\n%d turned off or disconnected computers\n\n%d computers being used of which\n      - %d active\n      - %d idle", numberOfAvaliable,offOrDisconected,used,busy,busyButIdle));
          	 usageTextView.setTextSize(textSizeInt);
          	 
-         	  
+         	if(textColor.equals("White"))usageTextView.setTextColor(getResources().getColor(R.color.white));
+            else if(textColor.equals("Black"))usageTextView.setTextColor(getResources().getColor(R.color.black));
+            else if(textColor.equals("Red"))usageTextView.setTextColor(getResources().getColor(R.color.red));
+            else if(textColor.equals("Blue"))usageTextView.setTextColor(getResources().getColor(R.color.blue));
+            else if(textColor.equals("Green"))usageTextView.setTextColor(getResources().getColor(R.color.green));
+            else if(textColor.equals("Yellow"))usageTextView.setTextColor(getResources().getColor(R.color.yellow));
+            else if(textColor.equals("Orange"))usageTextView.setTextColor(getResources().getColor(R.color.orange));
          	 
          	
          	 
