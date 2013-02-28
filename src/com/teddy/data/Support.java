@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 
@@ -16,6 +17,7 @@ public class Support extends Activity {
 	static String textSize="Medium";
 	static int textSizeInt=16;
 	static String textColor="White";
+	static String textBkcolor ="Black";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,7 @@ public class Support extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             textSize = extras.getString("text");
-
+        	textBkcolor = extras.getString("bkcolor");
             textColor = extras.getString("color");
         	if(textSize.equals("Small"))textSizeInt=14;
             else if(textSize.equals("Medium"))textSizeInt=16;
@@ -54,6 +56,16 @@ public class Support extends Activity {
         else if(textColor.equals("Green"))content.setTextColor(getResources().getColor(R.color.green));
         else if(textColor.equals("Yellow"))content.setTextColor(getResources().getColor(R.color.yellow));
         else if(textColor.equals("Orange"))content.setTextColor(getResources().getColor(R.color.orange));
+		
+		View mlayout= findViewById(R.id.mainlayout);
+    	// set the color 
+    	if(textBkcolor.equals("White"))mlayout.setBackgroundColor(Color.WHITE);
+        else if(textBkcolor.equals("Black"))mlayout.setBackgroundColor(Color.BLACK);
+        else if(textBkcolor.equals("Red"))mlayout.setBackgroundColor(getResources().getColor(R.color.darkred));
+        else if(textBkcolor.equals("Blue"))mlayout.setBackgroundColor(getResources().getColor(R.color.blue));
+        else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
+        else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
+        else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
 		
         
         Button home =(Button) findViewById(R.id.homebutton);

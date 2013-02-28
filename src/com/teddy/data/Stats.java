@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,7 +32,7 @@ public class Stats extends Activity {
 	static String timeSelected="15 Minutes";
 	static int textSizeInt=16;
 	static String textColor="White";
-	
+	static String textBkcolor ="Black";
 
 	// Remember list of buildings and rooms associated
 	Map<String, ArrayList<String>> buildingRoomDict;
@@ -47,6 +48,7 @@ public class Stats extends Activity {
         	timeSelected = extras.getString("time");
         	textSize = extras.getString("text");
         	textColor = extras.getString("color");
+        	textBkcolor = extras.getString("bkcolor");
         	if(textSize.equals("Small"))textSizeInt=14;
             else if(textSize.equals("Medium"))textSizeInt=16;
             else if(textSize.equals("Big"))textSizeInt=20;
@@ -241,6 +243,7 @@ public class Stats extends Activity {
 		        	i.putExtra("time", timeSelected);
 					i.putExtra("text", textSize);
 					i.putExtra("color", textColor);
+			    	i.putExtra("bkcolor",textBkcolor );
 		        	finish();
 		        	startActivity(i);
 		        	overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
@@ -253,6 +256,7 @@ public class Stats extends Activity {
 	            	i.putExtra("time", timeSelected);
 	    			i.putExtra("text", textSize);
 					i.putExtra("color", textColor);
+			    	i.putExtra("bkcolor",textBkcolor );
 					finish();
 	            	startActivity(i);	
 		        	overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
@@ -303,6 +307,7 @@ public class Stats extends Activity {
 			i.putExtra("time", timeSelected);
 			i.putExtra("text", textSize);
 			i.putExtra("color", textColor);
+	    	i.putExtra("bkcolor",textBkcolor );
             finish();
             startActivity(i);
 	        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -312,6 +317,7 @@ public class Stats extends Activity {
 		    i.putExtra("text", textSize);
 			i.putExtra("id", "1");
 			i.putExtra("color", textColor);
+	    	i.putExtra("bkcolor",textBkcolor );
 			startActivity(i);
         	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    return true;
@@ -319,6 +325,7 @@ public class Stats extends Activity {
 		    i = new Intent(getApplicationContext(), Support.class);
 			i.putExtra("text", textSize);
 			i.putExtra("color", textColor);
+	    	i.putExtra("bkcolor",textBkcolor );
 			startActivity(i);
 		    finish();
         	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -400,7 +407,6 @@ public class Stats extends Activity {
 
 				}	
 			
-			
 			TextView powerTextView = (TextView) findViewById(R.id.powertext);
 			if(display==1)powerTextView.setText("Today, "+day+"/"+month+"/"+year+" from "+start[1]+" to "+end[1]+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
 			else if (display==2) powerTextView.setText("In week "+ (day+7)%7 +" of "+month+"/"+year+" from "+start_format[2]+"/"+start_format[1]+"/"+start_format[0]+", "+start[1]+" to "+end_format[2]+"/"+end_format[1]+"/"+end_format[0]+", "+end[1]+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
@@ -425,6 +431,17 @@ public class Stats extends Activity {
             else if(textColor.equals("Green"))idleTextView.setTextColor(getResources().getColor(R.color.green));
             else if(textColor.equals("Yellow"))idleTextView.setTextColor(getResources().getColor(R.color.yellow));
             else if(textColor.equals("Orange"))idleTextView.setTextColor(getResources().getColor(R.color.orange));
+			
+			View mlayout= findViewById(R.id.mainlayout);
+        	// set the color 
+        	if(textBkcolor.equals("White"))mlayout.setBackgroundColor(Color.WHITE);
+            else if(textBkcolor.equals("Black"))mlayout.setBackgroundColor(Color.BLACK);
+            else if(textBkcolor.equals("Red"))mlayout.setBackgroundColor(getResources().getColor(R.color.darkred));
+            else if(textBkcolor.equals("Blue"))mlayout.setBackgroundColor(getResources().getColor(R.color.blue));
+            else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
+            else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
+            else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
+        
 	     }
 	     
 	     

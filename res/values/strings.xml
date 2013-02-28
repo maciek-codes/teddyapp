@@ -17,6 +17,10 @@
     <color name="blue">#2457FF</color>
     <color name="green">#13AB1D</color>
     <color name="yellow">#F8FF24</color>
+    <color name="darkred">#b20014</color>
+    <color name="ocru">#e5a11c</color>
+    <color name="lorange">#ffb051</color>
+    
  	<string-array name="building_array">
         <item>MVB</item>
     </string-array>

@@ -15,6 +15,7 @@ import android.app.ProgressDialog;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -42,6 +43,7 @@ public class UsageScreen extends Activity  {
 	static int textSizeInt=16;
 	static String textColor="White";
 	static int count=0;
+	static String textBkcolor ="Black";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class UsageScreen extends Activity  {
         	timeSelected = extras.getString("time");
         	textSize = extras.getString("text");
         	textColor = extras.getString("color");
+        	textBkcolor = extras.getString("bkcolor");
         	if(textSize.equals("Small"))textSizeInt=14;
             else if(textSize.equals("Medium"))textSizeInt=16;
             else if(textSize.equals("Big"))textSizeInt=20;
@@ -194,6 +197,7 @@ public class UsageScreen extends Activity  {
 	        	i.putExtra("time", timeSelected);
 				i.putExtra("text", textSize);
 				i.putExtra("color", textColor);
+		    	i.putExtra("bkcolor",textBkcolor );
 	        	finish();
 	        	startActivity(i);
 	        	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out); 
@@ -206,6 +210,7 @@ public class UsageScreen extends Activity  {
 	            	i.putExtra("time", timeSelected);
 	    			i.putExtra("text", textSize);
 	    			i.putExtra("color", textColor);
+	    	    	i.putExtra("bkcolor",textBkcolor );
 	            	finish();
 	            	startActivity(i);
 	            	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
@@ -276,6 +281,7 @@ public class UsageScreen extends Activity  {
 			i.putExtra("time", timeSelected);
 			i.putExtra("text", textSize);
 			i.putExtra("color", textColor);
+	    	i.putExtra("bkcolor",textBkcolor );
             finish();
             startActivity(i);
 	        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -285,6 +291,7 @@ public class UsageScreen extends Activity  {
 		    i.putExtra("text", textSize);
 			i.putExtra("id", "1");
 			i.putExtra("color", textColor);
+	    	i.putExtra("bkcolor",textBkcolor );
 			startActivity(i);
         	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 		    return true;
@@ -292,6 +299,7 @@ public class UsageScreen extends Activity  {
 		    i = new Intent(getApplicationContext(), Support.class);
 			i.putExtra("text", textSize);
 			i.putExtra("color", textColor);
+	    	i.putExtra("bkcolor",textBkcolor );
 			startActivity(i);
 		    finish();
         	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -374,10 +382,21 @@ public class UsageScreen extends Activity  {
          	if(textColor.equals("White"))usageTextView.setTextColor(getResources().getColor(R.color.white));
             else if(textColor.equals("Black"))usageTextView.setTextColor(getResources().getColor(R.color.black));
             else if(textColor.equals("Red"))usageTextView.setTextColor(getResources().getColor(R.color.red));
-            else if(textColor.equals("Blue"))usageTextView.setTextColor(getResources().getColor(R.color.blue));
+            else if(textColor.equals("Blue"))usageTextView.setTextColor(getResources().getColor(R.color.ultrablue));
             else if(textColor.equals("Green"))usageTextView.setTextColor(getResources().getColor(R.color.green));
             else if(textColor.equals("Yellow"))usageTextView.setTextColor(getResources().getColor(R.color.yellow));
             else if(textColor.equals("Orange"))usageTextView.setTextColor(getResources().getColor(R.color.orange));
+         	
+         	View mlayout= findViewById(R.id.mainlayout);
+        	// set the color 
+        	if(textBkcolor.equals("White"))mlayout.setBackgroundColor(Color.WHITE);
+            else if(textBkcolor.equals("Black"))mlayout.setBackgroundColor(Color.BLACK);
+            else if(textBkcolor.equals("Red"))mlayout.setBackgroundColor(getResources().getColor(R.color.darkred));
+            else if(textBkcolor.equals("Blue"))mlayout.setBackgroundColor(getResources().getColor(R.color.blue));
+            else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
+            else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
+            else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
+        
          	 
          	
          	 
@@ -418,6 +437,15 @@ public class UsageScreen extends Activity  {
              TextView timeStamp = (TextView) findViewById(R.id.timestamp);
          	 timeStamp.setText(String.format("Last refreshed at: %s", timestamp));
          	 timeStamp.setTextSize(textSizeInt);
+         	 
+         	 
+          	if(textColor.equals("White"))timeStamp.setTextColor(getResources().getColor(R.color.white));
+             else if(textColor.equals("Black"))timeStamp.setTextColor(getResources().getColor(R.color.black));
+             else if(textColor.equals("Red"))timeStamp.setTextColor(getResources().getColor(R.color.red));
+             else if(textColor.equals("Blue"))timeStamp.setTextColor(getResources().getColor(R.color.ultrablue));
+             else if(textColor.equals("Green"))timeStamp.setTextColor(getResources().getColor(R.color.green));
+             else if(textColor.equals("Yellow"))timeStamp.setTextColor(getResources().getColor(R.color.yellow));
+             else if(textColor.equals("Orange"))timeStamp.setTextColor(getResources().getColor(R.color.orange));
                           
              
             /* NotificationCompat.Builder builder =

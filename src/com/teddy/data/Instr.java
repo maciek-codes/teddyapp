@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 
@@ -16,6 +17,7 @@ public class Instr extends Activity {
     static String textSize="Medium";
 	static int textSizeInt=16;
 	static String textColor="White";
+	static String textBkcolor ="Black";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class Instr extends Activity {
             value = extras.getString("id");
             textSize = extras.getString("text");
             textColor = extras.getString("color");
+        	textBkcolor = extras.getString("bkcolor");
         	if(textSize.equals("Small"))textSizeInt=14;
             else if(textSize.equals("Medium"))textSizeInt=16;
             else if(textSize.equals("Big"))textSizeInt=20;
@@ -50,10 +53,31 @@ public class Instr extends Activity {
         if(textColor.equals("White"))content.setTextColor(getResources().getColor(R.color.white));
         else if(textColor.equals("Black"))content.setTextColor(getResources().getColor(R.color.black));
         else if(textColor.equals("Red"))content.setTextColor(getResources().getColor(R.color.red));
-        else if(textColor.equals("Blue"))content.setTextColor(getResources().getColor(R.color.blue));
+        else if(textColor.equals("Blue"))content.setTextColor(getResources().getColor(R.color.ultrablue));
         else if(textColor.equals("Green"))content.setTextColor(getResources().getColor(R.color.green));
         else if(textColor.equals("Yellow"))content.setTextColor(getResources().getColor(R.color.yellow));
         else if(textColor.equals("Orange"))content.setTextColor(getResources().getColor(R.color.orange));
+        
+        View mlayout= findViewById(R.id.mainlayout);
+    	// set the color 
+    	if(textBkcolor.equals("White"))mlayout.setBackgroundColor(Color.WHITE);
+        else if(textBkcolor.equals("Black"))mlayout.setBackgroundColor(Color.BLACK);
+        else if(textBkcolor.equals("Red"))mlayout.setBackgroundColor(getResources().getColor(R.color.darkred));
+        else if(textBkcolor.equals("Blue"))mlayout.setBackgroundColor(getResources().getColor(R.color.blue));
+        else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
+        else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
+        else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
+        
+    	 View mlayout2= findViewById(R.id.mainlayout2);
+     	// set the color 
+     	if(textBkcolor.equals("White"))mlayout2.setBackgroundColor(Color.WHITE);
+         else if(textBkcolor.equals("Black"))mlayout2.setBackgroundColor(Color.BLACK);
+         else if(textBkcolor.equals("Red"))mlayout2.setBackgroundColor(getResources().getColor(R.color.darkred));
+         else if(textBkcolor.equals("Blue"))mlayout2.setBackgroundColor(getResources().getColor(R.color.blue));
+         else if(textBkcolor.equals("Green"))mlayout2.setBackgroundColor(Color.GREEN);
+         else if(textBkcolor.equals("Yellow"))mlayout2.setBackgroundColor(getResources().getColor(R.color.ocru));
+         else if(textBkcolor.equals("Orange"))mlayout2.setBackgroundColor(getResources().getColor(R.color.lorange));
+        
         
         content.setMovementMethod(new ScrollingMovementMethod());
 	
@@ -84,6 +108,7 @@ public class Instr extends Activity {
             	if(translation.equals("2")) i.putExtra("id", "2");
             	i.putExtra("text", "textSize");
     			i.putExtra("color", textColor);
+		    	i.putExtra("bkcolor",textBkcolor );
 
             	finish();
             	startActivity(i);
@@ -101,6 +126,7 @@ public class Instr extends Activity {
             	if(translation.equals("2")) i.putExtra("id", "1");
             	i.putExtra("text", "textSize");
     			i.putExtra("color", textColor);
+		    	i.putExtra("bkcolor",textBkcolor );
             	finish();
             	startActivity(i);
             	if(translation.equals("1")) overridePendingTransition(R.anim.fadein,R.anim.fadeout);

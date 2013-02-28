@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,6 +30,7 @@ public class Power extends Activity {
 		static String timeSelected="15 Minutes";
 		static int textSizeInt=16;
 		static String textColor="White";
+		static String textBkcolor ="Black";
 
 		// Remember list of buildings and rooms associated
 		Map<String, ArrayList<String>> buildingRoomDict;
@@ -45,6 +47,7 @@ public class Power extends Activity {
 	        	timeSelected = extras.getString("time");
 	        	textSize = extras.getString("text");
 	        	textColor = extras.getString("color");
+	        	textBkcolor = extras.getString("bkcolor");
 	        	if(textSize.equals("Small"))textSizeInt=14;
 	            else if(textSize.equals("Medium"))textSizeInt=16;
 	            else if(textSize.equals("Big"))textSizeInt=20;
@@ -172,6 +175,7 @@ public class Power extends Activity {
 			        	i.putExtra("time", timeSelected);
 						i.putExtra("text", textSize);
 						i.putExtra("color", textColor);
+		    	    	i.putExtra("bkcolor",textBkcolor );
 			        	finish();
 			        	startActivity(i);
 			        	overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
@@ -194,6 +198,7 @@ public class Power extends Activity {
 		            	i.putExtra("time", timeSelected);
 		    			i.putExtra("text", textSize);
 						i.putExtra("color", textColor);
+		    	    	i.putExtra("bkcolor",textBkcolor );
 		            	finish();
 		            	startActivity(i);
 		            	overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
@@ -232,6 +237,7 @@ public class Power extends Activity {
 				i.putExtra("time", timeSelected);
 				i.putExtra("text", textSize);
 				i.putExtra("color", textColor);
+    	    	i.putExtra("bkcolor",textBkcolor );
 	            finish();
 	            startActivity(i);
 		        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -241,6 +247,7 @@ public class Power extends Activity {
 			    i.putExtra("text", textSize);
 				i.putExtra("id", "1");
 				i.putExtra("color", textColor);
+    	    	i.putExtra("bkcolor",textBkcolor );
 				startActivity(i);
 	        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 			    return true;
@@ -248,6 +255,7 @@ public class Power extends Activity {
 			    i = new Intent(getApplicationContext(), Support.class);
 				i.putExtra("text", textSize);
 				i.putExtra("color", textColor);
+    	    	i.putExtra("bkcolor",textBkcolor );
 				startActivity(i);
 			    finish();
 	        	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -347,6 +355,17 @@ public class Power extends Activity {
                   else if(textColor.equals("Green"))calcTextView.setTextColor(getResources().getColor(R.color.green));
                   else if(textColor.equals("Yellow"))calcTextView.setTextColor(getResources().getColor(R.color.yellow));
                   else if(textColor.equals("Orange"))calcTextView.setTextColor(getResources().getColor(R.color.orange));
+      			
+      			View mlayout= findViewById(R.id.mainlayout);
+            	// set the color 
+            	if(textBkcolor.equals("White"))mlayout.setBackgroundColor(Color.WHITE);
+                else if(textBkcolor.equals("Black"))mlayout.setBackgroundColor(Color.BLACK);
+                else if(textBkcolor.equals("Red"))mlayout.setBackgroundColor(getResources().getColor(R.color.darkred));
+                else if(textBkcolor.equals("Blue"))mlayout.setBackgroundColor(getResources().getColor(R.color.blue));
+                else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
+                else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
+                else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
+            
 		     }
 		}
 }

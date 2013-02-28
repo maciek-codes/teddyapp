@@ -43,7 +43,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/mainlayout"
+        android:id="@+id/mainlayout2"
         android:layout_width="match_parent"
         android:layout_height="92dp"
         android:layout_weight="0.60"
