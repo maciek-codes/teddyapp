@@ -43,7 +43,7 @@ public class UsageScreen extends Activity  {
 	static int textSizeInt=16;
 	static String textColor="White";
 	static int count=0;
-	static String textBkcolor ="Black";
+	static String textBkcolor ="grey_background";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,8 +71,7 @@ public class UsageScreen extends Activity  {
         }   
     	
         // creating connection detector class instance
-        cd = new ConnectionDetector(getApplicationContext());
-        
+        cd = new ConnectionDetector(getApplicationContext());      
         
 
         // Hide input keyboard
@@ -376,7 +375,7 @@ public class UsageScreen extends Activity  {
             }
          	 
          	 TextView usageTextView = (TextView) findViewById(R.id.usagetext);
-         	 usageTextView.setText(String.format("%d available computers\n\n%d turned off or disconnected computers\n\n%d computers being used of which\n      - %d active\n      - %d idle", numberOfAvaliable,offOrDisconected,used,busy,busyButIdle));
+         	 usageTextView.setText(String.format("Computers available:  %d\nComputers off / disconnected:  %d\n\nComputers in use:  %d\n \t\t- Active: %d\n \t\t- Idle: %d", numberOfAvaliable,offOrDisconected,used,busy,busyButIdle));
          	 usageTextView.setTextSize(textSizeInt);
          	 
          	if(textColor.equals("White"))usageTextView.setTextColor(getResources().getColor(R.color.white));
@@ -435,7 +434,7 @@ public class UsageScreen extends Activity  {
              UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
              PendingIntent contentIntent = PendingIntent.getActivity(UsageScreen.this, 0,new Intent(), 0);
              TextView timeStamp = (TextView) findViewById(R.id.timestamp);
-         	 timeStamp.setText(String.format("Last refreshed at: %s", timestamp));
+         	 timeStamp.setText(String.format("Last refreshed: %s", timestamp));
          	 timeStamp.setTextSize(textSizeInt);
          	 
          	 
