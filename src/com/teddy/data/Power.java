@@ -319,7 +319,7 @@ public class Power extends Activity {
             		 e.printStackTrace();
             	 }
             	 TextView powerTextView = (TextView) findViewById(R.id.powertext);
-            	 powerTextView.setText(String.format("The power consuption for the last 15 minutes cost: %.2f GBP.",powerCost));
+            	 powerTextView.setText(String.format("Power consumption costs for last\n15 minutes: %.2f GBP",powerCost));
             	 powerTextView.setTextSize(textSizeInt);
 
             	 if(textColor.equals("White"))powerTextView.setTextColor(getResources().getColor(R.color.white));
@@ -331,7 +331,7 @@ public class Power extends Activity {
                  else if(textColor.equals("Orange"))powerTextView.setTextColor(getResources().getColor(R.color.orange));
             	
             	 TextView idleTextView = (TextView) findViewById(R.id.idleText);
-            	 idleTextView.setText(String.format("Possible savings: %.2f GBP.",idleCost));
+            	 idleTextView.setText(String.format("Possible savings: %.2f GBP",idleCost));
             	 idleTextView.setTextSize(textSizeInt);
 
 
@@ -344,8 +344,8 @@ public class Power extends Activity {
                   else if(textColor.equals("Orange"))idleTextView.setTextColor(getResources().getColor(R.color.orange));
             	 
             	 TextView calcTextView = (TextView) findViewById(R.id.calcText);
-            	 calcTextView.setText(String.format("The power cost was calculated in relation with the folowing factors:\n\nNumber of machines: ___\n" +
-            	 		"Cost per KWt: ___\netc"));
+            	 calcTextView.setText(String.format("The power cost was calculated in relation with the folowing factors:\nNumber of machines: - -\n" +
+            	 		"Cost per kW: - -"));
             	 calcTextView.setTextSize(textSizeInt);
 
       			if(textColor.equals("White"))calcTextView.setTextColor(getResources().getColor(R.color.white));

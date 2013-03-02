@@ -408,7 +408,7 @@ public class Stats extends Activity {
 				}	
 			
 			TextView powerTextView = (TextView) findViewById(R.id.powertext);
-			if(display==1)powerTextView.setText("Today, "+day+"/"+month+"/"+year+" from "+start[1]+" to "+end[1]+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
+			if(display==1)powerTextView.setText("Total power consumption costs on "+day+"/"+month+"/"+year+" from "+start[1]+" to "+end[1]+String.format(": %.2f GBP",powerCost));
 			else if (display==2) powerTextView.setText("In week "+ (day+7)%7 +" of "+month+"/"+year+" from "+start_format[2]+"/"+start_format[1]+"/"+start_format[0]+", "+start[1]+" to "+end_format[2]+"/"+end_format[1]+"/"+end_format[0]+", "+end[1]+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
 			else if (display==3) powerTextView.setText("In "+month+"/"+year+" from "+start_format[2]+"/"+start_format[1]+"/"+start_format[0]+", "+start[1]+" to "+end_format[2]+"/"+end_format[1]+"/"+end_format[0]+", "+end[1]+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
 			else if (display==4) powerTextView.setText("In "+year+" from "+start_format[2]+"/"+start_format[1]+"/"+start_format[0]+", "+start[1]+" to "+end_format[2]+"/"+end_format[1]+"/"+end_format[0]+", "+end[1]+String.format(" the cost for total power consumption : %.2f GBP.",powerCost));
@@ -422,7 +422,7 @@ public class Stats extends Activity {
             else if(textColor.equals("Orange"))powerTextView.setTextColor(getResources().getColor(R.color.orange));
 			
 			TextView idleTextView = (TextView) findViewById(R.id.idletext);
-			idleTextView.setText(String.format("Possible savings: %.2f GBP.",idleCost));
+			idleTextView.setText(String.format("Possible savings: %.2f GBP",idleCost));
 			idleTextView.setTextSize(textSizeInt);
 			if(textColor.equals("White"))idleTextView.setTextColor(getResources().getColor(R.color.white));
             else if(textColor.equals("Black"))idleTextView.setTextColor(getResources().getColor(R.color.black));

@@ -15,6 +15,34 @@
         android:gravity="fill_vertical"
         android:orientation="vertical" >
 
+        <View
+            android:id="@+id/black_separator1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:background="@color/black" />
+
+        <ImageView
+            android:id="@+id/logoteddy"
+            android:layout_width="129dp"
+            android:layout_height="37dp"
+            android:layout_gravity="top"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/teddylogo"
+            android:src="@drawable/logoteddy" />
+
+        <View
+            android:id="@+id/separatorblue1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:background="@color/ultrablue" />
+
+        <View
+            android:id="@+id/black_separator2"
+            android:layout_width="fill_parent"
+            android:layout_height="6dip"
+            android:background="@color/black" />
+
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/layout"
@@ -74,7 +102,9 @@
                 android:id="@+id/building_spinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
 
             <Spinner
                 android:id="@+id/room_spinner"
@@ -85,23 +115,25 @@
 
         <TextView
             android:id="@+id/powertext"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="0.02"
-            android:textColor="@color/white" />
+            android:layout_weight="0.03"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/idleText"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="0.02"
-            android:textColor="@color/white" />
+            android:layout_weight="0.07"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/calcText"
@@ -109,7 +141,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textColor="@color/white" />
+            android:layout_weight="0.08"
+            android:textColor="@color/white"
+            android:textStyle="italic"/>
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -141,7 +175,6 @@
                 android:contentDescription="@string/ibmlogo"
                 android:src="@drawable/ibm" />
         </LinearLayout>
-
     </LinearLayout>
 
 </ScrollView>

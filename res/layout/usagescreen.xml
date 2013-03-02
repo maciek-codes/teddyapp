@@ -3,20 +3,46 @@
     android:id="@+id/mainscrolll"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/black"
-    android:orientation="vertical"
-    android:fillViewport="true" >
+    android:fillViewport="true"
+    android:orientation="vertical" >
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mainlayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/black"
+        android:layout_height="wrap_content"
         android:gravity="bottom|fill|fill_vertical"
         android:orientation="vertical" >
 
+        <View
+            android:id="@+id/black_separator1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:background="@color/black" />
+
+        <ImageView
+            android:id="@+id/logoteddy"
+            android:layout_width="129dp"
+            android:layout_height="37dp"
+            android:layout_gravity="top"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/teddylogo"
+            android:src="@drawable/logoteddy" />
+
+        <View
+            android:id="@+id/separatorblue1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:background="@color/ultrablue" />
+
+        <View
+            android:id="@+id/black_separator2"
+            android:layout_width="fill_parent"
+            android:layout_height="6dip"
+            android:background="@color/black" />
+
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -61,7 +87,6 @@
         </LinearLayout>
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/layouthoz"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -83,6 +108,7 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
+
         <TextView
             android:id="@+id/usagetext"
             android:layout_width="fill_parent"
@@ -91,7 +117,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:layout_weight="0.02"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/timestamp"
@@ -101,12 +128,12 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:layout_weight="0.02"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textStyle="italic" />
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/layoutlogo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="3dp"
@@ -122,7 +149,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="20dp"
-                android:contentDescription="@string/teddylogo"
+                android:contentDescription="@string/uoblogo"
                 android:src="@drawable/uoblogo" />
 
             <ImageView
@@ -136,5 +163,4 @@
                 android:src="@drawable/ibm" />
         </LinearLayout>
     </LinearLayout>
-
 </ScrollView>
