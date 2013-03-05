@@ -43,7 +43,7 @@ public class UsageScreen extends Activity  {
 	static int textSizeInt=16;
 	static String textColor="White";
 	static int count=0;
-	static String textBkcolor ="grey_background";
+	static String textBkcolor ="Black";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
