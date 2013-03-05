@@ -40,6 +40,7 @@
         <LinearLayout
             style="@style/LoginFormContainer"
             android:layout_height="304dp"
+            android:onClick="@string/icon"
             android:orientation="vertical" >
 
             <ImageView
@@ -59,7 +60,7 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
                 android:contentDescription="@string/teddylogo"
-                android:src="@drawable/logoteddy" /> -->
+                android:src="@drawable/logoteddy" /> -->z
 
             <EditText
                 android:id="@+id/email"
@@ -88,12 +89,12 @@
 
             <Button
                 android:id="@+id/sign_in_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="80dp"
                 android:layout_marginRight="80dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/red"
+                android:background="@drawable/button"
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp"
                 android:text="@string/action_sign_in_register"

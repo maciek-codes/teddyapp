@@ -4,43 +4,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/black"
-    android:fillViewport="true"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    android:fillViewport="true" >
     <LinearLayout
         android:id="@+id/mainlayout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:background="@color/black"
         android:orientation="vertical" >
-
-        <View
-            android:id="@+id/black_separator1"
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:background="@color/black" />
-
-        <ImageView
-            android:id="@+id/logoteddy"
-            android:layout_width="129dp"
-            android:layout_height="37dp"
-            android:layout_gravity="top"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:contentDescription="@string/teddylogo"
-            android:src="@drawable/logoteddy" />
-
-        <View
-            android:id="@+id/separatorblue1"
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:background="@color/ultrablue" />
-
-        <View
-            android:id="@+id/black_separator2"
-            android:layout_width="fill_parent"
-            android:layout_height="6dip"
-            android:background="@color/black" />
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -118,15 +89,15 @@
 
         <TextView
             android:id="@+id/powertext"
-            android:layout_width="294dp"
-            android:layout_height="50dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="0.02"
             android:clickable="true"
             android:onClick="onClick"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/idletext"
@@ -138,8 +109,7 @@
             android:layout_weight="0.02"
             android:clickable="true"
             android:onClick="onClick"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textColor="@color/white" />
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
