@@ -60,7 +60,7 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
                 android:contentDescription="@string/teddylogo"
-                android:src="@drawable/logoteddy" /> -->z
+                android:src="@drawable/logoteddy" /> -->
 
             <EditText
                 android:id="@+id/email"
