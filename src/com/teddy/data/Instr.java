@@ -17,7 +17,7 @@ public class Instr extends Activity {
     static String textSize="Medium";
 	static int textSizeInt=16;
 	static String textColor="White";
-	static String textBkcolor ="Black";
+	static String textBkcolor ="Grey";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,7 @@ public class Instr extends Activity {
         else if(textColor.equals("Green"))content.setTextColor(getResources().getColor(R.color.green));
         else if(textColor.equals("Yellow"))content.setTextColor(getResources().getColor(R.color.yellow));
         else if(textColor.equals("Orange"))content.setTextColor(getResources().getColor(R.color.orange));
+        else if(textColor.equals("Grey"))content.setTextColor(getResources().getColor(R.color.grey));
         
         View mlayout= findViewById(R.id.mainlayout);
     	// set the color 
@@ -67,6 +68,7 @@ public class Instr extends Activity {
         else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
         else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
         else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
+        else if(textBkcolor.equals("Grey"))mlayout.setBackgroundColor(getResources().getColor(R.color.dgrey));
         
     	 View mlayout2= findViewById(R.id.mainlayout2);
      	// set the color 
@@ -77,6 +79,8 @@ public class Instr extends Activity {
          else if(textBkcolor.equals("Green"))mlayout2.setBackgroundColor(Color.GREEN);
          else if(textBkcolor.equals("Yellow"))mlayout2.setBackgroundColor(getResources().getColor(R.color.ocru));
          else if(textBkcolor.equals("Orange"))mlayout2.setBackgroundColor(getResources().getColor(R.color.lorange));
+         else if(textBkcolor.equals("Grey"))mlayout2.setBackgroundColor(getResources().getColor(R.color.dgrey));
+        
         
         
         content.setMovementMethod(new ScrollingMovementMethod());
@@ -92,6 +96,8 @@ public class Instr extends Activity {
         
         home.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
+        		Button hbutton= (Button)findViewById(R.id.homebutton);
+                hbutton.setBackgroundResource(R.drawable.button_pressed);
             	Intent i = new Intent(getApplicationContext(), UsageScreen.class);
             	finish();
             	i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -102,7 +108,8 @@ public class Instr extends Activity {
         final String translation=value;
         next.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
-
+        		Button nbutton= (Button)findViewById(R.id.nextbutton);
+                nbutton.setBackgroundResource(R.drawable.button_pressed);
             	Intent i = new Intent(getApplicationContext(),  Instr.class);
             	if(translation.equals("1")) i.putExtra("id", "2");
             	if(translation.equals("2")) i.putExtra("id", "2");
@@ -120,7 +127,8 @@ public class Instr extends Activity {
              
         back.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
-
+        		Button bbutton= (Button)findViewById(R.id.backbutton);
+                bbutton.setBackgroundResource(R.drawable.button_pressed);
             	Intent i = new Intent(getApplicationContext(),  Instr.class);
             	if(translation.equals("1")) i.putExtra("id", "1");
             	if(translation.equals("2")) i.putExtra("id", "1");

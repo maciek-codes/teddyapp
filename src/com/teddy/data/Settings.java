@@ -18,7 +18,7 @@ public class Settings extends Activity {
 	static String timeSelected="15 Minutes";
 	static String textSize ="Medium";
 	static String textColor ="White";
-	static String textBkcolor ="Black";
+	static String textBkcolor ="Grey";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,8 @@ public class Settings extends Activity {
         
         home.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
+        		Button hbutton= (Button)findViewById(R.id.homebutton);
+                hbutton.setBackgroundResource(R.drawable.button_pressed);
             	Intent i = new Intent(getApplicationContext(), UsageScreen.class);
             	i.putExtra("time",timeSelected );
             	i.putExtra("text",textSize );
@@ -105,6 +107,7 @@ public class Settings extends Activity {
         else if(textColor.equals("Green"))color.setSelection(4);
         else if(textColor.equals("Yellow"))color.setSelection(5);
         else if(textColor.equals("Orange"))color.setSelection(6);
+        else if(textColor.equals("Grey"))color.setSelection(6);
        
 
         if(textBkcolor.equals("White"))bkcolor.setSelection(0);
@@ -114,6 +117,7 @@ public class Settings extends Activity {
         else if(textBkcolor.equals("Green"))bkcolor.setSelection(4);
         else if(textBkcolor.equals("Yellow"))bkcolor.setSelection(5);
         else if(textBkcolor.equals("Orange"))bkcolor.setSelection(6);
+        else if(textBkcolor.equals("Grey"))bkcolor.setSelection(7);
         
         time.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -199,6 +203,12 @@ public class Settings extends Activity {
                 	sizeColorView.setTextColor(getResources().getColor(R.color.orange));
                 	BkColorView.setTextColor(getResources().getColor(R.color.orange));
                 }
+                else if(textColor.equals("Grey")){
+                	notifTextView.setTextColor(getResources().getColor(R.color.grey));
+                	sizeTextView.setTextColor(getResources().getColor(R.color.grey));
+                	sizeColorView.setTextColor(getResources().getColor(R.color.grey));
+                	BkColorView.setTextColor(getResources().getColor(R.color.grey));
+                }
             }
 
             @Override
@@ -222,6 +232,7 @@ public class Settings extends Activity {
                 else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
                 else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
                 else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
+                else if(textBkcolor.equals("Grey"))mlayout.setBackgroundColor(getResources().getColor(R.color.dgrey));
             	
             }
 

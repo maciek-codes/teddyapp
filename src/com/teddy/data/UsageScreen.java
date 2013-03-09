@@ -43,7 +43,7 @@ public class UsageScreen extends Activity  {
 	static int textSizeInt=16;
 	static String textColor="White";
 	static int count=0;
-	static String textBkcolor ="Black";
+	static String textBkcolor ="Grey";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -385,6 +385,7 @@ public class UsageScreen extends Activity  {
             else if(textColor.equals("Green"))usageTextView.setTextColor(getResources().getColor(R.color.green));
             else if(textColor.equals("Yellow"))usageTextView.setTextColor(getResources().getColor(R.color.yellow));
             else if(textColor.equals("Orange"))usageTextView.setTextColor(getResources().getColor(R.color.orange));
+            else if(textColor.equals("Grey"))usageTextView.setTextColor(getResources().getColor(R.color.grey));
          	
          	View mlayout= findViewById(R.id.mainlayout);
         	// set the color 
@@ -395,6 +396,8 @@ public class UsageScreen extends Activity  {
             else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
             else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
             else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
+            else if(textBkcolor.equals("Grey"))mlayout.setBackgroundColor(getResources().getColor(R.color.dgrey));
+            //else if(textBkcolor.equals("Grey"))mlayout.setBackgroundResource(R.drawable.backgr);
         
          	 
          	
@@ -445,6 +448,7 @@ public class UsageScreen extends Activity  {
              else if(textColor.equals("Green"))timeStamp.setTextColor(getResources().getColor(R.color.green));
              else if(textColor.equals("Yellow"))timeStamp.setTextColor(getResources().getColor(R.color.yellow));
              else if(textColor.equals("Orange"))timeStamp.setTextColor(getResources().getColor(R.color.orange));
+             else if(textColor.equals("Grey"))timeStamp.setTextColor(getResources().getColor(R.color.grey));
                           
              
             /* NotificationCompat.Builder builder =

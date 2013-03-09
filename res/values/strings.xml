@@ -19,6 +19,7 @@
     <color name="yellow">#F8FF24</color>
     <color name="darkred">#b20014</color>
     <color name="ocru">#e5a11c</color>
+    <color name="dgrey">#6d6c6c</color>
     <color name="lorange">#ffb051</color>
     
  	<string-array name="building_array">
@@ -56,5 +57,6 @@
     	<item>Green</item>
         <item>Yellow</item>
         <item>Orange</item>
+        <item>Grey</item>
     </string-array>
 </resources>

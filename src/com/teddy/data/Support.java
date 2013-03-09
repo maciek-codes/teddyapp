@@ -17,7 +17,7 @@ public class Support extends Activity {
 	static String textSize="Medium";
 	static int textSizeInt=16;
 	static String textColor="White";
-	static String textBkcolor ="Black";
+	static String textBkcolor ="Grey";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class Support extends Activity {
         else if(textColor.equals("Green"))content.setTextColor(getResources().getColor(R.color.green));
         else if(textColor.equals("Yellow"))content.setTextColor(getResources().getColor(R.color.yellow));
         else if(textColor.equals("Orange"))content.setTextColor(getResources().getColor(R.color.orange));
+        else if(textColor.equals("Grey"))content.setTextColor(getResources().getColor(R.color.grey));
 		
 		View mlayout= findViewById(R.id.mainlayout);
     	// set the color 
@@ -66,6 +67,7 @@ public class Support extends Activity {
         else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
         else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
         else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
+        else if(textBkcolor.equals("Grey"))mlayout.setBackgroundColor(getResources().getColor(R.color.dgrey));
 		
         
         Button home =(Button) findViewById(R.id.homebutton);
@@ -76,7 +78,8 @@ public class Support extends Activity {
         home.setOnClickListener(new Button.OnClickListener(){
         	public void onClick(View v){
 
-
+        		Button hbutton= (Button)findViewById(R.id.homebutton);
+                hbutton.setBackgroundResource(R.drawable.button_pressed);
         		/*AlertDialog.Builder builder = new AlertDialog.Builder(Support.this);
         		 builder.setMessage("Are you sure you want to exit?")
         		        .setCancelable(false)

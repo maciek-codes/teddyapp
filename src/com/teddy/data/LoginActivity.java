@@ -20,6 +20,7 @@ import android.view.View;
 
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Intent;
@@ -270,6 +271,7 @@ public class LoginActivity extends Activity {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
         	Intent i = new Intent(getApplicationContext(), UsageScreen.class);
+
         	startActivity(i);
         	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
             try {

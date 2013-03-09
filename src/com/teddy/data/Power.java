@@ -30,7 +30,7 @@ public class Power extends Activity {
 		static String timeSelected="15 Minutes";
 		static int textSizeInt=16;
 		static String textColor="White";
-		static String textBkcolor ="Black";
+		static String textBkcolor ="Grey";
 
 		// Remember list of buildings and rooms associated
 		Map<String, ArrayList<String>> buildingRoomDict;
@@ -329,6 +329,7 @@ public class Power extends Activity {
                  else if(textColor.equals("Green"))powerTextView.setTextColor(getResources().getColor(R.color.green));
                  else if(textColor.equals("Yellow"))powerTextView.setTextColor(getResources().getColor(R.color.yellow));
                  else if(textColor.equals("Orange"))powerTextView.setTextColor(getResources().getColor(R.color.orange));
+                 else if(textColor.equals("Grey"))powerTextView.setTextColor(getResources().getColor(R.color.grey));
             	
             	 TextView idleTextView = (TextView) findViewById(R.id.idleText);
             	 idleTextView.setText(String.format("Possible savings: %.2f GBP",idleCost));
@@ -342,6 +343,7 @@ public class Power extends Activity {
                   else if(textColor.equals("Green"))idleTextView.setTextColor(getResources().getColor(R.color.green));
                   else if(textColor.equals("Yellow"))idleTextView.setTextColor(getResources().getColor(R.color.yellow));
                   else if(textColor.equals("Orange"))idleTextView.setTextColor(getResources().getColor(R.color.orange));
+                  else if(textColor.equals("Grey"))idleTextView.setTextColor(getResources().getColor(R.color.grey));
             	 
             	 TextView calcTextView = (TextView) findViewById(R.id.calcText);
             	 calcTextView.setText(String.format("The power cost was calculated in relation with the folowing factors:\nNumber of machines: - -\n" +
@@ -355,6 +357,7 @@ public class Power extends Activity {
                   else if(textColor.equals("Green"))calcTextView.setTextColor(getResources().getColor(R.color.green));
                   else if(textColor.equals("Yellow"))calcTextView.setTextColor(getResources().getColor(R.color.yellow));
                   else if(textColor.equals("Orange"))calcTextView.setTextColor(getResources().getColor(R.color.orange));
+                  else if(textColor.equals("Grey"))calcTextView.setTextColor(getResources().getColor(R.color.grey));
       			
       			View mlayout= findViewById(R.id.mainlayout);
             	// set the color 
@@ -365,6 +368,7 @@ public class Power extends Activity {
                 else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
                 else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
                 else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
+                else if(textBkcolor.equals("Grey"))mlayout.setBackgroundColor(getResources().getColor(R.color.dgrey));
             
 		     }
 		}
