@@ -16,6 +16,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.graphics.RadialGradient;
+import android.graphics.Shader;
+import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -23,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -387,6 +392,7 @@ public class UsageScreen extends Activity  {
             else if(textColor.equals("Orange"))usageTextView.setTextColor(getResources().getColor(R.color.orange));
             else if(textColor.equals("Grey"))usageTextView.setTextColor(getResources().getColor(R.color.grey));
          	
+         	int colors[] = null;
          	View mlayout= findViewById(R.id.mainlayout);
         	// set the color 
         	if(textBkcolor.equals("White"))mlayout.setBackgroundColor(Color.WHITE);
@@ -396,8 +402,20 @@ public class UsageScreen extends Activity  {
             else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
             else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
             else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
-            else if(textBkcolor.equals("Grey"))mlayout.setBackgroundColor(getResources().getColor(R.color.dgrey));
-            //else if(textBkcolor.equals("Grey"))mlayout.setBackgroundResource(R.drawable.backgr);
+            else if(textBkcolor.equals("Grey"))  colors = new int[]{Color.rgb(123,123,123),Color.rgb(50,50,50)};
+            
+        		GradientDrawable grDr =new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+            	grDr.setCornerRadius(5);
+            	grDr.setGradientCenter((float) 0.5,0.5f);
+            	grDr.setGradientRadius(300);
+            	grDr.setGradientType(GradientDrawable.RADIAL_GRADIENT);
+            	//grDr.setStroke(1,Color.WHITE);
+            	mlayout.setBackgroundDrawable(grDr);
+                Window window = getWindow();
+                window.setFormat(PixelFormat.RGBA_8888);
+            
+            //else if(textBkcolor.equals("Grey"))mlayout.setBackgroundColor(getResources().getColor(R.color.dgrey));  //one color
+            //else if(textBkcolor.equals("Grey"))mlayout.setBackgroundResource(R.drawable.backgr);			//image as background
         
          	 
          	
