@@ -215,19 +215,19 @@ public class Stats extends Activity {
 	            	//display=1;
 					if(timeSelected2.equals("Last Month")) {
 						display=3;
-	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
+	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
 					}
 	            	else if(timeSelected2.equals("Last Year")) {
 	            		display=4;
-	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year;
+	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year;
 	            	}
 	            	else if(timeSelected2.equals("Last Day")) {
 	            		display=1;
-	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
+	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
 	            	}
 	            	else if(timeSelected2.equals("Last Week")) {
 	            		display=2;
-	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
+	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
 	            	}
 					
 	            	new GetStatsTask().execute(requestUrl);
@@ -389,7 +389,7 @@ public class Stats extends Activity {
 			
 			
 			try {
-				powerCost = result.getDouble("total_power_cost");
+				powerCost = result.getDouble("Total_Power_Cost");
 				idleCost = result.getDouble("power_cost_no_idle");
 				start_date = result.getString("start_date");
         		end_date = result.getString("end_date");

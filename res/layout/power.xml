@@ -82,33 +82,84 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/powertext"
-            android:layout_width="fill_parent"
+        <TableLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.02"
-            android:textColor="@color/white" />
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.89" >
 
-        <TextView
-            android:id="@+id/idleText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.02"
-            android:textColor="@color/white" />
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip" >
 
-        <TextView
-            android:id="@+id/calcText"
-            android:layout_width="fill_parent"
+                <ImageView
+                    android:id="@+id/costimg"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_column="1"
+                    android:src="@drawable/icon_pound" />
+
+                <TextView
+                    android:id="@+id/powertext"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.02"
+                    android:textColor="@color/white" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip" >
+
+                <ImageView
+                    android:id="@+id/saveimg"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_column="1"
+                    android:src="@drawable/icon_save" />
+
+                <TextView
+                    android:id="@+id/idleText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.02"
+                    android:textColor="@color/white" />
+
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/white" />
+            android:layout_marginLeft="10dp" >
+
+            <ImageView
+                android:id="@+id/ImageView01"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_info" />
+
+            <TextView
+                android:id="@+id/calcText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.02"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
