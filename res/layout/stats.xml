@@ -38,7 +38,6 @@
                 android:id="@+id/powerbutton"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
-                android:layout_gravity="fill_horizontal"
                 android:layout_weight="1"
                 android:background="@color/ultrablue"
                 android:paddingLeft="10dp"

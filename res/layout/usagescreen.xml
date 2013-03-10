@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainscrolll"
+    android:id="@+id/mainscroll"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/black"
@@ -10,9 +10,9 @@
     <LinearLayout
         android:id="@+id/mainlayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:background="@color/black"
-        android:gravity="bottom|fill|fill_vertical"
+        android:gravity="fill_vertical"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -20,9 +20,8 @@
             android:id="@+id/layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:weightSum="3" >
 
             <Button
                 android:id="@+id/usagebutton"
@@ -40,7 +39,6 @@
                 android:id="@+id/powerbutton"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
-                android:layout_gravity="fill_horizontal"
                 android:layout_weight="1"
                 android:background="@color/ultrablue"
                 android:paddingLeft="10dp"
