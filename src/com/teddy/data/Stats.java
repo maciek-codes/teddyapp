@@ -437,6 +437,19 @@ public class Stats extends Activity {
             else if(textColor.equals("Orange"))idleTextView.setTextColor(getResources().getColor(R.color.orange));
             else if(textColor.equals("Grey"))idleTextView.setTextColor(getResources().getColor(R.color.grey));
 			
+			TextView infoTextView = (TextView) findViewById(R.id.infoText);
+			infoTextView.setText("Did you know? You can click on the text to see the graph.");
+			infoTextView.setTextSize(textSizeInt);
+			if(textColor.equals("White"))infoTextView.setTextColor(getResources().getColor(R.color.white));
+            else if(textColor.equals("Black"))infoTextView.setTextColor(getResources().getColor(R.color.black));
+            else if(textColor.equals("Red"))infoTextView.setTextColor(getResources().getColor(R.color.red));
+            else if(textColor.equals("Blue"))infoTextView.setTextColor(getResources().getColor(R.color.blue));
+            else if(textColor.equals("Green"))infoTextView.setTextColor(getResources().getColor(R.color.green));
+            else if(textColor.equals("Yellow"))infoTextView.setTextColor(getResources().getColor(R.color.yellow));
+            else if(textColor.equals("Orange"))infoTextView.setTextColor(getResources().getColor(R.color.orange));
+            else if(textColor.equals("Grey"))infoTextView.setTextColor(getResources().getColor(R.color.grey));
+			
+			
 			int colors[] = null;
          	View mlayout= findViewById(R.id.mainlayout);
          	
