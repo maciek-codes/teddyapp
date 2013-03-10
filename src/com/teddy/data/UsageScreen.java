@@ -531,7 +531,7 @@ int screenwidth = displaymetrics.widthPixels;
          	 timeStamp.setText(String.format("Server last refreshed at: "+start[1]+", "+start_format[2]+"/"+start_format[1]+"/"+start_format[0]));
          	 timeStamp.setTextSize(textSizeInt);
          	 
-         	 
+         	     	 
           	if(textColor.equals("White"))timeStamp.setTextColor(getResources().getColor(R.color.white));
              else if(textColor.equals("Black"))timeStamp.setTextColor(getResources().getColor(R.color.black));
              else if(textColor.equals("Red"))timeStamp.setTextColor(getResources().getColor(R.color.red));
