@@ -462,8 +462,8 @@ public class UsageScreen extends Activity  {
             //else if(textBkcolor.equals("Grey"))mlayout.setBackgroundResource(R.drawable.backgr);			//image as background
         
             DisplayMetrics displaymetrics = new DisplayMetrics();
-getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-int screenwidth = displaymetrics.widthPixels;
+            getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+            int screenwidth = displaymetrics.widthPixels;
             int chartwidth=(screenwidth)/(numberOfAvaliable+offOrDisconected+busy);
             
             ImageView img1 = (ImageView) findViewById(R.id.imggreen);
@@ -472,27 +472,14 @@ int screenwidth = displaymetrics.widthPixels;
             LayoutParams params = (LayoutParams) img1.getLayoutParams();
             params.width = numberOfAvaliable*chartwidth;
             img1.setLayoutParams(params);
-            
-            if(roomSelected.equals("2.11"))
-            {
-            	params = (LayoutParams) img2.getLayoutParams();
-                params.width = offOrDisconected*chartwidth;
-	            img2.setLayoutParams(params);
-	            params = (LayoutParams) img3.getLayoutParams();
-	            params.width = used*chartwidth;
-	            img3.setLayoutParams(params);
-            }    
-            
-            else if(roomSelected.equals("2.09"))
-            {
-            	params = (LayoutParams) img2.getLayoutParams();
-                params.width = used*chartwidth;
-	            img2.setLayoutParams(params);
-	            params = (LayoutParams) img3.getLayoutParams();
-	            params.width = offOrDisconected*chartwidth;
-	            img3.setLayoutParams(params);
+           	params = (LayoutParams) img2.getLayoutParams();
+            params.width = used*chartwidth;
+	        img2.setLayoutParams(params);
+	        params = (LayoutParams) img3.getLayoutParams();
+	        params.width = offOrDisconected*chartwidth;
+	        img3.setLayoutParams(params);
             	
-            }
+            
          	 ///////////--------------------------------------------
          	/*Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
             //AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
