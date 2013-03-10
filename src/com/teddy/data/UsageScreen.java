@@ -15,6 +15,7 @@ import android.app.ProgressDialog;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.RadialGradient;
@@ -351,36 +352,83 @@ public class UsageScreen extends Activity  {
 	    	 
 	    	 //{"busy": 3, "total_number": 79, "off_or_disconnected": 14, "busy_but_idle": 2, "date": "2013-02-16T14:30:06", "number_avaliable": 52}
 	    	 
-	    	 int numberOfAvaliable = 0;
-	    	 int offOrDisconected = 0;
+	    	 int numberOfAvailable = 0;
+	    	 int offOrDisconnected = 0;
 	    	 int busy = 0;
 	    	 int busyButIdle = 0;
 	    	 int used = 0;
-	    	 Long time = System.currentTimeMillis();
-	    	 String timestamp = new SimpleDateFormat ("MM/dd/yyyy HH:mm:ss").format(new java.util.Date(time));
+	    	 Long time = (long) 0;
+	    	 String timestamp = null;
+	    	 final SharedPreferences prefs = getSharedPreferences ("noOfAvail", numberOfAvailable);
+        	     	 
 	    	 
          	 try {
-         		 numberOfAvaliable = result.getInt("number_avaliable");
-         		 offOrDisconected = result.getInt("off_or_disconnected");
+         		 numberOfAvailable = result.getInt("number_avaliable");
+         		 offOrDisconnected = result.getInt("off_or_disconnected");
          		 busy = result.getInt("busy");
          		 busyButIdle = result.getInt("busy_but_idle");
          		 used = busy+busyButIdle;
+         		
+         		 time = System.currentTimeMillis();
+   	    	
+          		 //Saves the values gathered here.
+         		 SharedPreferences.Editor ed = prefs.edit();
+         		
+         		 ed.putInt("noOfAvail", numberOfAvailable);
+         		 ed.putInt("offOrDisc", offOrDisconnected);
+         		 ed.putInt("noBusy", busy);
+         		 ed.putInt("noBusyButIdle", busyButIdle);
+         		 //ed.putInt("noUsed", used); .. done implicitly
+              	
+         		 ed.putLong("time", time);	
+         		
+         		
+         		//don't forget to save timestamp.
+         		
+         		ed.commit();
+         		         		
          	 } catch (JSONException e) {
          		 // TODO DONE1 Catch exception here if JSON is not formulated well
          		 e.printStackTrace();
-     			android.os.Process.killProcess(android.os.Process.myPid());
+        		 
+         		 numberOfAvailable = prefs.getInt("noOfAvail", -1);
+         		 offOrDisconnected = prefs.getInt("offOrDisc", -1);
+        		 busy = prefs.getInt("noBusy", -1);
+        		 busyButIdle = prefs.getInt("noBusyButIdle", -1);
+        		 used = busy+busyButIdle;
+        		 time = prefs.getLong("time", -1);
+        		 
+        		/* if (numberOfAvailable == -1 || offOrDisconnected == -1 ||
+        				 busy == -1 || busyButIdle == -1 || time == -1)
+        			 android.os.Process.killProcess(android.os.Process.myPid());
+        		 
+        		 /* if previously generated data cannot be gathered
+        		  * when internet access is unavailable,
+         		  * we go back to Login screen.
+         		  */
 
          	 }
          	catch (NullPointerException e) {   //exception
                 
 	         		            		
          		e.printStackTrace();
+         		
+         		numberOfAvailable = prefs.getInt("noOfAvail", -1);
+        		offOrDisconnected = prefs.getInt("offOrDisc", -1);
+       		 	busy = prefs.getInt("noBusy", -1);
+       		 	busyButIdle = prefs.getInt("noBusyButIdle", -1);
+       		 	used = busy+busyButIdle;
+       		 	time = prefs.getLong("time", -1);
+       		 	
+      		 
+       		 if (numberOfAvailable == -1 || offOrDisconnected == -1 ||
+       				 busy == -1 || busyButIdle == -1 || time == -1)
     			android.os.Process.killProcess(android.os.Process.myPid());
 
             }
          	 
          	 TextView usageTextView = (TextView) findViewById(R.id.usagetext);
-         	 usageTextView.setText(String.format("Computers available:  %d\nComputers off / disconnected:  %d\n\nComputers in use:  %d\n \t\t- Active: %d\n \t\t- Idle: %d", numberOfAvaliable,offOrDisconected,used,busy,busyButIdle));
+         	 usageTextView.setText(String.format("Computers available:  %d\nComputers off / disconnected:  %d\n\nComputers in use:  %d\n \t\t- Active: %d\n \t\t- Idle: %d", numberOfAvailable,offOrDisconnected,used,busy,busyButIdle));
          	 usageTextView.setTextSize(textSizeInt);
          	 
          	if(textColor.equals("White"))usageTextView.setTextColor(getResources().getColor(R.color.white));
@@ -393,7 +441,6 @@ public class UsageScreen extends Activity  {
             else if(textColor.equals("Grey"))usageTextView.setTextColor(getResources().getColor(R.color.grey));
          	
          	
-         	//AAnkhi copy this
          	int colors[] = null;
          	View mlayout= findViewById(R.id.mainlayout);
          	
@@ -415,7 +462,7 @@ public class UsageScreen extends Activity  {
             mlayout.setBackgroundDrawable(grDr);
             Window window = getWindow();
             window.setFormat(PixelFormat.RGBA_8888);
-            //finish copy Aankhi
+            
             
             //else if(textBkcolor.equals("Grey"))mlayout.setBackgroundColor(getResources().getColor(R.color.dgrey));  //one color
             //else if(textBkcolor.equals("Grey"))mlayout.setBackgroundResource(R.drawable.backgr);			//image as background
@@ -436,7 +483,7 @@ public class UsageScreen extends Activity  {
          	        new NotificationCompat.Builder(getApplicationContext())
             		.setSmallIcon(R.drawable.logoteddy_2)
             		.setContentTitle("Teddy")
-            		.setContentText("There are "+numberOfAvaliable +" computers available");
+            		.setContentText("There are "+numberOfAvailable +" computers available");
          			//.setWhen(System.currentTimeMillis())
          			//.setContentIntent(pi);
      	
@@ -457,11 +504,17 @@ public class UsageScreen extends Activity  {
              
              UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
              PendingIntent contentIntent = PendingIntent.getActivity(UsageScreen.this, 0,new Intent(), 0);
+             
+             timestamp = new SimpleDateFormat ("MM/dd/yyyy HH:mm:ss").format(new java.util.Date(time));
              TextView timeStamp = (TextView) findViewById(R.id.timestamp);
          	 timeStamp.setText(String.format("Last refreshed: %s", timestamp));
          	 timeStamp.setTextSize(textSizeInt);
          	 
-         	     	 
+         	 
+         	 
+         	 
+         	 
+         	
           	if(textColor.equals("White"))timeStamp.setTextColor(getResources().getColor(R.color.white));
              else if(textColor.equals("Black"))timeStamp.setTextColor(getResources().getColor(R.color.black));
              else if(textColor.equals("Red"))timeStamp.setTextColor(getResources().getColor(R.color.red));
@@ -476,13 +529,13 @@ public class UsageScreen extends Activity  {
           	        new NotificationCompat.Builder(UsageScreen.this)
           	        .setSmallIcon(R.drawable.logoteddy_2)
           	        .setContentTitle("Teddy")
-          	        .setContentText("There are "+numberOfAvaliable +" computers available")
+          	        .setContentText("There are "+numberOfAvailable +" computers available")
           			.setWhen(System.currentTimeMillis()+10*1000)
           			.setContentIntent(pi);
              */
              
-             Notification notif = new Notification(R.drawable.logoteddy_2, "There are "+numberOfAvaliable +" computers available", System.currentTimeMillis());
-             notif.setLatestEventInfo(UsageScreen.this, "Teddy", "There are "+numberOfAvaliable +" computers available", contentIntent);
+             Notification notif = new Notification(R.drawable.logoteddy_2, "There are "+numberOfAvailable +" computers available", System.currentTimeMillis());
+             notif.setLatestEventInfo(UsageScreen.this, "Teddy", "There are "+numberOfAvailable +" computers available", contentIntent);
              /*NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE); 
              nm.notify(1, builder.build());*/
      }
