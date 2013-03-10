@@ -2,6 +2,7 @@ package com.teddy.data;
 
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 import android.widget.Button;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 
@@ -58,17 +61,27 @@ public class Support extends Activity {
         else if(textColor.equals("Orange"))content.setTextColor(getResources().getColor(R.color.orange));
         else if(textColor.equals("Grey"))content.setTextColor(getResources().getColor(R.color.grey));
 		
-		View mlayout= findViewById(R.id.mainlayout);
-    	// set the color 
-    	if(textBkcolor.equals("White"))mlayout.setBackgroundColor(Color.WHITE);
-        else if(textBkcolor.equals("Black"))mlayout.setBackgroundColor(Color.BLACK);
-        else if(textBkcolor.equals("Red"))mlayout.setBackgroundColor(getResources().getColor(R.color.darkred));
-        else if(textBkcolor.equals("Blue"))mlayout.setBackgroundColor(getResources().getColor(R.color.blue));
-        else if(textBkcolor.equals("Green"))mlayout.setBackgroundColor(Color.GREEN);
-        else if(textBkcolor.equals("Yellow"))mlayout.setBackgroundColor(getResources().getColor(R.color.ocru));
-        else if(textBkcolor.equals("Orange"))mlayout.setBackgroundColor(getResources().getColor(R.color.lorange));
-        else if(textBkcolor.equals("Grey"))mlayout.setBackgroundColor(getResources().getColor(R.color.dgrey));
-		
+		int colors[] = null;
+     	View mlayout= findViewById(R.id.mainlayout);
+     	
+    	if(textBkcolor.equals("White"))colors = new int[]{Color.rgb(255,255,255),Color.rgb(255,250,240)};
+        else if(textBkcolor.equals("Black"))colors = new int[]{Color.rgb(69,69,69),Color.rgb(0,0,0)};
+        else if(textBkcolor.equals("Red")) colors = new int[]{Color.rgb(238,48,48),Color.rgb(205,0,0)};
+        else if(textBkcolor.equals("Blue")) colors = new int[]{Color.rgb(72,118,255),Color.rgb(39,64,139)};
+        else if(textBkcolor.equals("Green")) colors = new int[]{Color.rgb(154,255,154),Color.rgb(0,139,69)};
+        else if(textBkcolor.equals("Yellow")) colors = new int[]{Color.rgb(255,236,139),Color.rgb(238,173,14)};
+        else if(textBkcolor.equals("Orange")) colors = new int[]{Color.rgb(255,165,75),Color.rgb(255,127,0)};
+        else if(textBkcolor.equals("Grey"))  colors = new int[]{Color.rgb(123,123,123),Color.rgb(50,50,50)};
+        
+    	GradientDrawable grDr =new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+        grDr.setCornerRadius(5);
+        grDr.setGradientCenter((float) 0.5,0.5f);
+        grDr.setGradientRadius(300);
+        grDr.setGradientType(GradientDrawable.RADIAL_GRADIENT);
+        //grDr.setStroke(1,Color.WHITE);
+        mlayout.setBackgroundDrawable(grDr);
+        Window window = getWindow();
+        window.setFormat(PixelFormat.RGBA_8888);
         
         Button home =(Button) findViewById(R.id.homebutton);
         home.setText("Home");
