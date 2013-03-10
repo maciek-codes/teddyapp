@@ -17,12 +17,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.Point;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,6 +35,8 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -42,7 +47,10 @@ public class UsageScreen extends Activity  {
 	// Remember list of buildings and rooms associated
 	Map<String, ArrayList<String>> buildingRoomDict;
 	
-	String buildingSelected, roomSelected;
+	String buildingSelected, roomSelected, start_date;
+
+	String[] start_format;
+	String[] start;
 	static String timeSelected="15 Minutes";
 	static String textSize="Medium";
 	static int textSizeInt=16;
@@ -362,6 +370,9 @@ public class UsageScreen extends Activity  {
          	 try {
          		 numberOfAvaliable = result.getInt("number_avaliable");
          		 offOrDisconected = result.getInt("off_or_disconnected");
+         		 start_date = result.getString("date");
+         		 start =start_date.split("T");
+         		 start_format =start[0].split("-");
          		 busy = result.getInt("busy");
          		 busyButIdle = result.getInt("busy_but_idle");
          		 used = busy+busyButIdle;
@@ -379,18 +390,48 @@ public class UsageScreen extends Activity  {
 
             }
          	 
-         	 TextView usageTextView = (TextView) findViewById(R.id.usagetext);
-         	 usageTextView.setText(String.format("Computers available:  %d\nComputers off / disconnected:  %d\n\nComputers in use:  %d\n \t\t- Active: %d\n \t\t- Idle: %d", numberOfAvaliable,offOrDisconected,used,busy,busyButIdle));
-         	 usageTextView.setTextSize(textSizeInt);
+         	 TextView availTextView = (TextView) findViewById(R.id.available);
+         	 availTextView.setText(String.format("Computers available:  %d", numberOfAvaliable));
+         	 availTextView.setTextSize(textSizeInt);
          	 
-         	if(textColor.equals("White"))usageTextView.setTextColor(getResources().getColor(R.color.white));
-            else if(textColor.equals("Black"))usageTextView.setTextColor(getResources().getColor(R.color.black));
-            else if(textColor.equals("Red"))usageTextView.setTextColor(getResources().getColor(R.color.red));
-            else if(textColor.equals("Blue"))usageTextView.setTextColor(getResources().getColor(R.color.ultrablue));
-            else if(textColor.equals("Green"))usageTextView.setTextColor(getResources().getColor(R.color.green));
-            else if(textColor.equals("Yellow"))usageTextView.setTextColor(getResources().getColor(R.color.yellow));
-            else if(textColor.equals("Orange"))usageTextView.setTextColor(getResources().getColor(R.color.orange));
-            else if(textColor.equals("Grey"))usageTextView.setTextColor(getResources().getColor(R.color.grey));
+         	if(textColor.equals("White"))availTextView.setTextColor(getResources().getColor(R.color.white));
+            else if(textColor.equals("Black"))availTextView.setTextColor(getResources().getColor(R.color.black));
+            else if(textColor.equals("Red"))availTextView.setTextColor(getResources().getColor(R.color.red));
+            else if(textColor.equals("Blue"))availTextView.setTextColor(getResources().getColor(R.color.ultrablue));
+            else if(textColor.equals("Green"))availTextView.setTextColor(getResources().getColor(R.color.green));
+            else if(textColor.equals("Yellow"))availTextView.setTextColor(getResources().getColor(R.color.yellow));
+            else if(textColor.equals("Orange"))availTextView.setTextColor(getResources().getColor(R.color.orange));
+            else if(textColor.equals("Grey"))availTextView.setTextColor(getResources().getColor(R.color.grey));
+         	
+         	
+         	TextView useTextView = (TextView) findViewById(R.id.use);
+        	 useTextView.setText(String.format("Computers in use:  %d\n \t\t- Active: %d\n \t\t- Idle: %d",used,busy,busyButIdle));
+        	 useTextView.setTextSize(textSizeInt);
+        	 
+        	if(textColor.equals("White"))useTextView.setTextColor(getResources().getColor(R.color.white));
+           else if(textColor.equals("Black"))useTextView.setTextColor(getResources().getColor(R.color.black));
+           else if(textColor.equals("Red"))useTextView.setTextColor(getResources().getColor(R.color.red));
+           else if(textColor.equals("Blue"))useTextView.setTextColor(getResources().getColor(R.color.ultrablue));
+           else if(textColor.equals("Green"))useTextView.setTextColor(getResources().getColor(R.color.green));
+           else if(textColor.equals("Yellow"))useTextView.setTextColor(getResources().getColor(R.color.yellow));
+           else if(textColor.equals("Orange"))useTextView.setTextColor(getResources().getColor(R.color.orange));
+           else if(textColor.equals("Grey"))useTextView.setTextColor(getResources().getColor(R.color.grey));
+        	
+        	
+        	TextView discTextView = (TextView) findViewById(R.id.disconnected);
+        	 discTextView.setText(String.format("Computers off / disconnected:  %d",offOrDisconected));
+        	 discTextView.setTextSize(textSizeInt);
+        	 
+        	if(textColor.equals("White"))discTextView.setTextColor(getResources().getColor(R.color.white));
+           else if(textColor.equals("Black"))discTextView.setTextColor(getResources().getColor(R.color.black));
+           else if(textColor.equals("Red"))discTextView.setTextColor(getResources().getColor(R.color.red));
+           else if(textColor.equals("Blue"))discTextView.setTextColor(getResources().getColor(R.color.ultrablue));
+           else if(textColor.equals("Green"))discTextView.setTextColor(getResources().getColor(R.color.green));
+           else if(textColor.equals("Yellow"))discTextView.setTextColor(getResources().getColor(R.color.yellow));
+           else if(textColor.equals("Orange"))discTextView.setTextColor(getResources().getColor(R.color.orange));
+           else if(textColor.equals("Grey"))discTextView.setTextColor(getResources().getColor(R.color.grey));
+         	
+         	
          	
          	
          	//AAnkhi copy this
@@ -420,9 +461,38 @@ public class UsageScreen extends Activity  {
             //else if(textBkcolor.equals("Grey"))mlayout.setBackgroundColor(getResources().getColor(R.color.dgrey));  //one color
             //else if(textBkcolor.equals("Grey"))mlayout.setBackgroundResource(R.drawable.backgr);			//image as background
         
-         	 
-         	
-         	 
+            DisplayMetrics displaymetrics = new DisplayMetrics();
+getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+int screenwidth = displaymetrics.widthPixels;
+            int chartwidth=(screenwidth)/(numberOfAvaliable+offOrDisconected+busy);
+            
+            ImageView img1 = (ImageView) findViewById(R.id.imggreen);
+            ImageView img2 = (ImageView) findViewById(R.id.imgyellow);
+            ImageView img3 = (ImageView) findViewById(R.id.imgred);
+            LayoutParams params = (LayoutParams) img1.getLayoutParams();
+            params.width = numberOfAvaliable*chartwidth;
+            img1.setLayoutParams(params);
+            
+            if(roomSelected.equals("2.11"))
+            {
+            	params = (LayoutParams) img2.getLayoutParams();
+                params.width = offOrDisconected*chartwidth;
+	            img2.setLayoutParams(params);
+	            params = (LayoutParams) img3.getLayoutParams();
+	            params.width = used*chartwidth;
+	            img3.setLayoutParams(params);
+            }    
+            
+            else if(roomSelected.equals("2.09"))
+            {
+            	params = (LayoutParams) img2.getLayoutParams();
+                params.width = used*chartwidth;
+	            img2.setLayoutParams(params);
+	            params = (LayoutParams) img3.getLayoutParams();
+	            params.width = offOrDisconected*chartwidth;
+	            img3.setLayoutParams(params);
+            	
+            }
          	 ///////////--------------------------------------------
          	/*Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
             //AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
@@ -458,7 +528,7 @@ public class UsageScreen extends Activity  {
              UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
              PendingIntent contentIntent = PendingIntent.getActivity(UsageScreen.this, 0,new Intent(), 0);
              TextView timeStamp = (TextView) findViewById(R.id.timestamp);
-         	 timeStamp.setText(String.format("Last refreshed: %s", timestamp));
+         	 timeStamp.setText(String.format("Server last refreshed at: "+start[1]+", "+start_format[2]+"/"+start_format[1]+"/"+start_format[0]));
          	 timeStamp.setTextSize(textSizeInt);
          	 
          	 
