@@ -3,10 +3,17 @@ package com.teddy.data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.model.CategorySeries;
+import org.achartengine.renderer.DefaultRenderer;
+import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -22,6 +29,8 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -383,7 +392,14 @@ public class Power extends Activity {
                 mlayout.setBackgroundDrawable(grDr);
                 Window window = getWindow();
                 window.setFormat(PixelFormat.RGBA_8888);
+                
+                RelativeLayout chartContainer = (RelativeLayout) findViewById(R.id.chart123);
+                
+                Intent achartIntent = new PowerChart().execute(Power.this,chartContainer, powerCost, idleCost);
+                
+               
 		     }
+		    
 		}
 }
 
