@@ -396,6 +396,9 @@ public class Power extends Activity {
                 RelativeLayout chartContainer = (RelativeLayout) findViewById(R.id.chart123);
                 
                 Intent achartIntent = new PowerChart().execute(Power.this,chartContainer, powerCost, idleCost);
+                //GraphicalView gv =new Info().createIntent();
+      	        //RelativeLayout rl=(RelativeLayout)findViewById(R.id.chart123);
+      	        //rl.addView(gv);
                 
                
 		     }

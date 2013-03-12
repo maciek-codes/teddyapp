@@ -26,13 +26,13 @@ public class PowerChart {
 	  }
 	  DefaultRenderer renderer = buildCategoryRenderer(colors);
 	   renderer.setPanEnabled(false);// Disable User Interaction
-	   renderer.setLabelsColor(Color.BLACK);
+	   renderer.setLabelsColor(Color.WHITE);
 	   renderer.setShowLabels(true);
 	   
 	   //renderer.setChartTitle("Total Assets");
 	   renderer.setLabelsTextSize(12);
 	  CategorySeries categorySeries = new CategorySeries("Costs for 15 min");
-	  categorySeries.add("Needed costs", cost-save);
+	  categorySeries.add("Costs that cannot be saved", cost-save);
 	  categorySeries.add("Possible savings", save);
 	  
 	  mChartView2=ChartFactory.getPieChartView(context, categorySeries,renderer);

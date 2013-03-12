@@ -211,8 +211,8 @@ public class Stats extends Activity {
 	            	}
 	            	*/
 	            	// Display available computers in this room:    ***************
-	            	//requestUrl="http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
-	            	//display=1;
+	            //requestUrl="http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
+	            //display=1;
 					if(timeSelected2.equals("Last Month")) {
 						display=3;
 	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
@@ -225,10 +225,10 @@ public class Stats extends Activity {
 	            		display=1;
 	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
 	            	}
-	            	else if(timeSelected2.equals("Last Week")) {
+	            	/*else if(timeSelected2.equals("Last Week")) {
 	            		display=2;
 	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
-	            	}
+	            	}*/
 					
 	            	new GetStatsTask().execute(requestUrl);
 	        	}
