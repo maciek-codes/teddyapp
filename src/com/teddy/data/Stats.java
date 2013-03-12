@@ -225,10 +225,10 @@ public class Stats extends Activity {
 	            		display=1;
 	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
 	            	}
-	            	/*else if(timeSelected2.equals("Last Week")) {
+	            	else if(timeSelected2.equals("Last Week")) {
 	            		display=2;
 	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
-	            	}*/
+	            	}
 					
 	            	new GetStatsTask().execute(requestUrl);
 	        	}
@@ -282,6 +282,8 @@ public class Stats extends Activity {
 		Intent i = new Intent(getApplicationContext(),  Info.class);
      	i.putExtra("URL", requestUrl);
      	i.putExtra("period", timeSelected2);
+     	i.putExtra("room",roomSelected);
+     	i.putExtra("building",buildingSelected);
      	startActivity(i);
     	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
     } 

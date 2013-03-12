@@ -27,7 +27,7 @@ public class Info extends Activity {
 	double[] Costs = {-1,-1};
 	double powerCost = 0;
 	double idleCost = 0;
-	String requestUrl="",timeselected="";
+	String requestUrl="",timeselected="",room="",building="" ;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		
@@ -44,6 +44,8 @@ public class Info extends Activity {
         {
         	requestUrl = extras.getString("URL");
         	timeselected = extras.getString("period");
+        	room = extras.getString("room");
+        	building = extras.getString("building");
         	new GetStatsTask().execute(requestUrl);
         	
         }       
@@ -57,7 +59,7 @@ public class Info extends Activity {
         int[] colors = new int[] { Color.parseColor("#ff1b3d")};
         XYMultipleSeriesRenderer renderer = buildBarRenderer(colors);
         renderer.setOrientation(Orientation.HORIZONTAL);
-        setChartSettings(renderer, "Costs for "+timeselected, "", "Pounds", 0.5,
+        setChartSettings(renderer, "Costs for "+timeselected+", room "+room+", "+building, "", "Pounds", 0.5,
             2.5, 0, Costs[0]*1.3, Color.BLACK, Color.BLACK);
         renderer.setXLabels(0);
         renderer.setYLabels(10);

@@ -20,6 +20,7 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,11 +30,13 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.LinearLayout.LayoutParams;
 
 public class Power extends Activity {
 	// Connection detector class
@@ -43,6 +46,7 @@ public class Power extends Activity {
 		static int textSizeInt=16;
 		static String textColor="White";
 		static String textBkcolor ="Grey";
+		Intent achartIntent;
 
 		// Remember list of buildings and rooms associated
 		Map<String, ArrayList<String>> buildingRoomDict;
@@ -395,10 +399,18 @@ public class Power extends Activity {
                 
                 RelativeLayout chartContainer = (RelativeLayout) findViewById(R.id.chart123);
                 
-                Intent achartIntent = new PowerChart().execute(Power.this,chartContainer, powerCost, idleCost);
-                //GraphicalView gv =new Info().createIntent();
-      	        //RelativeLayout rl=(RelativeLayout)findViewById(R.id.chart123);
-      	        //rl.addView(gv);
+                achartIntent = new PowerChart().execute(Power.this,chartContainer, powerCost, idleCost);
+                
+                /*
+                DisplayMetrics displaymetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+                int screenwidth = displaymetrics.widthPixels;
+                                
+                LayoutParams params = (LayoutParams) chartContainer.getLayoutParams();
+                if(screenwidth>550) params.height = 400;
+                else params.height = 170;
+                chartContainer.setLayoutParams(params);
+                */
                 
                
 		     }

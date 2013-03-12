@@ -36,6 +36,7 @@ public class PowerChart {
 	  categorySeries.add("Possible savings", save);
 	  
 	  mChartView2=ChartFactory.getPieChartView(context, categorySeries,renderer);
+	  parent.removeAllViews();
 	  parent.addView(mChartView2);
 	  
 	  return ChartFactory.getPieChartIntent(context, categorySeries, renderer,null);

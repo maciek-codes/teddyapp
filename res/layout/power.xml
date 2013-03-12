@@ -4,8 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/black"
-    android:orientation="vertical"
-    android:fillViewport="true" >
+    android:fillViewport="true"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/mainlayout"
@@ -143,7 +143,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="170dp"
                 android:layout_marginBottom="1dp"
-                android:layout_marginTop="1dp" >
+                android:layout_marginTop="1dp"
+                android:gravity="center_horizontal" >
 
             </RelativeLayout>
 
@@ -152,6 +153,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginLeft="10dp" >
 
             <ImageView
@@ -176,6 +178,7 @@
             android:id="@+id/layoutlogo"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:layout_gravity="bottom|center_horizontal"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
             android:layout_marginTop="5dp"
