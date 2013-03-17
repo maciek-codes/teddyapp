@@ -15,6 +15,7 @@ import android.app.ProgressDialog;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
@@ -68,20 +69,32 @@ public class UsageScreen extends Activity  {
 	@Override
     public void onStart(){
         super.onStart();
-    	 
-        Bundle extras = getIntent().getExtras(); 
-        if(extras !=null)
-        {
-        	timeSelected = extras.getString("time");
-        	textSize = extras.getString("text");
-        	textColor = extras.getString("color");
-        	textBkcolor = extras.getString("bkcolor");
-        	if(textSize.equals("Small"))textSizeInt=14;
-            else if(textSize.equals("Medium"))textSizeInt=16;
-            else if(textSize.equals("Big"))textSizeInt=20;
-            else if(textSize.equals("Extra Big"))textSizeInt=30;
-        	
-        }   
+    	
+        SharedPreferences extras = this.getSharedPreferences("settings", 0);
+        
+    	timeSelected = extras.getString("time", "15 minutes");
+    	textSize = extras.getString("text", "Medium");
+    	textColor = extras.getString("color", "White");
+    	textBkcolor = extras.getString("bkcolor", "Grey");
+    	
+    	if(textSize.equals("Small"))textSizeInt=14;
+        else if(textSize.equals("Medium"))textSizeInt=16;
+        else if(textSize.equals("Big"))textSizeInt=20;
+        else if(textSize.equals("Extra Big"))textSizeInt=30;
+    	
+    /*Bundle extras = getIntent().getExtras(); 
+    if(extras !=null)
+    {
+    	timeSelected = extras.getString("time");
+    	textSize = extras.getString("text");
+    	textColor = extras.getString("color");
+    	textBkcolor = extras.getString("bkcolor");
+    	if(textSize.equals("Small"))textSizeInt=14;
+        else if(textSize.equals("Medium"))textSizeInt=16;
+        else if(textSize.equals("Big"))textSizeInt=20;
+        else if(textSize.equals("Extra Big"))textSizeInt=30;
+    	
+    } */
     	
         // creating connection detector class instance
         cd = new ConnectionDetector(getApplicationContext());      

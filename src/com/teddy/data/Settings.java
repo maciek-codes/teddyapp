@@ -1,6 +1,7 @@
 package com.teddy.data;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
@@ -26,7 +27,15 @@ public class Settings extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle extras = getIntent().getExtras(); 
+        
+        SharedPreferences pref = getSharedPreferences ("settings", 0);
+        
+        timeSelected = pref.getString("time", "15 minutes");
+    	textSize = pref.getString("text", "Medium");
+    	textColor = pref.getString("color", "White");
+    	textBkcolor = pref.getString("bkcolor", "Grey");
+    	
+/*        Bundle extras = getIntent().getExtras(); 
         if(extras !=null)
         {
         	timeSelected = extras.getString("time");
@@ -34,7 +43,8 @@ public class Settings extends Activity {
         	textColor = extras.getString("color");
         	textBkcolor = extras.getString("bkcolor");
         	
-        }     
+        }     */
+    	
         setContentView(R.layout.settings);
         // Hide input keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -47,11 +57,22 @@ public class Settings extends Activity {
         		Button hbutton= (Button)findViewById(R.id.homebutton);
                 hbutton.setBackgroundResource(R.drawable.button_pressed);
             	Intent i = new Intent(getApplicationContext(), UsageScreen.class);
-            	i.putExtra("time",timeSelected );
+            	/*i.putExtra("time",timeSelected );
             	i.putExtra("text",textSize );
             	i.putExtra("color",textColor );
-            	i.putExtra("bkcolor",textBkcolor );
-            	finish();
+            	i.putExtra("bkcolor",textBkcolor );*/
+            	finish(); 
+            	SharedPreferences pref = getSharedPreferences ("settings", 0);
+          	  
+            	SharedPreferences.Editor ed = pref.edit();
+                //We open the Editor to edit settings.
+           
+                ed.putString("time",timeSelected );
+                ed.putString("text",textSize );
+                ed.putString("color",textColor );
+                ed.putString("bkcolor",textBkcolor );
+                  
+                ed.commit();
             	i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             	startActivity(i);
             	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
@@ -260,6 +281,20 @@ public class Settings extends Activity {
 	
       @Override
       public void onBackPressed() {
+    	  
+    	SharedPreferences pref = getSharedPreferences ("settings", 0);
+    	  
+    	SharedPreferences.Editor ed = pref.edit();
+        //We open the Editor to edit settings.
+   
+        ed.putString("time",timeSelected );
+        ed.putString("text",textSize );
+        ed.putString("color",textColor );
+        ed.putString("bkcolor",textBkcolor );
+          
+        ed.commit();
+      	//We commit the edits.
+    	/*  
   		Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
   		i.putExtra("time",timeSelected );
     	i.putExtra("text",textSize );
@@ -267,6 +302,6 @@ public class Settings extends Activity {
     	i.putExtra("bkcolor",textBkcolor );
     	finish();
       	startActivity(i);
-      	overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+      	overridePendingTransition(R.anim.fadein,R.anim.fadeout); */
       }
 }
