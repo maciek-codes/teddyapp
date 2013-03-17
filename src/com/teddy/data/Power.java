@@ -320,10 +320,21 @@ public class Power extends Activity {
 		         
 		         prog.hide();
 		         
-		         double powerCost = 0,idleCost=0;
+		         double powerCost = 0,idleCost=0,busy_or_idle=0,idle=0,off=0,KWCost=0;
+		         int noMachines=0;
             	 try {
             	    powerCost = result.getDouble("power_cost");
             		idleCost = result.getDouble("power_cost_idle");
+            		
+            		KWCost = result.getDouble("KWCost");
+            		
+            		noMachines = result.getInt("noMachines");
+            		
+            		/*busy_or_idle = result.getDouble("busy_or_idle");
+            		idle = result.getDouble("idle");
+            		off = result.getDouble("off");
+            		noMachines=(int)(busy_or_idle+idle+off);*/
+            		
             		
             	 } catch (JSONException e) {
 					// TODO DONE1 Catch exception here if JSON is not formulated well
@@ -362,8 +373,8 @@ public class Power extends Activity {
                   else if(textColor.equals("Grey"))idleTextView.setTextColor(getResources().getColor(R.color.grey));
             	 
             	 TextView calcTextView = (TextView) findViewById(R.id.calcText);
-            	 calcTextView.setText(String.format("The power cost was calculated in relation with the folowing factors:\nNumber of machines: - -\n" +
-            	 		"Cost per kW: - -"));
+            	 calcTextView.setText(String.format("The power cost was calculated in relation with the folowing factors:\nNumber of machines: " + noMachines +
+            	 		"\nCost per kW: "+KWCost));
             	 calcTextView.setTextSize(textSizeInt);
 
       			if(textColor.equals("White"))calcTextView.setTextColor(getResources().getColor(R.color.white));
