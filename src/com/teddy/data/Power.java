@@ -328,7 +328,7 @@ public class Power extends Activity {
             		
             		KWCost = result.getDouble("KWCost");
             		
-            		noMachines = result.getInt("noMachines");
+            		noMachines = result.getInt("NoMachines");
             		
             		/*busy_or_idle = result.getDouble("busy_or_idle");
             		idle = result.getDouble("idle");
