@@ -41,7 +41,6 @@
             style="@style/LoginFormContainer"
             android:layout_height="304dp"
             android:gravity="center_horizontal"
-            android:onClick="@string/icon"
             android:orientation="vertical" >
 
             <ImageView
