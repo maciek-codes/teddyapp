@@ -374,7 +374,7 @@ public class Power extends Activity {
             	 
             	 TextView calcTextView = (TextView) findViewById(R.id.calcText);
             	 calcTextView.setText(String.format("The power cost was calculated in relation with the folowing factors:\nNumber of machines: " + noMachines +
-            	 		"\nCost per kW: "+KWCost));
+            	 		"\nCost per kW: "+KWCost+" GBP"));
             	 calcTextView.setTextSize(textSizeInt);
 
       			if(textColor.equals("White"))calcTextView.setTextColor(getResources().getColor(R.color.white));
