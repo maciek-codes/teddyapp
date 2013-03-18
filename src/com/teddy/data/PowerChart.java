@@ -13,12 +13,11 @@ import android.widget.RelativeLayout;
 
 public class PowerChart {
 	private GraphicalView mChartView2;
-	 private GraphicalView mChartView3;
 	 static int count=2;
 	 
 	int[] Mycolors = new int[] { Color.parseColor("#ff1b3d"), Color.parseColor("#2890b7"), Color.BLUE, Color.parseColor("#ff1b3d"),Color.parseColor("#2890b7"),Color.GRAY };
 	 
-	 public Intent execute(Context context,RelativeLayout parent, double cost, double save) {
+	 public Intent execute(Context context,RelativeLayout parent, double cost, double save, String textBkcolor) {
 	  int[] colors = new int[count];
 	  for(int i=0;i<count;i++)
 	  {
@@ -26,7 +25,8 @@ public class PowerChart {
 	  }
 	  DefaultRenderer renderer = buildCategoryRenderer(colors);
 	   renderer.setPanEnabled(false);// Disable User Interaction
-	   renderer.setLabelsColor(Color.WHITE);
+	   if(textBkcolor.equals("White")) renderer.setLabelsColor(Color.BLACK);
+       else renderer.setLabelsColor(Color.WHITE);
 	   renderer.setShowLabels(true);
 	   
 	   //renderer.setChartTitle("Total Assets");

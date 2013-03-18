@@ -4,23 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
-import org.achartengine.model.CategorySeries;
-import org.achartengine.renderer.DefaultRenderer;
-import org.achartengine.renderer.SimpleSeriesRenderer;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,13 +24,10 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.LinearLayout.LayoutParams;
 
 public class Power extends Activity {
 	// Connection detector class
@@ -410,7 +401,7 @@ public class Power extends Activity {
                 
                 RelativeLayout chartContainer = (RelativeLayout) findViewById(R.id.chart123);
                 
-                achartIntent = new PowerChart().execute(Power.this,chartContainer, powerCost, idleCost);
+                achartIntent = new PowerChart().execute(Power.this,chartContainer, powerCost, idleCost, textBkcolor);
                 
                 /*
                 DisplayMetrics displaymetrics = new DisplayMetrics();
