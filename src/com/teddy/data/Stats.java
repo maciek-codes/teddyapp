@@ -215,19 +215,19 @@ public class Stats extends Activity {
 	            //display=1;
 					if(timeSelected2.equals("Last Month")) {
 						display=3;
-	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
+	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
 					}
 	            	else if(timeSelected2.equals("Last Year")) {
 	            		display=4;
-	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year;
+	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year;
 	            	}
 	            	else if(timeSelected2.equals("Last Day")) {
 	            		display=1;
-	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
+	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day;
 	            	}
 	            	else if(timeSelected2.equals("Last Week")) {
 	            		display=2;
-	            		requestUrl = "https://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month;
+	            		requestUrl = "http://service-teddy2012.rhcloud.com/log/" + buildingSelected + "/" + roomSelected + "/" + year + "/" + month + "/" + day + "/w";
 	            	}
 					
 	            	new GetStatsTask().execute(requestUrl);
@@ -390,7 +390,9 @@ public class Stats extends Activity {
 			String[] start={"null","null"}, end={"null","null"},start_format={"null","null","null"},end_format={"null","null","null"};
 			
 			
-			try {
+			try { 
+//{"Total_Power_Cost": "302.13", "watts": "10358900", "watts_alive": "1726290", "end_date": "2013-03-18T00:00:00",
+				//"power_cost_no_idle": "258.97", "start_date": "2013-03-17T00:00:00"}
 				powerCost = result.getDouble("Total_Power_Cost");
 				idleCost = result.getDouble("power_cost_no_idle");
 				start_date = result.getString("start_date");
@@ -408,7 +410,7 @@ public class Stats extends Activity {
 				}
 				catch (NullPointerException e) {
 					e.printStackTrace();
-					android.os.Process.killProcess(android.os.Process.myPid());
+					android.os.Process.killProcess(android.os.Process.myPid()); 
 
 				}	
 			

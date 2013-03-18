@@ -16,7 +16,7 @@ public class PowerChart {
 	 private GraphicalView mChartView3;
 	 static int count=2;
 	 
-	int[] Mycolors = new int[] { Color.parseColor("#ff1b3d"), Color.parseColor("#2890b7"), Color.BLUE, Color.parseColor("#800080"),Color.parseColor("#008000"),Color.GRAY };
+	int[] Mycolors = new int[] { Color.parseColor("#ff1b3d"), Color.parseColor("#2890b7"), Color.BLUE, Color.parseColor("#ff1b3d"),Color.parseColor("#2890b7"),Color.GRAY };
 	 
 	 public Intent execute(Context context,RelativeLayout parent, double cost, double save) {
 	  int[] colors = new int[count];
@@ -32,8 +32,8 @@ public class PowerChart {
 	   //renderer.setChartTitle("Total Assets");
 	   renderer.setLabelsTextSize(12);
 	  CategorySeries categorySeries = new CategorySeries("Costs for 15 min");
-	  categorySeries.add("Costs that cannot be saved", cost-save);
-	  categorySeries.add("Possible savings", save);
+	  categorySeries.add("Necessary Costs", cost-save);
+	  categorySeries.add("Savings", save);
 	  
 	  mChartView2=ChartFactory.getPieChartView(context, categorySeries,renderer);
 	  parent.removeAllViews();
