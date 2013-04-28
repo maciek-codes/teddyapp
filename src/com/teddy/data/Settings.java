@@ -19,10 +19,10 @@ import android.os.Bundle;
 
 public class Settings extends Activity {
 
-	static String timeSelected="15 Minutes";
 	static String textSize ="Medium";
 	static String textColor ="White";
 	static String textBkcolor ="Grey";
+	static String notif ="On";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class Settings extends Activity {
         
         SharedPreferences pref = getSharedPreferences ("settings", 0);
         
-        timeSelected = pref.getString("time", "15 minutes");
+        notif = pref.getString("notifs", "On");
     	textSize = pref.getString("text", "Medium");
     	textColor = pref.getString("color", "White");
     	textBkcolor = pref.getString("bkcolor", "Grey");
@@ -67,11 +67,11 @@ public class Settings extends Activity {
             	SharedPreferences.Editor ed = pref.edit();
                 //We open the Editor to edit settings.
            
-                ed.putString("time",timeSelected );
+            	ed.putString("notifs", notif ); 
                 ed.putString("text",textSize );
                 ed.putString("color",textColor );
                 ed.putString("bkcolor",textBkcolor );
-                  
+                 
                 ed.commit();
             	i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             	startActivity(i);
@@ -82,8 +82,8 @@ public class Settings extends Activity {
         
         TextView titleTextView = (TextView) findViewById(R.id.titleText);
     	titleTextView.setText(String.format("Settings"));
-        //TextView notifTextView = (TextView) findViewById(R.id.notifText);
-    	//notifTextView.setText(String.format("Notifications"));
+        TextView notifTextView = (TextView) findViewById(R.id.textNotif);
+    	notifTextView.setText(String.format("Notifications"));
     	TextView sizeTextView = (TextView) findViewById(R.id.textSize);
     	sizeTextView.setText(String.format("Text Size"));
     	TextView sizeColorView = (TextView) findViewById(R.id.textColor);
@@ -91,15 +91,15 @@ public class Settings extends Activity {
     	TextView BkColorView = (TextView) findViewById(R.id.textBkcolor);
     	BkColorView.setText(String.format("Background Color"));
     	
-    	//final Spinner time = (Spinner) findViewById(R.id.time_spinner);
+    	final Spinner notifsp = (Spinner) findViewById(R.id.notif_spinner);
     	final Spinner text = (Spinner) findViewById(R.id.textsize_spinner);
     	final Spinner color = (Spinner) findViewById(R.id.textcolor_spinner);
     	final Spinner bkcolor = (Spinner) findViewById(R.id.bkcolor_spinner);
         
         // Set resources
-    	/*final ArrayAdapter<CharSequence> adaptertime = ArrayAdapter.createFromResource(this, R.array.time_array, android.R.layout.simple_spinner_item);
-        adaptertime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        time.setAdapter(adaptertime);*/
+    	final ArrayAdapter<CharSequence> adapternotifsp = ArrayAdapter.createFromResource(this, R.array.notif_array, android.R.layout.simple_spinner_item);
+        adapternotifsp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        notifsp.setAdapter(adapternotifsp);
         
         final ArrayAdapter<CharSequence> adaptertext = ArrayAdapter.createFromResource(this, R.array.text_array, android.R.layout.simple_spinner_item);
         adaptertext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -112,12 +112,9 @@ public class Settings extends Activity {
         final ArrayAdapter<CharSequence> adapterbkcolor = ArrayAdapter.createFromResource(this, R.array.textcolor_array, android.R.layout.simple_spinner_item);
         adapterbkcolor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bkcolor.setAdapter(adapterbkcolor);
-        /*
-        if(timeSelected.equals("Off"))time.setSelection(0);
-        else if(timeSelected.equals("15 Minutes"))time.setSelection(1);
-        else if(timeSelected.equals("1 Hour"))time.setSelection(2);
-        else if(timeSelected.equals("6 Hours"))time.setSelection(3);
-        else if(timeSelected.equals("Daily"))time.setSelection(4);*/
+        
+        if(notif.equals("On"))notifsp.setSelection(0);
+        else if(notif.equals("Off"))notifsp.setSelection(1);
         
         if(textSize.equals("Small"))text.setSelection(0);
         else if(textSize.equals("Medium"))text.setSelection(1);
@@ -143,12 +140,12 @@ public class Settings extends Activity {
         else if(textBkcolor.equals("Orange"))bkcolor.setSelection(6);
         else if(textBkcolor.equals("Grey"))bkcolor.setSelection(7);
         
-        /*time.setOnItemSelectedListener(new OnItemSelectedListener() {
+        notifsp.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
             	            	
             	// Get new selection
-            	timeSelected =(String) (time.getItemAtPosition(position));    
+            	notif =(String) (notifsp.getItemAtPosition(position));    
             	
             }
 
@@ -157,7 +154,7 @@ public class Settings extends Activity {
                 // your code here
             }
 
-        });*/
+        });
         
         text.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -287,21 +284,17 @@ public class Settings extends Activity {
     	SharedPreferences.Editor ed = pref.edit();
         //We open the Editor to edit settings.
    
-        ed.putString("time",timeSelected );
+        ed.putString("notifs",notif );
         ed.putString("text",textSize );
         ed.putString("color",textColor );
         ed.putString("bkcolor",textBkcolor );
           
         ed.commit();
       	//We commit the edits.
-    	/*  
+    	
   		Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
-  		i.putExtra("time",timeSelected );
-    	i.putExtra("text",textSize );
-    	i.putExtra("color",textColor );
-    	i.putExtra("bkcolor",textBkcolor );
-    	finish();
+  		finish();
       	startActivity(i);
-      	overridePendingTransition(R.anim.fadein,R.anim.fadeout); */
+      	overridePendingTransition(R.anim.fadein,R.anim.fadeout); 
       }
 }

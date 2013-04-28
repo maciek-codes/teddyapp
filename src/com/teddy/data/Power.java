@@ -33,7 +33,7 @@ public class Power extends Activity {
 	// Connection detector class
 		ConnectionDetector cd;
 		static String textSize ="Medium";
-		static String timeSelected="15 Minutes";
+		static String notif="On";
 		static int textSizeInt=16;
 		static String textColor="White";
 		static String textBkcolor ="Grey";
@@ -51,7 +51,7 @@ public class Power extends Activity {
 	        Bundle extras = getIntent().getExtras(); 
 	        if(extras !=null)
 	        {
-	        	timeSelected = extras.getString("time");
+	        	notif = extras.getString("On");
 	        	textSize = extras.getString("text");
 	        	textColor = extras.getString("color");
 	        	textBkcolor = extras.getString("bkcolor");
@@ -179,7 +179,7 @@ public class Power extends Activity {
 		        usage.setOnClickListener(new Button.OnClickListener(){
 		        	public void onClick(View v){
 			        	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
-			        	i.putExtra("time", timeSelected);
+			        	i.putExtra("notifs", notif);
 						i.putExtra("text", textSize);
 						i.putExtra("color", textColor);
 		    	    	i.putExtra("bkcolor",textBkcolor );
@@ -202,7 +202,7 @@ public class Power extends Activity {
 					public void onClick(View v){
 		
 		            	Intent i = new Intent(getApplicationContext(), Stats.class);
-		            	i.putExtra("time", timeSelected);
+		            	i.putExtra("notifs", notif);
 		    			i.putExtra("text", textSize);
 						i.putExtra("color", textColor);
 		    	    	i.putExtra("bkcolor",textBkcolor );
@@ -241,7 +241,7 @@ public class Power extends Activity {
 				return true;
 				case R.id.settings:
 				i = new Intent(getApplicationContext(), Settings.class);
-				i.putExtra("time", timeSelected);
+				i.putExtra("notifs", notif);
 				i.putExtra("text", textSize);
 				i.putExtra("color", textColor);
     	    	i.putExtra("bkcolor",textBkcolor );

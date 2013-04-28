@@ -35,6 +35,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.PushService;
 
 public class UsageScreen extends Activity  {
 	// Connection detector class
@@ -47,7 +52,7 @@ public class UsageScreen extends Activity  {
 
 	String[] start_format;
 	String[] start;
-	static String timeSelected="15 Minutes";
+	static String notif="On";
 	static String textSize="Medium";
 	static int textSizeInt=16;
 	static String textColor="White";
@@ -58,6 +63,13 @@ public class UsageScreen extends Activity  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.usagescreen);
+        if(notif.equals("On")){
+        	Parse.initialize(this, "5JWNkQmpCX1iPEhscU9EGkdEsIzMM31MGHLNpLnH", "1NwKNmZC28ATsRHa87SOrJwtXosOwx0zvPXCMajd"); 
+        	PushService.setDefaultPushCallback(this, UsageScreen.class);
+        	PushService.subscribe(this, "availabletosend", UsageScreen.class);
+        	ParseInstallation.getCurrentInstallation().saveInBackground();
+        	ParseAnalytics.trackAppOpened(getIntent());
+        } else{PushService.unsubscribe(this, "availabletosend"); }
     }
 	
 	
@@ -67,7 +79,7 @@ public class UsageScreen extends Activity  {
     	
         SharedPreferences extras = this.getSharedPreferences("settings", 0);
         
-    	timeSelected = extras.getString("time", "15 minutes");
+        notif = extras.getString("notifs", "On");
     	textSize = extras.getString("text", "Medium");
     	textColor = extras.getString("color", "White");
     	textBkcolor = extras.getString("bkcolor", "Grey");
@@ -77,19 +89,12 @@ public class UsageScreen extends Activity  {
         else if(textSize.equals("Big"))textSizeInt=20;
         else if(textSize.equals("Extra Big"))textSizeInt=30;
     	
-    /*Bundle extras = getIntent().getExtras(); 
-    if(extras !=null)
+    Bundle extras2 = getIntent().getExtras(); 
+    if(extras2 !=null)
     {
-    	timeSelected = extras.getString("time");
-    	textSize = extras.getString("text");
-    	textColor = extras.getString("color");
-    	textBkcolor = extras.getString("bkcolor");
-    	if(textSize.equals("Small"))textSizeInt=14;
-        else if(textSize.equals("Medium"))textSizeInt=16;
-        else if(textSize.equals("Big"))textSizeInt=20;
-        else if(textSize.equals("Extra Big"))textSizeInt=30;
+    	notif = extras2.getString("notifs");
     	
-    } */
+    } 
     	
         // creating connection detector class instance
         cd = new ConnectionDetector(getApplicationContext());      
@@ -214,7 +219,7 @@ public class UsageScreen extends Activity  {
 	        power.setOnClickListener(new Button.OnClickListener(){
 	        public void onClick(View v){
 	        	Intent i = new Intent(getApplicationContext(),  Power.class);
-	        	i.putExtra("time", timeSelected);
+	        	i.putExtra("notifs", notif);
 				i.putExtra("text", textSize);
 				i.putExtra("color", textColor);
 		    	i.putExtra("bkcolor",textBkcolor );
@@ -227,7 +232,7 @@ public class UsageScreen extends Activity  {
 	        stats.setOnClickListener(new Button.OnClickListener(){
 	        	public void onClick(View v){
 	            	Intent i = new Intent(getApplicationContext(), Stats.class);
-	            	i.putExtra("time", timeSelected);
+	            	i.putExtra("notifs", notif);
 	    			i.putExtra("text", textSize);
 	    			i.putExtra("color", textColor);
 	    	    	i.putExtra("bkcolor",textBkcolor );
@@ -298,7 +303,7 @@ public class UsageScreen extends Activity  {
 			return true;
 			case R.id.settings:
 			i = new Intent(getApplicationContext(), Settings.class);
-			i.putExtra("time", timeSelected);
+			i.putExtra("notifs", notif);
 			i.putExtra("text", textSize);
 			i.putExtra("color", textColor);
 	    	i.putExtra("bkcolor",textBkcolor );
@@ -510,7 +515,7 @@ public class UsageScreen extends Activity  {
          	
             
             //-----------------------------------------------------------------
-         	 Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
+         	/* Intent intent = new Intent(UsageScreen.this, UsageScreen.class);
              AlarmManager am = (AlarmManager) UsageScreen.this.getSystemService(Context.ALARM_SERVICE);
              
              PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent , PendingIntent.FLAG_UPDATE_CURRENT);
@@ -519,10 +524,11 @@ public class UsageScreen extends Activity  {
          	 else if(timeSelected.equals("1 Hour"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),AlarmManager.INTERVAL_HOUR , pi);
          	 else if(timeSelected.equals("6 Hours"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR*6, pi);
          	 else if(timeSelected.equals("Daily"))am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),AlarmManager.INTERVAL_DAY , pi);
+             */
+             //UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
+             //PendingIntent contentIntent = PendingIntent.getActivity(UsageScreen.this, 0,new Intent(), 0);
              
-             UsageScreen.this.getSystemService(Context.NOTIFICATION_SERVICE);        
-             PendingIntent contentIntent = PendingIntent.getActivity(UsageScreen.this, 0,new Intent(), 0);
-             TextView timeStamp = (TextView) findViewById(R.id.timestamp);
+	        TextView timeStamp = (TextView) findViewById(R.id.timestamp);
          	 timeStamp.setText(String.format("Server last refreshed at: "+start[1]+", "+start_format[2]+"/"+start_format[1]+"/"+start_format[0]));
          	 timeStamp.setTextSize(textSizeInt);
          	 
@@ -546,8 +552,8 @@ public class UsageScreen extends Activity  {
           			.setContentIntent(pi);
              */
              
-             Notification notif = new Notification(R.drawable.logoteddy_2, "There are "+numberOfAvaliable +" computers available", System.currentTimeMillis());
-             notif.setLatestEventInfo(UsageScreen.this, "Teddy", "There are "+numberOfAvaliable +" computers available", contentIntent);
+             //Notification notif = new Notification(R.drawable.logoteddy_2, "There are "+numberOfAvaliable +" computers available", System.currentTimeMillis());
+             //notif.setLatestEventInfo(UsageScreen.this, "Teddy", "There are "+numberOfAvaliable +" computers available", contentIntent);
              /*NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE); 
              nm.notify(1, builder.build());*/
      }

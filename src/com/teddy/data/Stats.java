@@ -32,7 +32,7 @@ public class Stats extends Activity {
 	ConnectionDetector cd;
 	int year=0,month=0,day=0, display=0, first=0;
 	static String textSize ="Medium";
-	static String timeSelected="15 Minutes";
+	static String notif="On";
 	static int textSizeInt=16;
 	static String textColor="White";
 	static String textBkcolor ="Grey";
@@ -48,7 +48,7 @@ public class Stats extends Activity {
         Bundle extras = getIntent().getExtras(); 
         if(extras !=null)
         {
-        	timeSelected = extras.getString("time");
+        	notif = extras.getString("notifs");
         	textSize = extras.getString("text");
         	textColor = extras.getString("color");
         	textBkcolor = extras.getString("bkcolor");
@@ -243,7 +243,7 @@ public class Stats extends Activity {
 	        usage.setOnClickListener(new Button.OnClickListener(){
 	        	public void onClick(View v){
 		        	Intent i = new Intent(getApplicationContext(),  UsageScreen.class);
-		        	i.putExtra("time", timeSelected);
+		        	i.putExtra("notifs", notif);
 					i.putExtra("text", textSize);
 					i.putExtra("color", textColor);
 			    	i.putExtra("bkcolor",textBkcolor );
@@ -256,7 +256,7 @@ public class Stats extends Activity {
 	        power.setOnClickListener(new Button.OnClickListener(){
 		        public void onClick(View v){
 	            	Intent i = new Intent(getApplicationContext(), Power.class);
-	            	i.putExtra("time", timeSelected);
+	            	i.putExtra("notifs", notif);
 	    			i.putExtra("text", textSize);
 					i.putExtra("color", textColor);
 			    	i.putExtra("bkcolor",textBkcolor );
@@ -309,7 +309,7 @@ public class Stats extends Activity {
 			return true;
 			case R.id.settings:
 			i = new Intent(getApplicationContext(), Settings.class);
-			i.putExtra("time", timeSelected);
+			i.putExtra("notifs", notif);
 			i.putExtra("text", textSize);
 			i.putExtra("color", textColor);
 	    	i.putExtra("bkcolor",textBkcolor );
