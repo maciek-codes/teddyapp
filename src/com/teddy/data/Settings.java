@@ -181,54 +181,63 @@ public class Settings extends Activity {
             	TextView sizeTextView = (TextView) findViewById(R.id.textSize);
             	TextView sizeColorView = (TextView) findViewById(R.id.textColor);
             	TextView BkColorView = (TextView) findViewById(R.id.textBkcolor);
+            	TextView notift = (TextView) findViewById(R.id.textNotif);
             	
             	if(textColor.equals("White")){
             		//notifTextView.setTextColor(getResources().getColor(R.color.white));
             		sizeTextView.setTextColor(getResources().getColor(R.color.white));
             		sizeColorView.setTextColor(getResources().getColor(R.color.white));
             		BkColorView.setTextColor(getResources().getColor(R.color.white));
+            		notift.setTextColor(getResources().getColor(R.color.white));
             	}
                 else if(textColor.equals("Black")){
                 	//notifTextView.setTextColor(getResources().getColor(R.color.black));
                 	sizeTextView.setTextColor(getResources().getColor(R.color.black));
                 	sizeColorView.setTextColor(getResources().getColor(R.color.black));
                 	BkColorView.setTextColor(getResources().getColor(R.color.black));
+                	notift.setTextColor(getResources().getColor(R.color.black));
                 }
                 else if(textColor.equals("Red")){
                 	//notifTextView.setTextColor(getResources().getColor(R.color.red));
                 	sizeTextView.setTextColor(getResources().getColor(R.color.red));
                 	sizeColorView.setTextColor(getResources().getColor(R.color.red));
                 	BkColorView.setTextColor(getResources().getColor(R.color.red));
+                	notift.setTextColor(getResources().getColor(R.color.red));
                 }
                 else if(textColor.equals("Blue")){
                 	//notifTextView.setTextColor(getResources().getColor(R.color.ultrablue));
                 	sizeTextView.setTextColor(getResources().getColor(R.color.ultrablue));
                 	sizeColorView.setTextColor(getResources().getColor(R.color.ultrablue));
                 	BkColorView.setTextColor(getResources().getColor(R.color.ultrablue));
+                	notift.setTextColor(getResources().getColor(R.color.ultrablue));
                 }
                 else if(textColor.equals("Green")){
                 	//notifTextView.setTextColor(getResources().getColor(R.color.green));
                 	sizeTextView.setTextColor(getResources().getColor(R.color.green));
                 	sizeColorView.setTextColor(getResources().getColor(R.color.green));
                 	BkColorView.setTextColor(getResources().getColor(R.color.green));
+                	notift.setTextColor(getResources().getColor(R.color.green));
                 }
                 else if(textColor.equals("Yellow")){
                 	//notifTextView.setTextColor(getResources().getColor(R.color.yellow));
                 	sizeTextView.setTextColor(getResources().getColor(R.color.yellow));
                 	sizeColorView.setTextColor(getResources().getColor(R.color.yellow));
                 	BkColorView.setTextColor(getResources().getColor(R.color.yellow));
+                	notift.setTextColor(getResources().getColor(R.color.yellow));
                 }
                 else if(textColor.equals("Orange")){
                 	//notifTextView.setTextColor(getResources().getColor(R.color.orange));
                 	sizeTextView.setTextColor(getResources().getColor(R.color.orange));
                 	sizeColorView.setTextColor(getResources().getColor(R.color.orange));
                 	BkColorView.setTextColor(getResources().getColor(R.color.orange));
+                	notift.setTextColor(getResources().getColor(R.color.orange));
                 }
                 else if(textColor.equals("Grey")){
                 	//notifTextView.setTextColor(getResources().getColor(R.color.grey));
                 	sizeTextView.setTextColor(getResources().getColor(R.color.grey));
                 	sizeColorView.setTextColor(getResources().getColor(R.color.grey));
                 	BkColorView.setTextColor(getResources().getColor(R.color.grey));
+                	notift.setTextColor(getResources().getColor(R.color.grey));
                 }
             }
 
