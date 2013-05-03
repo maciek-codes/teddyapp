@@ -20,6 +20,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -58,19 +59,22 @@ public class UsageScreen extends Activity  {
 	static String textColor="White";
 	static int count=0;
 	static String textBkcolor ="Grey";
+	//static String version=Integer.toString(Build.VERSION.SDK_INT);
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.usagescreen);
-        if(notif.equals("On")){
-        	Parse.initialize(this, "5JWNkQmpCX1iPEhscU9EGkdEsIzMM31MGHLNpLnH", "1NwKNmZC28ATsRHa87SOrJwtXosOwx0zvPXCMajd"); 
-        	PushService.setDefaultPushCallback(this, UsageScreen.class);
-        	PushService.subscribe(this, "availabletosend", UsageScreen.class);
-        	ParseInstallation.getCurrentInstallation().saveInBackground();
-        	ParseAnalytics.trackAppOpened(getIntent());
-        } else{PushService.unsubscribe(this, "availabletosend"); }
-    }
+        //if(Build.VERSION.SDK_INT>2.3){
+	        if(notif.equals("On")){
+	        	Parse.initialize(this, "5JWNkQmpCX1iPEhscU9EGkdEsIzMM31MGHLNpLnH", "1NwKNmZC28ATsRHa87SOrJwtXosOwx0zvPXCMajd"); 
+	        	PushService.setDefaultPushCallback(this, UsageScreen.class);
+	        	PushService.subscribe(this, "availabletoreceive", UsageScreen.class);
+	        	ParseInstallation.getCurrentInstallation().saveInBackground();
+	        	ParseAnalytics.trackAppOpened(getIntent());
+	        } else{PushService.unsubscribe(this,"availabletoreceive"); }
+	    }
+    //}
 	
 	
 	@Override
