@@ -1,5 +1,5 @@
 
-![alt text](https://github.com/macqm/teddyapp/master/res/drawable-hdpi/logoteddy.png "Teddy Project Logo")
+![alt text](https://raw.githubusercontent.com/macqm/teddyapp/master/res/drawable-ldpi/logoteddy.png "Teddy Project Logo")
 
 Teddy Android App
 =============
